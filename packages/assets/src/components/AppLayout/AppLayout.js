@@ -5,7 +5,6 @@ import {
   HomeMajorMonotone,
   InfoMinor,
   LogOutMinor,
-  PrintMinor,
   SettingsMinor,
   ViewMinor
 } from '@shopify/polaris-icons';

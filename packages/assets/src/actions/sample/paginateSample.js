@@ -1,7 +1,7 @@
 import {put, takeLatest, call} from 'redux-saga/effects';
 import {api} from '../../helpers';
-import {setLoading} from "../layout/setLoadingAction";
-import {setToast} from "../layout/setToastAction";
+import {setLoading} from '../layout/setLoadingAction';
+import {setToast} from '../layout/setToastAction';
 
 /**
  * A enumeration or a list of action for using in action creator

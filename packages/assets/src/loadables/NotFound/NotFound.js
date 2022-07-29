@@ -3,5 +3,5 @@ import Loading from '../../components/Loading';
 
 export default Loadable({
   loader: () => import('../../pages/NotFound'),
-  loading: Loading,
+  loading: Loading
 });

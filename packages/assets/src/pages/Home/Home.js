@@ -1,6 +1,5 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {CalloutCard, FooterHelp, Layout, Link, Page} from '@shopify/polaris';
-import api from '../../helpers';
 
 /**
  * Render a home page for overview

@@ -10,12 +10,12 @@ class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
     this.state = {eventId: null};
-    const { history } = this.props;
+    const {history} = this.props;
 
     history.listen((location, action) => {
       if (this.state.hasError) {
         this.setState({
-          hasError: false,
+          hasError: false
         });
       }
     });
@@ -49,4 +49,4 @@ ErrorBoundary.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-export default withRouter(ErrorBoundary)
+export default withRouter(ErrorBoundary);

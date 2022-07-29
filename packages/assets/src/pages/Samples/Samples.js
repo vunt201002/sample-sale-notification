@@ -12,7 +12,6 @@ import * as PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {paginateSamples as paginateSamplesAction} from '../../actions/sample/paginateSample';
 import useFetchTodoes from '../../hooks/useFetchTodoes';
-import api from '../../helpers';
 import useFetchApi from '../../hooks/api/useFetchApi';
 
 /**

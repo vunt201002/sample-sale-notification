@@ -32,9 +32,12 @@ export default function useFetchApi(
     }
     setLoading(true);
     try {
-      const resp = method === 'GET' ? await api(url) : await api(url, postData, method);
+      const resp =
+        method === 'GET' ? await api(url) : await api(url, postData, method);
       if (resp.data) {
-        const newData = presentDataFunc ? presentDataFunc(resp.data) : resp.data;
+        const newData = presentDataFunc
+          ? presentDataFunc(resp.data)
+          : resp.data;
         setData(newData);
       }
       if (resp.pagination) setPagination(resp.pagination);
@@ -58,7 +61,9 @@ export default function useFetchApi(
       setLoading(true);
       const resp = await api(url);
       if (resp.data) {
-        const newData = presentDataFunc ? presentDataFunc(resp.data) : resp.data;
+        const newData = presentDataFunc
+          ? presentDataFunc(resp.data)
+          : resp.data;
         setData(newData);
         if (resp.pagination) setPagination(resp.pagination);
 
