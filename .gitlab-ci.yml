@@ -1,0 +1,62 @@
+image: node:10
+
+cache:
+  paths:
+    - node_modules/
+
+# Staging environment, using when testing before releasing a new version
+# Run only when pushing to branch: master
+staging:
+  stage: build
+
+  only:
+    - master
+
+  environment:
+    name: staging
+
+  script:
+    # Export all variables to .env.production
+    - echo SHOPIFY_API_KEY=$STAGING_SHOPIFY_API_KEY >> packages/assets/.env.production
+    - echo FIREBASE_API_KEY=$STAGING_FIREBASE_API_KEY >> packages/assets/.env.production
+    - echo FIREBASE_AUTH_DOMAIN=$STAGING_FIREBASE_AUTH_DOMAIN >> packages/assets/.env.production
+    - echo FIREBASE_PROJECT_ID=$STAGING_FIREBASE_PROJECT_ID >> packages/assets/.env.production
+    - echo FIREBASE_STORAGE_BUCKET=$STAGING_FIREBASE_STORAGE_BUCKET >> packages/assets/.env.production
+    - echo FIREBASE_APP_ID=$STAGING_FIREBASE_APP_ID >> packages/assets/.env.production
+    - echo FIREBASE_MEASUREMENT_ID=$STAGING_FIREBASE_MEASUREMENT_ID >> packages/assets/.env.production
+    - echo GTM_ID=$GTM_ID >> packages/assets/.env.production
+    - NPM_TOKEN=$NPM_TOKEN
+
+    - npm install -g firebase-tools yarn
+    - yarn install
+    - yarn workspace @avada/assets run production
+    - firebase use --token $FIREBASE_DEPLOY_KEY staging
+    - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token $FIREBASE_DEPLOY_KEY
+
+# Production environment, deploy a new version for application
+# Run only when release a new version with a new tag from Gitlab
+production:
+  stage: deploy
+
+  environment:
+    name: production
+
+  only:
+    - tags
+
+  script:
+    # Export all variables to .env.development
+    - echo SHOPIFY_API_KEY=$PROD_SHOPIFY_API_KEY >> packages/assets/.env.production
+    - echo FIREBASE_API_KEY=$PROD_FIREBASE_API_KEY >> packages/assets/.env.production
+    - echo FIREBASE_AUTH_DOMAIN=$PROD_FIREBASE_AUTH_DOMAIN >> packages/assets/.env.production
+    - echo FIREBASE_PROJECT_ID=$PROD_FIREBASE_PROJECT_ID >> packages/assets/.env.production
+    - echo FIREBASE_STORAGE_BUCKET=$PROD_FIREBASE_STORAGE_BUCKET >> packages/assets/.env.production
+    - echo FIREBASE_APP_ID=$PROD_FIREBASE_APP_ID >> packages/assets/.env.production
+    - echo FIREBASE_MEASUREMENT_ID=$PROD_FIREBASE_MEASUREMENT_ID >> packages/assets/.env.production
+    - echo GTM_ID=$GTM_ID >> packages/assets/.env.production
+    - NPM_TOKEN=$NPM_TOKEN
+    - npm install -g firebase-tools yarn
+    - yarn install
+    - yarn workspace @avada/assets run production
+    - firebase use --token $FIREBASE_DEPLOY_KEY production
+    - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token $FIREBASE_DEPLOY_KEY
