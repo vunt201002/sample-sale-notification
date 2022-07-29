@@ -2,9 +2,7 @@ import Router from 'koa-router';
 import * as sampleController from '../controllers/sampleController';
 import {verifyRequest} from '@avada/shopify-auth';
 
-const router = new Router({
-  prefix: '/api'
-});
+const router = new Router({prefix: '/api'});
 
 router.use(verifyRequest());
 
