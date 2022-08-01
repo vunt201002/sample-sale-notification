@@ -1,13 +1,12 @@
 import App from 'koa';
 import 'isomorphic-fetch';
-import {shopifyAuth} from '@avada/shopify-auth';
-import shopifyConfig from '../config/shopify';
+import {contentSecurityPolicy, shopifyAuth} from '@avada/shopify-auth';
+import shopifyConfig from '@functions/config/shopify';
 import render from 'koa-ejs';
 import path from 'path';
-import createErrorHandler from '../middleware/errorHandler';
+import createErrorHandler from '@functions/middleware/errorHandler';
 import firebase from 'firebase-admin';
-import * as errorService from '../services/errorService';
-import api from './api';
+import appConfig from '@functions/config/app';
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp();
@@ -25,6 +24,7 @@ render(app, {
   viewExt: 'html'
 });
 app.use(createErrorHandler());
+app.use(contentSecurityPolicy(true));
 
 // Register all routes for the application
 app.use(
@@ -33,18 +33,22 @@ app.use(
     firebaseApiKey: shopifyConfig.firebaseApiKey,
     scopes: shopifyConfig.scopes,
     secret: shopifyConfig.secret,
-    successRedirect: '/',
+    successRedirect: '/embed/',
     initialPlan: {
       id: 'free',
       name: 'Free',
       price: 0,
       trialDays: 0,
       features: {}
-    }
+    },
+    hostName: appConfig.baseUrl,
+    isEmbeddedApp: true
   }).routes()
 );
 
 // Handling all errors
-api.on('error', errorService.handleError);
+app.on('error', err => {
+  console.error(err);
+});
 
 export default app;

@@ -1,10 +1,8 @@
 /* eslint-disable require-jsdoc */
 import React, {Component} from 'react';
-import NotFound from '../../pages/NotFound';
+import NotFound from '@assets/pages/NotFound';
 import * as PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
-
-// import * as Sentry from '@sentry/browser';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -12,11 +10,9 @@ class ErrorBoundary extends Component {
     this.state = {eventId: null};
     const {history} = this.props;
 
-    history.listen((location, action) => {
+    history.listen(() => {
       if (this.state.hasError) {
-        this.setState({
-          hasError: false
-        });
+        this.setState({hasError: false});
       }
     });
   }
@@ -26,14 +22,7 @@ class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    if (process.env.NODE_ENV === 'production') {
-      // // Setup Sentry for reporting errors
-      // Sentry.withScope(scope => {
-      //   scope.setExtras(errorInfo);
-      //   const eventId = Sentry.captureException(error);
-      //   this.setState({eventId});
-      // });
-    }
+    console.error(error, errorInfo);
   }
 
   render() {
@@ -46,7 +35,8 @@ class ErrorBoundary extends Component {
 }
 
 ErrorBoundary.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 export default withRouter(ErrorBoundary);

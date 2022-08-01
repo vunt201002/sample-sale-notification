@@ -1,7 +1,7 @@
-import Loadable from 'react-loadable';
+import loadable from 'react-loadable';
 import Loading from '../../components/Loading';
 
-export default Loadable({
+export default loadable({
   loader: () => import('../../pages/NotFound'),
   loading: Loading
 });

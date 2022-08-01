@@ -4,47 +4,55 @@ import ReactRouterLink from './components/Link';
 import {AppProvider} from '@shopify/polaris';
 import translations from '@shopify/polaris/locales/en.json';
 import {history} from './helpers';
-import AppLayout from './components/AppLayout';
 import ErrorBoundary from './components/ErrorBoundary';
 import Routes from './routes/routes';
-
-const theme = {
-  colors: {
-    topBar: {
-      background: '#0b4697'
-    }
-  },
-  logo: {
-    width: 124,
-    topBarSource:
-      'https://avada-popups.firebaseapp.com/images/AvadaLogo-white.png?b24ff4e9b7bedd9c1ec9046df5a366be',
-    contextualSaveBarSource:
-      'https://avada-popups.firebaseapp.com/images/AvadaLogo-back.png?b24ff4e9b7bedd9c1ec9046df5a366be',
-    url: '/',
-    accessibilityLabel: 'AVADA Sample App'
-  }
-};
+import theme from '@assets/config/theme';
+import PropTypes from 'prop-types';
+import {getRoutePrefix} from '@assets/const/app';
+import AppBridgeProvider from '@assets/components/AppBridgeProvider';
+import AppEmbeddedLayout from '@assets/layouts/EmbeddedLayout/AppEmbeddedLayout';
+import AppFullLayout from '@assets/layouts/FullLayout/AppFullLayout';
 
 /**
  * The main endpoint of application contains all routes, settings for redux and Polaris
  *
- * @return {React.FunctionComponent}
+ * @return {React.ReactElement}
  * @constructor
  */
-export default function App() {
+export default function App({isEmbedApp = false}) {
   return (
     <AppProvider
-      i18n={translations}
       theme={theme}
+      i18n={translations}
       linkComponent={ReactRouterLink}
+      features={{newDesignLanguage: isEmbedApp}}
     >
       <Router history={history}>
         <AppLayout>
           <ErrorBoundary>
-            <Routes />
+            <Routes prefix={getRoutePrefix(isEmbedApp)} />
           </ErrorBoundary>
         </AppLayout>
       </Router>
     </AppProvider>
   );
 }
+
+App.propTypes = {
+  isEmbedApp: PropTypes.bool
+};
+
+const AppLayout = ({children, isEmbedApp}) => {
+  return isEmbedApp ? (
+    <AppBridgeProvider>
+      <AppEmbeddedLayout>{children}</AppEmbeddedLayout>
+    </AppBridgeProvider>
+  ) : (
+    <AppFullLayout>{children}</AppFullLayout>
+  );
+};
+
+AppLayout.propTypes = {
+  children: PropTypes.node,
+  isEmbedApp: PropTypes.bool
+};

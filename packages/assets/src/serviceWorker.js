@@ -4,20 +4,35 @@
  * @link https://developers.google.com/web/tools/workbox/guides/codelabs/webpack
  */
 export function register() {
-  if (process.env.NODE_ENV === 'production') {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker
-          .register('/sw.js')
-          .then(registration => {
-            // tslint:disable-next-line: no-console
-            console.log('SW registered: ', registration);
-          })
-          .catch(registrationError => {
-            // tslint:disable-next-line: no-console
-            console.log('SW registration failed: ', registrationError);
-          });
-      });
-    }
+  if (process.env.NODE_ENV !== 'production' || !'serviceWorker' in navigator) {
+    return;
   }
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then(registration => {
+        console.log('SW registered: ', registration);
+      })
+      .catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
+
+    // self.addEventListener('install', function(event) {
+    //   event.waitUntil(
+    //     caches.keys().then(function(cacheNames) {
+    //       return Promise.all(
+    //         cacheNames
+    //           .filter(function(cacheName) {
+    //             // Return true if you want to remove this cache,
+    //             // but remember that caches are shared across
+    //             // the whole origin
+    //           })
+    //           .map(function(cacheName) {
+    //             return caches.delete(cacheName);
+    //           })
+    //       );
+    //     })
+    //   );
+    // });
+  });
 }

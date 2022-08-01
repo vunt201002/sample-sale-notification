@@ -1,0 +1,113 @@
+.Polaris-TopBar {
+  background-color: $primaryColor;
+
+  .Polaris-TopBar__NavigationIcon {
+    fill: #FFF;
+
+    &:hover, &.Polaris-TopBar--focused {
+      background-color: $primaryDarkColor;
+    }
+  }
+
+  .Polaris-TopBar-Menu__Activator {
+    margin-right: 0.6rem;
+
+    &:hover, &:active, &[aria-expanded='true'] {
+      background-color: $primaryDarkColor;
+    }
+  }
+
+  .Polaris-TopBar-UserMenu__Details {
+    .Polaris-TopBar-UserMenu__Name, .Polaris-TopBar-UserMenu__Detail {
+      color: #FFF;
+    }
+  }
+}
+
+.Polaris-Frame__Navigation {
+  &.Polaris-Frame__Navigation--enterActive {
+    .Polaris-Navigation {
+      border-right: unset;
+
+      .Polaris-Navigation__LogoContainer {
+        background-color: $primaryColor;
+        box-shadow: var(--p-top-bar-shadow);
+      }
+
+      .Polaris-Navigation__PrimaryNavigation {
+        padding-top: 0;
+
+        > .Polaris-Navigation__Section {
+          padding-top: 0.8rem;
+          padding-bottom: 0.8rem;
+        }
+      }
+    }
+
+    .Polaris-Frame__NavigationDismiss {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+  }
+
+  .Polaris-Navigation {
+    .Polaris-Navigation__PrimaryNavigation {
+      padding-top: 0;
+
+      > .Polaris-Navigation__Section {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+    }
+  }
+}
+
+.Polaris-FooterHelp {
+  .Polaris-FooterHelp__Content {
+    border: solid 1px #d2cfcf;
+    border-radius: 30px;
+    margin-top: 1.6rem;
+  }
+}
+
+
+.Polaris-Modal-Dialog__Container {
+  .Polaris-Modal-Header {
+    align-items: center;
+
+    .Polaris-Modal-CloseButton {
+      margin-left: 1rem;
+    }
+  }
+}
+
+.Polaris-Navigation {
+  .Polaris-Navigation__Item {
+    align-items: center;
+    overflow: hidden;
+
+    .Polaris-Navigation__Text {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+      ~ .Polaris-Navigation__Badge {
+        margin: 0;
+
+        .Polaris-Badge--sizeSmall {
+          font-size: 1rem;
+          padding: 0 0.7rem;
+        }
+      }
+    }
+  }
+}
+
+.Polaris-Header-Title__TitleWithMetadataWrapper {
+  display: flex;
+  align-items: center;
+
+  .Polaris-Header-Title__TitleMetadata {
+    margin-top: 0;
+  }
+}

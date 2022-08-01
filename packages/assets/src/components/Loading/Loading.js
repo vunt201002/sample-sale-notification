@@ -4,13 +4,13 @@ import {Spinner} from '@shopify/polaris';
 /**
  * Global loading component
  *
- * @return {React.FunctionComponent}
+ * @return {React.Element}
  * @constructor
  */
 export default function Loading() {
   return (
     <div className="PreLoading">
-      <Spinner color="teal" />
+      <Spinner />
     </div>
   );
 }
