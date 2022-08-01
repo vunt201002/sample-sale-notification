@@ -4,7 +4,7 @@ import {Spinner} from '@shopify/polaris';
 /**
  * Global loading component
  *
- * @return {React.Element}
+ * @return {React.ReactElement}
  * @constructor
  */
 export default function Loading() {

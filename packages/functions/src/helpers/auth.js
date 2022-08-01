@@ -6,7 +6,6 @@
  * @return {string}
  */
 export function getCurrentShop(ctx) {
-  console.log(ctx.state.user);
   return ctx.state.user.shopID;
 }
 
