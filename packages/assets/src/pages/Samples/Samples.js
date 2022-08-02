@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Layout, Page, ResourceList, ResourceItem, Stack, TextStyle} from '@shopify/polaris';
+import {Card, IndexTable, Layout, Page, TextStyle, useIndexResourceState} from '@shopify/polaris';
 import useFetchApi from '@assets/hooks/api/useFetchApi';
 
 /**
@@ -11,27 +11,34 @@ import useFetchApi from '@assets/hooks/api/useFetchApi';
 export default function Samples() {
   const {data: todos, loading} = useFetchApi('/samples');
 
+  const {selectedResources, handleSelectionChange} = useIndexResourceState(todos);
+
   return (
     <Page title="Samples" breadcrumbs={[{url: '/'}]}>
       <Layout>
         <Layout.Section>
           <Card>
-            <ResourceList
-              loading={loading}
+            <IndexTable
               resourceName={{singular: 'todo', plural: 'todos'}}
-              items={todos}
-              renderItem={todo => (
-                <ResourceItem id={todo.id}>
-                  <Stack>
-                    <Stack.Item fill>
-                      <h3>
-                        <TextStyle variation="strong">{todo.title}</TextStyle>
-                      </h3>
-                    </Stack.Item>
-                  </Stack>
-                </ResourceItem>
-              )}
-            />
+              itemCount={todos.length}
+              selectedItemsCount={selectedResources.length}
+              onSelectionChange={handleSelectionChange}
+              headings={[{title: 'Title'}]}
+              loading={loading}
+            >
+              {todos.map(({id, title}, index) => (
+                <IndexTable.Row
+                  id={id}
+                  key={id}
+                  position={index}
+                  selected={selectedResources.includes(id)}
+                >
+                  <IndexTable.Cell>
+                    <TextStyle variation="strong">{title}</TextStyle>
+                  </IndexTable.Cell>
+                </IndexTable.Row>
+              ))}
+            </IndexTable>
           </Card>
         </Layout.Section>
       </Layout>

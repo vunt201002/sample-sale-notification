@@ -28,7 +28,7 @@ export default function App({isEmbedApp = false}) {
       features={{newDesignLanguage: isEmbedApp}}
     >
       <Router history={history}>
-        <AppLayout>
+        <AppLayout isEmbedApp={isEmbedApp}>
           <ErrorBoundary>
             <Routes prefix={getRoutePrefix(isEmbedApp)} />
           </ErrorBoundary>

@@ -10,9 +10,7 @@ import {useStore} from '@assets/reducers/storeReducer';
  * @constructor
  */
 export default function Home() {
-  const {state, dispatch} = useStore();
-
-  console.log(state.loading, state.subscription);
+  const {dispatch} = useStore();
 
   return (
     <Page title="Dashboard">
