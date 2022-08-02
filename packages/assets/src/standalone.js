@@ -17,16 +17,17 @@ auth.onAuthStateChanged(async user => {
   } else {
     window.isAuthenticated = true;
 
-    const {shop, shopInfo} = await api('/shops');
-    const activeShop = await (async () => {
-      if (isEmpty(shop)) return null;
-      const firebaseUser = await auth.currentUser.getIdTokenResult();
-      return {
-        ...firebaseUser.claims,
-        vendor: firebaseUser.claims.type || 'others',
-        ...collectActiveShopData({shop, shopInfo})
-      };
-    })();
+    const [{shop, shopInfo}, firebaseUser] = await Promise.all([
+      api('/shops'),
+      auth.currentUser.getIdTokenResult()
+    ]);
+    const activeShop = isEmpty(shop)
+      ? null
+      : {
+          ...firebaseUser.claims,
+          vendor: firebaseUser.claims.type || 'others',
+          ...collectActiveShopData({shop, shopInfo})
+        };
     // if (activeShop) {
     //   TagManager.initialize({gtmId: 'GTM_ID'});
     //   if (!activeShop.isCrmLogin) {

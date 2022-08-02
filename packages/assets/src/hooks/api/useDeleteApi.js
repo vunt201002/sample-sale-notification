@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {api} from '@assets/helpers';
 import {useStore} from '@assets/reducers/storeReducer';
-import {setToast} from '@assets/actions/storeAction';
+import {setToast} from '@assets/actions/storeActions';
 import {handleError} from '@assets/services/errorService';
 
 /**

@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useEffect, useReducer} from 'react';
 import PropTypes from 'prop-types';
-import {getSubscription, reducer} from '@assets/actions/storeAction';
+import {getSubscription, reducer} from '@assets/actions/storeActions';
 import {isShopUpgradable} from '@assets/services/shopService';
 
 /** @type {React.Context<IStoreReducer>} */
@@ -24,7 +24,7 @@ export const StoreProvider = ({children, user, activeShop: shop}) => {
 
   useEffect(() => {
     if (window.location.pathname !== '/subscription' && isShopUpgradable(shop)) {
-      getSubscription(handleDispatch).then(() => {});
+      getSubscription(handleDispatch).then();
     }
   }, []);
 

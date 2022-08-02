@@ -9,13 +9,12 @@ import {collectActiveShopData} from '@assets/services/shopService';
 
 (async () => {
   const {shop, shopInfo} = await api('/shops');
-  const [activeShop, user] = (() => {
-    if (isEmpty(shop)) return [];
-    return [
-      collectActiveShopData({shop, shopInfo}),
-      {email: shop.email, displayName: shopInfo.shopOwner}
-    ];
-  })();
+  const [activeShop, user] = isEmpty(shop)
+    ? []
+    : [
+        collectActiveShopData({shop, shopInfo}),
+        {email: shop.email, displayName: shopInfo.shopOwner}
+      ];
   // if (activeShop) {
   //   loadCrisp('WEBSITE_ID', shop.crispSessionToken);
   //   pushDataToCrisp({shopData: activeShop, user});

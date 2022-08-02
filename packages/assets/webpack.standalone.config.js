@@ -11,8 +11,18 @@ const fs = require('fs');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const environmentPath = !process.env.ENVIRONMENT ? '.env' : `.env.${process.env.ENVIRONMENT}`;
+
+const [sslKey, sslCert] = ['ssl.key', 'ssl.crt'].map(file => {
+  try {
+    return fs.readFileSync(path.resolve(__dirname, '../../../ssl/' + file), 'utf8');
+  } catch (e) {
+    return null;
+  }
+});
+const isHotReloadEnabled = sslKey && sslCert && !isProduction;
+
 const outputPath = path.resolve(__dirname, '../../static');
-const outputSuffix = isProduction ? 'contenthash' : 'hash';
+const outputSuffix = isHotReloadEnabled ? 'hash' : 'contenthash';
 
 const plugins = [
   new HtmlWebpackPlugin({
@@ -78,7 +88,7 @@ const plugins = [
         }
       ]
     }),
-  !isProduction &&
+  isHotReloadEnabled &&
     new WebpackPluginServe({
       // client: {silent: true},
       compress: true,
@@ -87,14 +97,11 @@ const plugins = [
       // progress: 'minimal',
       host: 'localhost',
       port: process.env.WPS_PORT_EM || 55000,
-      https: {
-        key: fs.readFileSync(path.resolve(__dirname, '../../../ssl/ssl.key'), 'utf8'),
-        cert: fs.readFileSync(path.resolve(__dirname, '../../../ssl/ssl.crt'), 'utf8')
-      },
+      https: {key: sslKey, cert: sslCert},
       static: outputPath,
       status: false
     }),
-  !isProduction &&
+  isHotReloadEnabled &&
     new ReactRefreshWebpackPlugin({
       overlay: {
         sockIntegration: 'wps'
@@ -105,7 +112,10 @@ const plugins = [
 module.exports = {
   mode: isProduction ? 'production' : 'development',
   entry: {
-    main: [path.resolve(__dirname, 'src/standalone.js'), 'webpack-plugin-serve/client']
+    main: [
+      path.resolve(__dirname, 'src/standalone.js'),
+      isHotReloadEnabled && 'webpack-plugin-serve/client'
+    ].filter(Boolean)
   },
   output: {
     path: path.resolve(__dirname, '../../static'),
@@ -137,7 +147,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            plugins: [!isProduction && 'react-refresh/babel'].filter(Boolean)
+            plugins: [isHotReloadEnabled && 'react-refresh/babel'].filter(Boolean)
           }
         }
       },

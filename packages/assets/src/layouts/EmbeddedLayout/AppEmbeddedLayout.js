@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {TitleBar} from '@shopify/app-bridge-react';
 import {useLocation} from 'react-router-dom';
 import {useStore} from '@assets/reducers/storeReducer';
-import {closeToast} from '@assets/actions/storeAction';
+import {closeToast} from '@assets/actions/storeActions';
 import getUrl from '@assets/helpers/getUrl';
 
 /**

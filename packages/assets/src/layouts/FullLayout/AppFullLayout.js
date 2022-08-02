@@ -15,8 +15,7 @@ import useConfirmModal from '@assets/hooks/modal/useConfirmModal';
 import {getRawSupport} from '@assets/services/crispService';
 import getDomain from '@assets/helpers/getDomain';
 import {useStore} from '@assets/reducers/storeReducer';
-import {closeToast} from '@assets/actions/storeAction';
-import {logout} from '@assets/services/shopService';
+import {closeToast, logout} from '@assets/actions/storeActions';
 import getUrl from '@assets/helpers/getUrl';
 
 /**

@@ -1,4 +1,5 @@
-import {authentication} from '@avada/shopify-auth';
+import {getCurrentShop} from '@functions/helpers/auth';
+import {getShopById} from '@functions/repositories/shopRepository';
 
 /**
  * Get current subscription of a shop
@@ -7,11 +8,6 @@ import {authentication} from '@avada/shopify-auth';
  * @returns {Promise<void>}
  */
 export async function getSubscription(ctx) {
-  try {
-    const shop = await authentication.getShop(ctx);
-    ctx.body = {shop};
-  } catch (e) {
-    console.error(e);
-    ctx.body = {error: e.message};
-  }
+  const shop = await getShopById(getCurrentShop(ctx));
+  ctx.body = {shop};
 }
