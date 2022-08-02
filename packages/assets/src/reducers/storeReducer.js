@@ -1,26 +1,30 @@
 import React, {createContext, useContext, useEffect, useReducer} from 'react';
 import PropTypes from 'prop-types';
-import {reducer} from '@assets/actions/storeAction';
+import {getSubscription, reducer} from '@assets/actions/storeAction';
 import {isShopUpgradable} from '@assets/services/shopService';
-import useFetchApi from '@assets/hooks/api/useFetchApi';
 
-/**
- * @type {React.Context<{state: {loading, user, shop, subscription, isToast, toast}, dispatch: function}>}
- */
+/** @type {React.Context<IStoreReducer>} */
 const StoreReducer = createContext({});
 
 export const useStore = () => useContext(StoreReducer);
 
+/**
+ * @param children
+ * @param user
+ * @param {Shop} shop
+ * @return {JSX.Element}
+ * @constructor
+ */
 export const StoreProvider = ({children, user, activeShop: shop}) => {
-  const {fetchApi: getSubscription} = useFetchApi('/subscription', {}, null, false);
-  const [state, dispatch] = useReducer(reducer, {user, shop});
-  const handleDispatch = (type, payload = null) => dispatch({type, payload});
+  const initState = {user, shop};
+  const [state, dispatch] = useReducer(reducer, initState);
+  const handleDispatch = (type, payload = undefined) => dispatch({type, payload});
 
   window.activeShop = shop; // for debugging only
 
   useEffect(() => {
     if (window.location.pathname !== '/subscription' && isShopUpgradable(shop)) {
-      getSubscription();
+      getSubscription(handleDispatch).then(() => {});
     }
   }, []);
 

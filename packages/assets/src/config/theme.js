@@ -3,14 +3,13 @@ const PRIMARY_COLOR = '#1983ff';
 
 const theme = {
   colors: {
-    topBar: {
-      background: PRIMARY_COLOR
-    }
+    primary: PRIMARY_COLOR,
+    secondary: 'white'
   },
   logo: {
+    url: '/',
     width: 105,
     topBarSource: DEFAULT_LOGO,
-    url: '/',
     accessibilityLabel: 'AVADA Sample App'
   }
 };

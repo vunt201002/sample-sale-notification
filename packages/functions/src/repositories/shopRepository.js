@@ -6,7 +6,7 @@ const collection = firestore.collection('shops');
 
 /**
  * @param id
- * @returns {Promise<*>}
+ * @returns {Promise<{Shop}>}
  */
 export async function getShopById(id) {
   const doc = await collection.doc(id).get();

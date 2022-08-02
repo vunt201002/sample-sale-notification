@@ -16,9 +16,7 @@ export default function createErrorHandler() {
           ctx.body = {error: err.message};
         }
       } else {
-        await ctx.render('error', {
-          error: err.message
-        });
+        await ctx.render('error', {error: err.message});
       }
       ctx.app.emit('error', err, ctx);
     }

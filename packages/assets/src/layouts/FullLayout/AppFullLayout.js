@@ -31,7 +31,7 @@ import getUrl from '@assets/helpers/getUrl';
 function AppLayout({children, location, history}) {
   const {pathname} = location;
   const {state, dispatch} = useStore();
-  const {shop, user, loading, isToast, toast} = state;
+  const {shop, user, loading, toast} = state;
   const displayName = user?.displayName || '';
 
   const skipToContentRef = useRef(null);
@@ -61,7 +61,7 @@ function AppLayout({children, location, history}) {
       actions={userMenuActions}
       name={displayName}
       detail={getDomain(shop)}
-      initials={displayName && displayName[0].toUpperCase()}
+      initials={displayName[0].toUpperCase?.()}
       open={isUserMenu}
       onToggle={() => setIsUserMenu(prev => !prev)}
     />
@@ -137,7 +137,7 @@ function AppLayout({children, location, history}) {
       {children}
       {logoutModal}
       {loading && <Loading />}
-      {isToast && <Toast onDismiss={() => closeToast(dispatch)} {...toast} />}
+      {toast && <Toast onDismiss={() => closeToast(dispatch)} {...toast} />}
     </Frame>
   );
 }

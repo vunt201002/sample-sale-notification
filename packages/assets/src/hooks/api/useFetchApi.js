@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
-import {api} from '../../helpers';
+import {api} from '@assets/helpers';
 import queryString from 'query-string';
+import {handleError} from '@assets/services/errorService';
 
 /**
  * useFetchApi hook for fetch data from api with url
@@ -32,7 +33,7 @@ export default function useFetchApi(url, defaultData = [], initLoad = true, pres
       if (resp.hasOwnProperty('pageInfo')) setPageInfo(resp.pageInfo);
       if (resp.hasOwnProperty('count')) setCount(resp.count);
     } catch (e) {
-      console.log(e);
+      handleError(e);
     } finally {
       setLoading(false);
       setFetched(true);

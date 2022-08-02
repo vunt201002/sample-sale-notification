@@ -23,7 +23,6 @@ function AppEmbeddedLayout({children}) {
     <Frame>
       <TitleBar
         title=""
-        primaryAction={{content: 'Subscription', url: '/subscription'}}
         secondaryActions={[
           {
             content: 'Dashboard',

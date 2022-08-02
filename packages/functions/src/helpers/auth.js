@@ -6,14 +6,14 @@
  * @return {string}
  */
 export function getCurrentShop(ctx) {
-  return ctx.state.user.shopID;
+  return getCurrentUser(ctx).shopID;
 }
 
 /**
  * Get current user from Koa context
  *
  * @param ctx
- * @returns {*}
+ * @returns {IUserContext}
  */
 export function getCurrentUser(ctx) {
   return ctx.state.user;

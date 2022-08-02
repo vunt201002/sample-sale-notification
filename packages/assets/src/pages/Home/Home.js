@@ -1,6 +1,6 @@
 import React from 'react';
 import {CalloutCard, FooterHelp, Layout, Link, Page} from '@shopify/polaris';
-import {setToast} from '@assets/actions/storeAction';
+import {getSubscription, setToast} from '@assets/actions/storeAction';
 import {useStore} from '@assets/reducers/storeReducer';
 
 /**
@@ -25,7 +25,7 @@ export default function Home() {
             }}
             secondaryAction={{
               content: 'Failed response',
-              onAction: () => setToast(dispatch, 'Failed response', true)
+              onAction: () => getSubscription(dispatch)
             }}
           >
             <p>Upload your store’s logo, change colors and fonts, and more.</p>

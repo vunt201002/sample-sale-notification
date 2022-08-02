@@ -3,7 +3,6 @@ import {Modal} from '@shopify/polaris';
 
 /**
  * @param confirmAction
- * @param cancelAction
  * @param title
  * @param HtmlTitle
  * @param content
@@ -23,7 +22,6 @@ import {Modal} from '@shopify/polaris';
  */
 export default function useConfirmModal({
   confirmAction,
-  cancelAction,
   title = 'Are you sure to delete?',
   HtmlTitle = null,
   content = 'Please be careful because you cannot undo this action.',
@@ -83,7 +81,7 @@ export default function useConfirmModal({
         {
           disabled: loading,
           content: closeTitle,
-          onAction: () => (cancelAction ? cancelAction() : handleClose())
+          onAction: () => handleClose()
         }
       ]}
     >

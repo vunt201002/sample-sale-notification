@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {api} from '@assets/helpers';
 import {useStore} from '@assets/reducers/storeReducer';
 import {setToast} from '@assets/actions/storeAction';
+import {handleError} from '@assets/services/errorService';
 
 /**
  * @param url
@@ -27,7 +28,7 @@ export default function useDeleteApi({url}) {
         setToast(dispatch, resp.error, true);
       }
     } catch (e) {
-      console.log(e);
+      handleError(e);
       setToast(dispatch, 'Failed to delete', true);
     } finally {
       setDeleting(false);

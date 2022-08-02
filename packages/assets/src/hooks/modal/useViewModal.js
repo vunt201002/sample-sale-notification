@@ -35,12 +35,7 @@ export default function useViewModal({
       open={open}
       onClose={() => handleClose()}
       title={title}
-      secondaryActions={[
-        {
-          content: 'Close',
-          onAction: () => handleClose()
-        }
-      ]}
+      secondaryActions={[{content: 'Close', onAction: () => handleClose()}]}
     >
       {content}
     </Modal>

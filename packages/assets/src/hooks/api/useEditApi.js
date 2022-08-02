@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {api} from '@assets/helpers';
 import {useStore} from '@assets/reducers/storeReducer';
 import {setToast} from '@assets/actions/storeAction';
+import {handleError} from '@assets/services/errorService';
 
 /**
  * @param url
@@ -42,7 +43,7 @@ export default function useEditApi({
       }
       return fullResp ? resp : resp.success;
     } catch (e) {
-      console.log(e);
+      handleError(e);
       setToast(dispatch, errorMsg, true);
       return fullResp ? {success: false, error: e.message} : false;
     } finally {
