@@ -42,7 +42,13 @@ app.use(
     },
     hostName: appConfig.baseUrl,
     isEmbeddedApp: false,
-    prefix: '/authSa'
+    prefix: '/authSa',
+    afterThemePublish: ctx => {
+      // Publish assets when theme is published or changed here
+      return (ctx.body = {
+        success: true
+      });
+    }
   }).routes()
 );
 

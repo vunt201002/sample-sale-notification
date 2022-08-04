@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@avada/shopify-auth@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.avada.io/@avada%2fshopify-auth/-/shopify-auth-1.2.8.tgz#4977302ac7203c69276be7cd9534eab512b7767e"
-  integrity sha512-Q4TDV92ENNqb57paPtI+YLgoU22DjRpewnfi3rCq1FHwtqBkf2XFCwjAprFkcvcafY496Hs68Fjc+or+B7f8MQ==
+"@avada/shopify-auth@1.2.9":
+  version "1.2.9"
+  resolved "https://registry.avada.io/@avada%2fshopify-auth/-/shopify-auth-1.2.9.tgz#7f4e98a6ad34fc747f678890e4c3a1532fd0f6be"
+  integrity sha512-k+fCD0uY4MlqxvErxNfDvRQcKAuoWvt78X4vVI4NC7Lr0VRybej0w2zlzisiZjRoUZRuaXC2EYrDcD35AbcmRg==
   dependencies:
     "@avada/subscription" "^0.0.10-alpha.1"
     "@shopify/koa-shopify-webhooks" "^5.0.2"

@@ -42,7 +42,13 @@ app.use(
       features: {}
     },
     hostName: appConfig.baseUrl,
-    isEmbeddedApp: true
+    isEmbeddedApp: true,
+    afterThemePublish: ctx => {
+      // Publish assets when theme is published or changed here
+      return (ctx.body = {
+        success: true
+      });
+    }
   }).routes()
 );
 
