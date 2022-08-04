@@ -2,7 +2,6 @@
   "private": true,
   "name": "@avada/app",
   "description": "An AVADA application for Shopify written in Nodejs",
-  "author": "baorv <roanvanbao@gmail.com>",
   "workspaces": [
     "packages/*"
   ],
