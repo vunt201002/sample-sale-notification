@@ -2,6 +2,15 @@
 # yarn lockfile v1
 
 
+"@avada/firestore-utils@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.avada.io/@avada%2ffirestore-utils/-/firestore-utils-0.0.1.tgz#169169d4106b02a85c5a13de6d0db1c1936dd6e9"
+  integrity sha512-uNZs7gleuHlLh3E8k2NUK6dA4oudt635qVkAFiXN5nsdHCzF0H8gte3ko1+B9j9IqAN8icwHHsg7fow2oYs5ew==
+  dependencies:
+    "@babel/cli" "7.6.0"
+    "@babel/core" "7.6.0"
+    "@babel/preset-env" "7.6.0"
+
 "@avada/shopify-auth@1.2.9":
   version "1.2.9"
   resolved "https://registry.avada.io/@avada%2fshopify-auth/-/shopify-auth-1.2.9.tgz#7f4e98a6ad34fc747f678890e4c3a1532fd0f6be"

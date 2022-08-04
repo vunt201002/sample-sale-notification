@@ -1,4 +1,5 @@
 import {Firestore} from '@google-cloud/firestore';
+import {formatDateFields} from '@avada/firestore-utils';
 
 const firestore = new Firestore();
 /** @type CollectionReference */
@@ -19,5 +20,5 @@ export async function getShopInfoByShopId(id) {
     return null;
   }
   const [doc] = docs.docs;
-  return {id: doc.id, ...doc.data()};
+  return formatDateFields({id: doc.id, ...doc.data()});
 }
