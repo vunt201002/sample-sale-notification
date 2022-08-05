@@ -86,7 +86,7 @@ firebase functions:log
 
 ## Common issues
 
-* When you try, it can throw an error like that
+### When you open an embedded app in local, it can throw an error like that
 
 ![Content Security Policy Error](https://raw.githubusercontent.com/baorv/faster-shopify-dev/master/screenshot.png)
 
@@ -94,7 +94,7 @@ firebase functions:log
 
 Install [Disable Content-Security-Policy (CSP)](https://chrome.google.com/webstore/detail/disable-content-security/ieelmcmcagommplceebfedjlakkhpden) to disable CSP in Chromium browers
 
-* I got message: `Unauthorized` after authentication
+### I got message `Unauthorized` after authentication
 
 **Solution**
 
@@ -108,17 +108,17 @@ Use command to export global environment
 export GOOGLE_APPLICATION_CREDENTIALS=<Path to service-account.json>
 ```
 
-* Permission issue
+### I got message `PERMISSION_DENIED: Missing or insufficient permissions`
 
-** Solution **
+**Solution**
 
 Enable permission `Service Account Token Creator` for `user@appspot.gserviceaccount.com`
 
 ![Enable Permission for appspot](https://firebasestorage.googleapis.com/v0/b/pdf-invoice-4717c.appspot.com/o/images%2Fdev-docs%2Fiam_enable_jwt_creator.png?alt=media&token=ea1a3c08-64e2-4519-a6fc-81620249dbbd)
 
-* I can't see `FIREBASE_MEASUREMENT_ID` in Firebase project
+### I can't see `FIREBASE_MEASUREMENT_ID` in Firebase project
 
-** Solution **
+**Solution**
 
 You can enable Analytics for your project from Firebase project
 

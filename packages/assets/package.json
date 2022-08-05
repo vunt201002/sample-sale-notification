@@ -28,7 +28,8 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-loadable": "^5.5.0",
-    "react-router-dom": "^5.3.3"
+    "react-router-dom": "^5.3.3",
+    "react-screentype-hook": "^1.0.18"
   },
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.8.3",

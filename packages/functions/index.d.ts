@@ -22,6 +22,10 @@ declare interface Shop {
   vendor: string;
 }
 
+declare interface ShopInfo {
+  [key: string]: any;
+}
+
 declare interface Subscription {
   shop: Shop;
   getting: boolean;

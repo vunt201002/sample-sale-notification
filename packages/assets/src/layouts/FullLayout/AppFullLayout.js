@@ -1,12 +1,14 @@
 import React, {useRef, useState} from 'react';
 import {Frame, Loading, Navigation, Toast, TopBar} from '@shopify/polaris';
 import {
+  AppsMajor,
   ArrowLeftMinor,
   ChatMajor,
   CircleInformationMajor,
   HomeMajor,
   LogOutMinor,
-  SettingsMinor,
+  TapChipMajor,
+  TeamMajor,
   ViewMinor
 } from '@shopify/polaris-icons';
 import PropTypes from 'prop-types';
@@ -100,9 +102,21 @@ function AppLayout({children, location, history}) {
           },
           {
             label: 'Samples',
-            icon: SettingsMinor,
+            icon: AppsMajor,
             url: '/samples',
             selected: pathname.startsWith(getUrl('/samples'))
+          },
+          {
+            label: 'Integrations',
+            icon: TeamMajor,
+            url: '/integration',
+            selected: pathname.startsWith(getUrl('/integration'))
+          },
+          {
+            label: 'Subscription',
+            icon: TapChipMajor,
+            url: '/subscription',
+            selected: pathname.startsWith(getUrl('/subscription'))
           }
         ]}
       />

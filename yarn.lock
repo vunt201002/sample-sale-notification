@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@avada/firestore-utils@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.avada.io/@avada%2ffirestore-utils/-/firestore-utils-0.0.1.tgz#169169d4106b02a85c5a13de6d0db1c1936dd6e9"
-  integrity sha512-uNZs7gleuHlLh3E8k2NUK6dA4oudt635qVkAFiXN5nsdHCzF0H8gte3ko1+B9j9IqAN8icwHHsg7fow2oYs5ew==
+"@avada/firestore-utils@^0.0.2-alpha.1":
+  version "0.0.2-alpha.1"
+  resolved "https://registry.avada.io/@avada%2ffirestore-utils/-/firestore-utils-0.0.2-alpha.1.tgz#79d55c4578f8e7941022bc1d4c26211a20e5cb35"
+  integrity sha512-sri46qX9N/9tPGrZWEktgIJ/CSe0lnJ8MV4+J1cg+DC/1A76B8ykYSxzmxAWLP40gqSOhMGHrJ6qrZQNLXgBMQ==
   dependencies:
     "@babel/cli" "7.6.0"
     "@babel/core" "7.6.0"
@@ -11534,6 +11534,11 @@ react-router@5.3.3:
     react-is "^16.6.0"
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
+
+react-screentype-hook@^1.0.18:
+  version "1.0.18"
+  resolved "https://registry.yarnpkg.com/react-screentype-hook/-/react-screentype-hook-1.0.18.tgz#efb0cf5e8a7d6348410d37b61b34de2c52c8c933"
+  integrity sha512-YljZeszHKvTmwGtOCg+GnA8mB6GR58FQ+PLvIQnMLwiip+Gndno4vvREaK1YNnDfOsy8OzXd+wxs9eyhVD8umw==
 
 react-transition-group@^4.4.2:
   version "4.4.4"
