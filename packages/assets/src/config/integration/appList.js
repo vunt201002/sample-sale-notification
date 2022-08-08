@@ -14,7 +14,14 @@ export const INTEGRATION_CATEGORY_AVADA_MARKETING = 'avada marketing';
 export const INTEGRATION_CATEGORY_PRODUCT_REVIEW = 'product reviews';
 export const INTEGRATION_CATEGORY_PAGE_BUILDERS = 'page builders';
 
-export const appList = [
+export const integrationCategories = [
+  {value: INTEGRATION_CATEGORY_THEME, label: 'Theme Integration'},
+  {value: INTEGRATION_CATEGORY_AVADA_MARKETING, label: 'avada marketing'},
+  {value: INTEGRATION_CATEGORY_PRODUCT_REVIEW, label: 'page builders'},
+  {value: INTEGRATION_CATEGORY_PAGE_BUILDERS, label: 'product reviews'}
+];
+
+export const integrationApps = [
   {
     title: 'Theme Integration',
     description: `Show customers’ reward points on the My Account page, Navigation menu, etc.`,

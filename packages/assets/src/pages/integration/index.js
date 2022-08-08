@@ -1,42 +1,35 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {Card, ChoiceList, Icon, Layout, Stack, TextField, Page} from '@shopify/polaris';
 import {SearchMinor} from '@shopify/polaris-icons';
 import ProductCard from '@assets/components/ProductCard';
-import {appList} from '@assets/config/integration/appList';
+import {integrationApps, integrationCategories} from '@assets/config/integration/appList';
 import PropTypes from 'prop-types';
 import useScreenType from '@assets/hooks/utils/useScreenType';
+import {chunk} from '@avada/utils';
 
 /**
  * @return {React.ReactElement}
  * @constructor
  */
 export default function Integration({history}) {
-  const [intApps, setIntApps] = useState(appList);
   const [search, setSearch] = useState('');
-  const [selected, setSelected] = useState('all');
+  const [selected, setSelected] = useState('');
   const screenType = useScreenType();
   const isDesktop = screenType.isDesktop || screenType.isLargeDesktop;
 
+  const appChunks = useMemo(() => {
+    return chunk(
+      integrationApps.filter(
+        item =>
+          (!selected || item.category === selected) &&
+          (!search || item.title.toLowerCase().includes(search))
+      ),
+      2
+    );
+  }, [search, selected]);
+
   const handleOpenLink = app => {
     app.external ? window.open(app.url, '_blank') : history.push(app.url);
-  };
-
-  const handleSearch = val => {
-    setSearch(val);
-
-    if (selected === 'all') {
-      return setIntApps(appList.filter(item => item.title.toLowerCase().includes(val)));
-    }
-    return setIntApps(
-      appList
-        .filter(item => item.category === selected)
-        .filter(item => item.title.toLowerCase().includes(val))
-    );
-  };
-
-  const handleChangeApp = ([val]) => {
-    setSelected(val);
-    setIntApps(val === 'all' ? appList : appList.filter(item => item.category === val));
   };
 
   return (
@@ -48,7 +41,7 @@ export default function Integration({history}) {
               label=""
               value={search}
               placeholder="Search by name"
-              onChange={val => handleSearch(val)}
+              onChange={setSearch}
               prefix={<Icon source={SearchMinor} />}
               autoComplete="off"
             />
@@ -56,33 +49,23 @@ export default function Integration({history}) {
               <ChoiceList
                 title=""
                 selected={[selected]}
-                onChange={handleChangeApp}
-                choices={[
-                  {label: 'All Categories', value: 'all'},
-                  {label: 'Theme Integration', value: 'theme'}
-                ]}
+                onChange={([val]) => setSelected(val)}
+                choices={[{label: 'All Categories', value: ''}, ...integrationCategories]}
               />
             </Card>
           </Stack>
         </Layout.Section>
-        <Layout.Section oneThird>
-          <Stack vertical>
-            {intApps.map((app, appKey) => {
-              if (appKey % 2 === 0) {
-                return <ProductCard app={app} key={appKey} handleOpenLink={handleOpenLink} />;
-              }
-            })}
-          </Stack>
-        </Layout.Section>
-        <Layout.Section oneThird>
-          <Stack vertical>
-            {intApps.map((app, appKey) => {
-              if (appKey % 2 === 1) {
-                return <ProductCard app={app} key={appKey} handleOpenLink={handleOpenLink} />;
-              }
-            })}
-          </Stack>
-        </Layout.Section>
+        {[0, 1].map(chunkKey => (
+          <Layout.Section oneThird key={chunkKey}>
+            <Stack vertical>
+              {appChunks
+                .filter(app => app[chunkKey])
+                .map((app, key) => (
+                  <ProductCard app={app[chunkKey]} key={key} handleOpenLink={handleOpenLink} />
+                ))}
+            </Stack>
+          </Layout.Section>
+        ))}
       </Layout>
     </Page>
   );
