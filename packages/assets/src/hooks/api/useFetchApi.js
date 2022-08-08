@@ -6,13 +6,22 @@ import {handleError} from '@assets/services/errorService';
 /**
  * useFetchApi hook for fetch data from api with url
  *
- * @param url
+ * @param {string} url
  * @param defaultData
- * @param initLoad
+ * @param {boolean} initLoad
  * @param presentData
+ * @param initQueries
+ * @param keepPreviousData
  * @returns {{pageInfo: {}, data, setData, count, setCount, fetchApi, loading, fetched}}
  */
-export default function useFetchApi(url, defaultData = [], initLoad = true, presentData = null) {
+export default function useFetchApi({
+  url,
+  defaultData = [],
+  initLoad = true,
+  presentData = null,
+  initQueries = {},
+  keepPreviousData = false
+}) {
   const [loading, setLoading] = useState(initLoad);
   const [fetched, setFetched] = useState(false);
   const [data, setData] = useState(defaultData);
@@ -26,12 +35,20 @@ export default function useFetchApi(url, defaultData = [], initLoad = true, pres
       const separateChar = path.includes('?') ? '&' : '?';
       const query = params ? separateChar + queryString.stringify(params) : '';
       const resp = await api(path + query);
-      if (resp.hasOwnProperty('data')) {
-        const newData = presentData ? presentData(resp.data) : resp.data;
-        setData(Array.isArray(newData) ? newData : {...defaultData, ...newData});
-      }
       if (resp.hasOwnProperty('pageInfo')) setPageInfo(resp.pageInfo);
       if (resp.hasOwnProperty('count')) setCount(resp.count);
+      if (resp.hasOwnProperty('data')) {
+        let newData = presentData ? presentData(resp.data) : resp.data;
+        if (!Array.isArray(newData)) {
+          newData = {...defaultData, ...newData};
+        }
+        setData(prev => {
+          if (!keepPreviousData) {
+            return newData;
+          }
+          return Array.isArray(newData) ? [...prev, ...newData] : {...prev, ...newData};
+        });
+      }
     } catch (e) {
       handleError(e);
     } finally {
@@ -42,7 +59,7 @@ export default function useFetchApi(url, defaultData = [], initLoad = true, pres
 
   useEffect(() => {
     if (initLoad && !fetched) {
-      fetchApi().then(() => {});
+      fetchApi(url, initQueries).then(() => {});
     }
   }, []);
 

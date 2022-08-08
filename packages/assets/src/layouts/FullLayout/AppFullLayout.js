@@ -7,18 +7,21 @@ import {
   CircleInformationMajor,
   HomeMajor,
   LogOutMinor,
+  NotificationMajor,
   TapChipMajor,
   TeamMajor,
   ViewMinor
 } from '@shopify/polaris-icons';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
-import useConfirmModal from '@assets/hooks/modal/useConfirmModal';
+import useConfirmModal from '@assets/hooks/popup/useConfirmModal';
 import {getRawSupport} from '@assets/services/crispService';
 import getDomain from '@assets/helpers/getDomain';
 import {useStore} from '@assets/reducers/storeReducer';
 import {closeToast, logout} from '@assets/actions/storeActions';
 import getUrl from '@assets/helpers/getUrl';
+import useConfirmSheet from '@assets/hooks/popup/useConfirmSheet';
+import AppNewSheet from '@assets/components/templates/AppNews/AppNewSheet';
 
 /**
  * Render an app layout
@@ -45,6 +48,8 @@ function AppLayout({children, location, history}) {
     content: 'Are you sure you want to log out?',
     destructive: true
   });
+
+  const {sheet: newsSheet, openSheet: openNewsSheet} = useConfirmSheet({Content: AppNewSheet});
 
   const userMenuActions = [
     {
@@ -133,6 +138,11 @@ function AppLayout({children, location, history}) {
             label: 'Helpdesk',
             icon: ChatMajor,
             onClick: getRawSupport
+          },
+          {
+            label: "What's news",
+            icon: NotificationMajor,
+            onClick: openNewsSheet
           }
         ]}
       />
@@ -148,9 +158,10 @@ function AppLayout({children, location, history}) {
       skipToContentTarget={skipToContentRef.current}
     >
       {children}
-      {logoutModal}
       {loading && <Loading />}
       {toast && <Toast onDismiss={() => closeToast(dispatch)} {...toast} />}
+      {logoutModal}
+      {newsSheet}
     </Frame>
   );
 }

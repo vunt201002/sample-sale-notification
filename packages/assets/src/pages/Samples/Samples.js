@@ -9,7 +9,7 @@ import useFetchApi from '@assets/hooks/api/useFetchApi';
  * @constructor
  */
 export default function Samples() {
-  const {data: todos, loading} = useFetchApi('/samples');
+  const {data: todos, loading} = useFetchApi({url: '/samples'});
 
   const {selectedResources, handleSelectionChange} = useIndexResourceState(todos);
 

@@ -1,7 +1,7 @@
 import React, {useMemo, useState} from 'react';
 import {Card, ChoiceList, Icon, Layout, Stack, TextField, Page} from '@shopify/polaris';
 import {SearchMinor} from '@shopify/polaris-icons';
-import ProductCard from '@assets/components/ProductCard';
+import ProductCard from '@assets/components/molecules/ProductCard';
 import {integrationApps, integrationCategories} from '@assets/config/integration/appList';
 import PropTypes from 'prop-types';
 import useScreenType from '@assets/hooks/utils/useScreenType';
