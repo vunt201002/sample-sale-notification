@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button, Card, Icon, Link, Stack, TextStyle} from '@shopify/polaris';
+import {Button, Card, Icon, Stack, TextStyle} from '@shopify/polaris';
 
-export default function ProductCard({app, handleOpenLink}) {
+export default function IntegrationCard({app, handleOpenLink}) {
   return (
     <Card sectioned>
       <AppLink {...{app, handleOpenLink}}>
         <div style={{display: 'inline-flex', alignItems: 'center', justifyContent: 'center'}}>
           <div style={{marginRight: '2rem'}}>
-            {app.img && <img src={app.img} alt={app.title} width={40} />}
+            {app.img && <img src={app.img} alt={app.title} width={45} />}
             {app.icon && <Icon source={app.icon} />}
           </div>
-          <Stack vertical>
+          <Stack vertical spacing="tight">
             <TextStyle variation="strong">{app.title}</TextStyle>
             <TextStyle>{app.description}</TextStyle>
             {app.button && (
@@ -26,23 +26,23 @@ export default function ProductCard({app, handleOpenLink}) {
   );
 }
 
-ProductCard.propTypes = {
+IntegrationCard.propTypes = {
   app: PropTypes.object,
   handleOpenLink: PropTypes.func
 };
 
-const AppLink = ({children, app, handleOpenLink}) => {
+const AppLink = ({app, handleOpenLink, children}) => {
   return app.url ? (
-    <Link removeUnderline monochrome onClick={() => handleOpenLink(app)}>
+    <div style={{cursor: 'pointer'}} onClick={() => handleOpenLink(app)}>
       {children}
-    </Link>
+    </div>
   ) : (
     children
   );
 };
 
 AppLink.propTypes = {
-  children: PropTypes.any,
   app: PropTypes.object,
-  handleOpenLink: PropTypes.func
+  handleOpenLink: PropTypes.func,
+  children: PropTypes.any
 };

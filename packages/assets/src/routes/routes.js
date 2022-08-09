@@ -1,14 +1,16 @@
 import React from 'react';
 import {Route, Switch} from 'react-router-dom';
-import Home from '../loadables/Home';
-import Samples from '../loadables/Samples';
-import NotFound from '../loadables/NotFound';
+import Home from '@assets/loadables/Home';
+import Samples from '@assets/loadables/samples';
+import NotFound from '@assets/loadables/notFound';
 import Integration from '@assets/loadables/integration';
+import IntegrationOne from '@assets/loadables/integration/sample';
 
 const routeGroups = [
   {path: '/', component: Home},
   {path: '/samples', component: Samples},
-  {path: '/integration', component: Integration}
+  {path: '/integrations', component: Integration},
+  {path: '/integrations/:id', component: IntegrationOne}
 ];
 
 const Routes = () => (

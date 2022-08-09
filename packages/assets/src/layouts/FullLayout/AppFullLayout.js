@@ -21,7 +21,7 @@ import {useStore} from '@assets/reducers/storeReducer';
 import {closeToast, logout} from '@assets/actions/storeActions';
 import getUrl from '@assets/helpers/getUrl';
 import useConfirmSheet from '@assets/hooks/popup/useConfirmSheet';
-import AppNewSheet from '@assets/components/templates/AppNews/AppNewSheet';
+import AppNewsSheet from '@assets/components/templates/AppNews/AppNewsSheet';
 
 /**
  * Render an app layout
@@ -49,7 +49,7 @@ function AppLayout({children, location, history}) {
     destructive: true
   });
 
-  const {sheet: newsSheet, openSheet: openNewsSheet} = useConfirmSheet({Content: AppNewSheet});
+  const {sheet: newsSheet, openSheet: openNewsSheet} = useConfirmSheet({Content: AppNewsSheet});
 
   const userMenuActions = [
     {
@@ -114,8 +114,8 @@ function AppLayout({children, location, history}) {
           {
             label: 'Integrations',
             icon: TeamMajor,
-            url: '/integration',
-            selected: pathname.startsWith(getUrl('/integration'))
+            url: '/integrations',
+            selected: pathname.startsWith(getUrl('/integrations'))
           },
           {
             label: 'Subscription',

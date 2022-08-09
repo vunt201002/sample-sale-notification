@@ -1,6 +1,6 @@
 /* eslint-disable require-jsdoc */
 import React, {Component} from 'react';
-import NotFound from '@assets/pages/NotFound';
+import NotFound from '@assets/pages/notFound';
 import * as PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 

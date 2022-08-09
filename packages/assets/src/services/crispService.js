@@ -1,8 +1,8 @@
 /**
  * Get support action
  */
-export function getRawSupport() {
+export function getRawSupport(text = `Hi,\nPlease help us to `) {
   if (!window.$crisp) return;
   window.$crisp.push(['do', 'chat:open']);
-  window.$crisp.push(['set', 'message:text', `Hi,\nPlease help us to `]);
+  window.$crisp.push(['set', 'message:text', text]);
 }

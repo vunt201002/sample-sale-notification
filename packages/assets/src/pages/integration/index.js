@@ -1,19 +1,20 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo} from 'react';
 import {Card, ChoiceList, Icon, Layout, Stack, TextField, Page} from '@shopify/polaris';
 import {SearchMinor} from '@shopify/polaris-icons';
-import ProductCard from '@assets/components/molecules/ProductCard';
+import IntegrationCard from '@assets/components/molecules/Integration/IntegrationCard';
 import {integrationApps, integrationCategories} from '@assets/config/integration/appList';
 import PropTypes from 'prop-types';
 import useScreenType from '@assets/hooks/utils/useScreenType';
 import {chunk} from '@avada/utils';
+import useInput from '@assets/hooks/form/useInput';
+import Footer from '@assets/components/atoms/Footer';
 
 /**
  * @return {React.ReactElement}
  * @constructor
  */
 export default function Integration({history}) {
-  const [search, setSearch] = useState('');
-  const [selected, setSelected] = useState('');
+  const [filters, handleFiltersChange] = useInput({title: '', category: ''});
   const screenType = useScreenType();
   const isDesktop = screenType.isDesktop || screenType.isLargeDesktop;
 
@@ -21,12 +22,12 @@ export default function Integration({history}) {
     return chunk(
       integrationApps.filter(
         item =>
-          (!selected || item.category === selected) &&
-          (!search || item.title.toLowerCase().includes(search))
+          (!filters.category || item.category === filters.category) &&
+          (!filters.title || item.title.toLowerCase().includes(filters.title))
       ),
       2
     );
-  }, [search, selected]);
+  }, [filters]);
 
   const handleOpenLink = app => {
     app.external ? window.open(app.url, '_blank') : history.push(app.url);
@@ -39,18 +40,18 @@ export default function Integration({history}) {
           <Stack vertical>
             <TextField
               label=""
-              value={search}
+              value={filters.title}
               placeholder="Search by name"
-              onChange={setSearch}
+              onChange={val => handleFiltersChange('title', val)}
               prefix={<Icon source={SearchMinor} />}
               autoComplete="off"
             />
             <Card sectioned>
               <ChoiceList
                 title=""
-                selected={[selected]}
-                onChange={([val]) => setSelected(val)}
-                choices={[{label: 'All Categories', value: ''}, ...integrationCategories]}
+                selected={[filters.category]}
+                onChange={([val]) => handleFiltersChange('category', val)}
+                choices={[{label: 'All categories', value: ''}, ...integrationCategories]}
               />
             </Card>
           </Stack>
@@ -61,12 +62,13 @@ export default function Integration({history}) {
               {appChunks
                 .filter(app => app[chunkKey])
                 .map((app, key) => (
-                  <ProductCard app={app[chunkKey]} key={key} handleOpenLink={handleOpenLink} />
+                  <IntegrationCard app={app[chunkKey]} key={key} handleOpenLink={handleOpenLink} />
                 ))}
             </Stack>
           </Layout.Section>
         ))}
       </Layout>
+      <Footer />
     </Page>
   );
 }

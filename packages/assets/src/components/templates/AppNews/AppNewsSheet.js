@@ -28,7 +28,7 @@ const APP_NEWS_URL = 'https://blog.avada.io/resources';
  * @returns {JSX.Element}
  * @constructor
  */
-export default function AppNewSheet({closeSheet}) {
+export default function AppNewsSheet({closeSheet}) {
   const [actions, setActions] = useState({openInput: false, searchValue: ''});
   const {data, pageInfo, fetched, loading, nextPage} = usePaginate({
     url: '/appNews',
@@ -94,7 +94,7 @@ export default function AppNewSheet({closeSheet}) {
   );
 }
 
-AppNewSheet.propTypes = {
+AppNewsSheet.propTypes = {
   closeSheet: PropTypes.func
 };
 

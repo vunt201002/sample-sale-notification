@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card, IndexTable, Layout, Page, TextStyle, useIndexResourceState} from '@shopify/polaris';
 import useFetchApi from '@assets/hooks/api/useFetchApi';
+import Footer from '@assets/components/atoms/Footer';
 
 /**
  * Just render a sample page
@@ -42,6 +43,7 @@ export default function Samples() {
           </Card>
         </Layout.Section>
       </Layout>
+      <Footer />
     </Page>
   );
 }
