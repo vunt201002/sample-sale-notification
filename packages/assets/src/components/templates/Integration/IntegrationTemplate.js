@@ -45,7 +45,7 @@ export default function IntegrationTemplate({app, children}) {
             </Banner>
           </FormLayout>
         </Layout.Section>
-        <Layout.Section oneThird>
+        <Layout.Section oneHalf>
           <FormLayout>
             <Button fullWidth external primary url={app.externalUrl}>
               Go to App

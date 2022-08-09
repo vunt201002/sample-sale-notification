@@ -11,10 +11,9 @@ const BASE_URL = 'https://blog-admin.avada.io/articles';
 export async function getAppNewsList(query) {
   try {
     const {searchKey, categories} = query;
-    const where = [
-      categories && {categories},
-      searchKey && {_or: [{title_contains: searchKey}, {content_contains: searchKey}]}
-    ].filter(Boolean);
+    const where = [categories && {categories}, searchKey && {title_contains: searchKey}].filter(
+      Boolean
+    );
     return await paginateStrapi({...query, where});
   } catch (e) {
     console.error(e);

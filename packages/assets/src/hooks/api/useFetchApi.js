@@ -11,7 +11,6 @@ import {handleError} from '@assets/services/errorService';
  * @param {boolean} initLoad
  * @param presentData
  * @param initQueries
- * @param keepPreviousData
  * @returns {{pageInfo: {}, data, setData, count, setCount, fetchApi, loading, fetched}}
  */
 export default function useFetchApi({
@@ -19,8 +18,7 @@ export default function useFetchApi({
   defaultData = [],
   initLoad = true,
   presentData = null,
-  initQueries = {},
-  keepPreviousData = false
+  initQueries = {}
 }) {
   const [loading, setLoading] = useState(initLoad);
   const [fetched, setFetched] = useState(false);
@@ -28,7 +26,7 @@ export default function useFetchApi({
   const [pageInfo, setPageInfo] = useState({});
   const [count, setCount] = useState(0);
 
-  async function fetchApi(apiUrl, params = null) {
+  async function fetchApi(apiUrl, params = null, keepPreviousData = false) {
     try {
       setLoading(true);
       const path = apiUrl || url;

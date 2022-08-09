@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button, ButtonGroup, Scrollable} from '@shopify/polaris';
+import {Button, Scrollable} from '@shopify/polaris';
 
 /**
  * @param handleClose
+ * @param footer
  * @param loading
  * @param sectioned
  * @param darkBackground
@@ -15,6 +16,7 @@ import {Button, ButtonGroup, Scrollable} from '@shopify/polaris';
  */
 export default function SheetBody({
   handleClose,
+  footer = true,
   loading = false,
   sectioned = true,
   darkBackground = false,
@@ -34,21 +36,22 @@ export default function SheetBody({
       <Scrollable className={allClasses.join(' ')} shadow onScrolledToBottom={onScrolledToBottom}>
         {children}
       </Scrollable>
-      <div className="Avada-Sheet__Footer">
-        <ButtonGroup>
+      {footer && (
+        <div className="Avada-Sheet__Footer">
           {handleClose && (
             <Button disabled={loading} onClick={() => !loading && handleClose()}>
               Close
             </Button>
           )}
-        </ButtonGroup>
-      </div>
+        </div>
+      )}
     </>
   );
 }
 
 SheetBody.propTypes = {
   handleClose: PropTypes.func,
+  footer: PropTypes.bool,
   loading: PropTypes.bool,
   sectioned: PropTypes.bool,
   darkBackground: PropTypes.bool,

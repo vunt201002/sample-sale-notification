@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import useFetchApi from '@assets/hooks/api/useFetchApi';
-import queryString from 'query-string';
 
 /**
  * @param {string} url
@@ -12,7 +11,7 @@ import queryString from 'query-string';
  * @param defaultSort
  * @param searchKey
  * @param initQueries
- * @returns {{pageInfo: {hasPre, hasNext}, data, setData, count, setCount, fetchApi, loading, fetched, prevPage, nextPage, onQueryChange}}
+ * @returns {{pageInfo: {hasPre, hasNext}, data, setData, count, setCount, fetchApi, loading, fetched, prevPage, nextPage, onQueryChange, onQueriesChange}}
  */
 export default function usePaginate({
   url,
@@ -33,25 +32,21 @@ export default function usePaginate({
     ...initQueries
   });
 
-  const fetchApiHook = useFetchApi({
-    url,
-    defaultData,
-    initLoad,
-    presentData,
-    initQueries: queries,
-    keepPreviousData
-  });
+  const fetchApiHook = useFetchApi({url, defaultData, initLoad, presentData, initQueries: queries});
   const {data, fetchApi} = fetchApiHook;
 
-  const handleFetchApi = async (params = null) => {
-    await fetchApi(prepareUrl(url, {...queries, ...params}));
+  const handleFetchApi = async (params = null, keepData = false) => {
+    await fetchApi(url, {...queries, ...params}, keepData);
   };
 
   const onQueryChange = (key, value, isFetch = false) => {
     setQueries(prev => ({...prev, [key]: value}));
-    if (isFetch) {
-      handleFetchApi({[key]: value}).then();
-    }
+    if (isFetch) handleFetchApi({[key]: value}).then();
+  };
+
+  const onQueriesChange = (newQueries, isFetch = false) => {
+    setQueries(prev => ({...prev, ...newQueries}));
+    if (isFetch) handleFetchApi(newQueries).then();
   };
 
   const onPaginate = async (paginate = '') => {
@@ -65,7 +60,7 @@ export default function usePaginate({
           return ['', '', 1];
       }
     })();
-    await handleFetchApi({page, before, after});
+    await handleFetchApi({page, before, after}, keepPreviousData);
     setQueries(prev => ({...prev, page}));
   };
 
@@ -73,14 +68,7 @@ export default function usePaginate({
     prevPage: () => onPaginate('prev'),
     nextPage: () => onPaginate('next'),
     onQueryChange,
+    onQueriesChange,
     ...fetchApiHook
   };
-}
-
-function prepareUrl(url, params) {
-  const formatParams = Object.keys(params).reduce((prev, current) => {
-    const value = params[current];
-    return {...prev, [current]: Array.isArray(value) ? value.join(',') : value};
-  }, {});
-  return `${url}?${queryString.stringify(formatParams)}`;
 }
