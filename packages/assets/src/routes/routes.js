@@ -3,9 +3,6 @@ import {Route, Switch} from 'react-router-dom';
 import loadable from 'react-loadable';
 import Loading from '@assets/components/atoms/Loading';
 
-const a = require('!react-router-routes-loader!../pages');
-const allPages = require('!pegasus-loader!../pages');
-
 const createRoute = route => {
   const {path} = route;
   const routePath = (() => {
@@ -21,7 +18,7 @@ const createRoute = route => {
   return {path: routePath, component, exact};
 };
 
-const createList = (routes = allPages.childRoutes) => {
+const createList = routes => {
   const list = [];
   routes.forEach(route => {
     list.push(createRoute(route));
@@ -30,13 +27,18 @@ const createList = (routes = allPages.childRoutes) => {
   return list;
 };
 
+const a = require('!react-router-routes-loader!../pages');
+const allPages = require('!pegasus-loader!../pages');
+const allRoutes = createList(allPages.childRoutes);
+allRoutes.sort(a => (a.path === '*' ? 0 : -1));
+
 console.log(111, a);
 console.log(222, allPages);
-console.log(333, createList());
+console.log(333, allRoutes);
 
 const Routes = () => (
   <Switch>
-    {createList().map((props, key) => (
+    {allRoutes.map((props, key) => (
       <Route key={key} {...props} />
     ))}
   </Switch>
