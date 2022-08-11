@@ -2,13 +2,14 @@ import React from 'react';
 import {Route, Switch} from 'react-router-dom';
 import loadable from 'react-loadable';
 import Loading from '@assets/components/atoms/Loading';
+import {prependRoute} from '@assets/config/app';
 
 const createRoute = route => {
   const {path} = route;
   const routePath = (() => {
-    if (path === '/home') return '/';
+    if (path === '/home') return prependRoute('');
     if (path === '/not-found') return '*';
-    return path;
+    return prependRoute(path);
   })();
   const component = loadable({
     loader: () => import(`../pages${route.path.replace(':', '@')}`),

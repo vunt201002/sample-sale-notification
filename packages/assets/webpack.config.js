@@ -11,7 +11,8 @@ const fs = require('fs');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const environmentPath = !process.env.ENVIRONMENT ? '.env' : `.env.${process.env.ENVIRONMENT}`;
-const indexFile = process.env.IS_EMBEDDED_APP === 'yes' ? 'embed' : 'standalone';
+const isEmbeddedApp = process.env.IS_EMBEDDED_APP === 'yes';
+const indexFile = isEmbeddedApp ? 'embed' : 'standalone';
 
 const [sslKey, sslCert] = ['ssl.key', 'ssl.crt'].map(file => {
   try {
@@ -97,7 +98,7 @@ const plugins = [
       hmr: 'refresh-on-failure',
       // progress: 'minimal',
       host: 'localhost',
-      port: process.env.WPS_PORT_EM || 45000,
+      port: 45000 + (isEmbeddedApp ? -5000 : 5000),
       https: {key: sslKey, cert: sslCert},
       static: outputPath,
       status: false

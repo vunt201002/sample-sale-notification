@@ -6,6 +6,8 @@ import {useLocation} from 'react-router-dom';
 import {useStore} from '@assets/reducers/storeReducer';
 import {closeToast} from '@assets/actions/storeActions';
 import {prependRoute} from '@assets/config/app';
+import useConfirmSheet from '@assets/hooks/popup/useConfirmSheet';
+import AppNewsSheet from '@assets/components/templates/AppNews/AppNewsSheet';
 
 /**
  * Render an app layout
@@ -17,7 +19,9 @@ import {prependRoute} from '@assets/config/app';
 function AppEmbeddedLayout({children}) {
   const {pathname} = useLocation();
   const {state, dispatch} = useStore();
-  const {loading, isToast, toast} = state;
+  const {loading, toast} = state;
+
+  const {sheet: newsSheet, openSheet: openNewsSheet} = useConfirmSheet({Content: AppNewsSheet});
 
   return (
     <Frame>
@@ -26,19 +30,29 @@ function AppEmbeddedLayout({children}) {
         secondaryActions={[
           {
             content: 'Dashboard',
-            url: '/',
-            disabled: pathname === prependRoute('/')
+            url: '/embed',
+            disabled: pathname === prependRoute('')
           },
           {
             content: 'Samples',
             url: '/samples',
             disabled: pathname.includes(prependRoute('/samples'))
+          },
+          {
+            content: 'Integrations',
+            url: '/integrations',
+            disabled: pathname.includes(prependRoute('/integrations'))
+          },
+          {
+            content: "What's new",
+            onAction: openNewsSheet
           }
         ]}
       />
       {children}
       {loading && <Loading />}
-      {isToast && <Toast onDismiss={() => closeToast(dispatch)} {...toast} />}
+      {toast && <Toast onDismiss={() => closeToast(dispatch)} {...toast} />}
+      {newsSheet}
     </Frame>
   );
 }
