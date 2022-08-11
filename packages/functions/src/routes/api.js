@@ -3,15 +3,10 @@ import * as sampleController from '@functions/controllers/sampleController';
 import * as shopController from '@functions/controllers/shopController';
 import * as subscriptionController from '@functions/controllers/subscriptionController';
 import * as appNewsController from '@functions/controllers/appNewsController';
-import {verifyRequest} from '@avada/shopify-auth';
 import {getApiPrefix} from '@functions/const/app';
 
 export default function apiRouter(isEmbed = false) {
   const router = new Router({prefix: getApiPrefix(isEmbed)});
-
-  if (!isEmbed) {
-    router.use(verifyRequest());
-  }
 
   router.get('/samples', sampleController.exampleAction);
   router.get('/shops', shopController.getUserShops);

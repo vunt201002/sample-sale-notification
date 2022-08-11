@@ -1,15 +1,12 @@
-import {Timestamp} from '@google-cloud/firestore';
-
 /**
- * @param {*} shop
- * @returns {Shop}
+ * Strip access token by default
+ *
+ * @param {Shop} data
+ * @returns {*}
  */
-export default function presentShop(shop) {
-  Object.keys(shop).forEach(field => {
-    if (shop[field] instanceof Timestamp) {
-      shop[field] = shop[field].toDate();
-    }
-  });
+export default function presentShop(data) {
+  // eslint-disable-next-line no-unused-vars
+  const {accessToken, ...shop} = data;
 
   return shop;
 }

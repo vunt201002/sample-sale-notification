@@ -4,6 +4,7 @@ import * as errorService from '@functions/services/errorService';
 import apiRouter from '@functions/routes/api';
 import render from 'koa-ejs';
 import path from 'path';
+import {verifyRequest} from '@avada/shopify-auth';
 
 // Initialize all demand configuration for an application
 const api = new App();
@@ -16,6 +17,7 @@ render(api, {
   viewExt: 'html'
 });
 api.use(createErrorHandler());
+api.use(verifyRequest());
 
 const router = apiRouter();
 // Register all routes for the application

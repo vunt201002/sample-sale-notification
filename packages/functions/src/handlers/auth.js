@@ -33,7 +33,7 @@ app.use(
     firebaseApiKey: shopifyConfig.firebaseApiKey,
     scopes: shopifyConfig.scopes,
     secret: shopifyConfig.secret,
-    successRedirect: '/embed/',
+    successRedirect: '/embed',
     initialPlan: {
       id: 'free',
       name: 'Free',
