@@ -3,9 +3,10 @@ import {Card, FormLayout, Link, List, TextStyle} from '@shopify/polaris';
 import PropTypes from 'prop-types';
 import {getIntAppByUrl} from '@assets/config/integration/appList';
 import IntegrationTemplate from '@assets/components/templates/Integration/IntegrationTemplate';
+import {removeRoute} from '@assets/config/app';
 
 export default function Sample({location}) {
-  const app = getIntAppByUrl(location.pathname);
+  const app = getIntAppByUrl(removeRoute(location.pathname));
   const {title} = app;
 
   return (
