@@ -28,7 +28,7 @@ const createList = routes => {
   return list;
 };
 
-const allPages = require('!pegasus-loader!../pages');
+const allPages = require('!pegasus-loader!../loaders');
 const allRoutes = createList(allPages.childRoutes);
 allRoutes.sort(a => (a.path === '*' ? 0 : -1));
 
