@@ -11,6 +11,7 @@ const fs = require('fs');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const environmentPath = !process.env.ENVIRONMENT ? '.env' : `.env.${process.env.ENVIRONMENT}`;
+const indexFile = process.env.IS_EMBEDDED_APP === 'yes' ? 'embed' : 'standalone';
 
 const [sslKey, sslCert] = ['ssl.key', 'ssl.crt'].map(file => {
   try {
@@ -26,7 +27,7 @@ const outputSuffix = isHotReloadEnabled ? 'hash' : 'contenthash';
 
 const plugins = [
   new HtmlWebpackPlugin({
-    filename: 'embed.html',
+    filename: `${indexFile}.html`,
     template: path.resolve('webpack/html/index.html'),
     inject: true,
     hash: true,
@@ -113,14 +114,14 @@ module.exports = {
   mode: isProduction ? 'production' : 'development',
   entry: {
     main: [
-      path.resolve(__dirname, 'src/embed.js'),
+      path.resolve(__dirname, `src/${indexFile}.js`),
       isHotReloadEnabled && 'webpack-plugin-serve/client'
     ].filter(Boolean)
   },
   output: {
     path: path.resolve(__dirname, '../../static'),
-    filename: `embed/js/[name]~[${outputSuffix}].js`,
-    chunkFilename: `embed/js/[name]~[${outputSuffix}].chuck.js`,
+    filename: `${indexFile}/js/[name]~[${outputSuffix}].js`,
+    chunkFilename: `${indexFile}/js/[name]~[${outputSuffix}].chuck.js`,
     publicPath: '/',
     pathinfo: false
   },
@@ -153,11 +154,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
-        use: [
-          {
-            loader: 'file-loader'
-          }
-        ]
+        use: 'file-loader'
       },
       {
         test: /\.s[ac]ss$/i,

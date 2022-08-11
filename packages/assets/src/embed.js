@@ -26,7 +26,7 @@ import {collectActiveShopData} from '@assets/services/shopService';
   }
   ReactDOM.render(
     <StoreProvider {...{user, activeShop}}>
-      <App isEmbedApp={true} />
+      <App />
     </StoreProvider>,
     document.getElementById('app')
   );

@@ -5,7 +5,7 @@ import {TitleBar} from '@shopify/app-bridge-react';
 import {useLocation} from 'react-router-dom';
 import {useStore} from '@assets/reducers/storeReducer';
 import {closeToast} from '@assets/actions/storeActions';
-import getUrl from '@assets/helpers/getUrl';
+import {prependRoute} from '@assets/config/app';
 
 /**
  * Render an app layout
@@ -27,12 +27,12 @@ function AppEmbeddedLayout({children}) {
           {
             content: 'Dashboard',
             url: '/',
-            disabled: pathname === getUrl('/')
+            disabled: pathname === prependRoute('/')
           },
           {
             content: 'Samples',
             url: '/samples',
-            disabled: pathname.includes(getUrl('/samples'))
+            disabled: pathname.includes(prependRoute('/samples'))
           }
         ]}
       />

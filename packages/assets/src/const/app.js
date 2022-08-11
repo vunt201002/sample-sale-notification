@@ -4,5 +4,3 @@ const appRoute = {
 };
 
 export default appRoute;
-
-export const getRoutePrefix = isEmbedApp => (isEmbedApp ? appRoute.embed : appRoute.standalone);

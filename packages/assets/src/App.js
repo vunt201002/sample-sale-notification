@@ -8,10 +8,10 @@ import ErrorBoundary from '@assets/components/templates/ErrorBoundary';
 import Routes from './routes/routes';
 import theme from '@assets/config/theme';
 import PropTypes from 'prop-types';
-import {getRoutePrefix} from '@assets/const/app';
 import AppBridgeProvider from '@assets/components/templates/AppBridgeProvider';
 import AppEmbeddedLayout from '@assets/layouts/EmbeddedLayout/AppEmbeddedLayout';
 import AppFullLayout from '@assets/layouts/FullLayout/AppFullLayout';
+import {isEmbeddedApp} from '@assets/config/app';
 
 /**
  * The main endpoint of application contains all routes, settings for redux and Polaris
@@ -19,18 +19,18 @@ import AppFullLayout from '@assets/layouts/FullLayout/AppFullLayout';
  * @return {React.ReactElement}
  * @constructor
  */
-export default function App({isEmbedApp = false}) {
+export default function App() {
   return (
     <AppProvider
       theme={theme}
       i18n={translations}
       linkComponent={ReactRouterLink}
-      features={{newDesignLanguage: isEmbedApp}}
+      features={{newDesignLanguage: isEmbeddedApp}}
     >
       <Router history={history}>
-        <AppLayout isEmbedApp={isEmbedApp}>
+        <AppLayout>
           <ErrorBoundary>
-            <Routes prefix={getRoutePrefix(isEmbedApp)} />
+            <Routes />
           </ErrorBoundary>
         </AppLayout>
       </Router>
@@ -38,12 +38,8 @@ export default function App({isEmbedApp = false}) {
   );
 }
 
-App.propTypes = {
-  isEmbedApp: PropTypes.bool
-};
-
-const AppLayout = ({children, isEmbedApp}) => {
-  return isEmbedApp ? (
+const AppLayout = ({children}) => {
+  return isEmbeddedApp ? (
     <AppBridgeProvider>
       <AppEmbeddedLayout>{children}</AppEmbeddedLayout>
     </AppBridgeProvider>
@@ -53,6 +49,5 @@ const AppLayout = ({children, isEmbedApp}) => {
 };
 
 AppLayout.propTypes = {
-  children: PropTypes.node,
-  isEmbedApp: PropTypes.bool
+  children: PropTypes.node
 };

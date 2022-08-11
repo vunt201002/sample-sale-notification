@@ -1,9 +1,8 @@
 import {createBrowserHistory} from 'history';
-import {getRoutePrefix} from '@assets/const/app';
-import {isEmbeddedApp} from '@assets/helpers';
+import {routePrefix} from '@assets/config/app';
 
 export function createBrowserHistoryWithBasename() {
-  const basename = getRoutePrefix(isEmbeddedApp());
+  const basename = routePrefix;
   const history = createBrowserHistory();
   history.basename = basename;
 

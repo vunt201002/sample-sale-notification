@@ -19,7 +19,7 @@ import {getRawSupport} from '@assets/services/crispService';
 import getDomain from '@assets/helpers/getDomain';
 import {useStore} from '@assets/reducers/storeReducer';
 import {closeToast, logout} from '@assets/actions/storeActions';
-import getUrl from '@assets/helpers/getUrl';
+import {prependRoute} from '@assets/config/app';
 import useConfirmSheet from '@assets/hooks/popup/useConfirmSheet';
 import AppNewsSheet from '@assets/components/templates/AppNews/AppNewsSheet';
 
@@ -102,26 +102,26 @@ function AppLayout({children, location, history}) {
             label: 'Dashboard',
             icon: HomeMajor,
             url: '/',
-            selected: pathname === getUrl('/'),
+            selected: pathname === prependRoute('/'),
             onClick: () => history.push('/')
           },
           {
             label: 'Samples',
             icon: AppsMajor,
             url: '/samples',
-            selected: pathname.startsWith(getUrl('/samples'))
+            selected: pathname.startsWith(prependRoute('/samples'))
           },
           {
             label: 'Integrations',
             icon: TeamMajor,
             url: '/integrations',
-            selected: pathname.startsWith(getUrl('/integrations'))
+            selected: pathname.startsWith(prependRoute('/integrations'))
           },
           {
             label: 'Subscription',
             icon: TapChipMajor,
             url: '/subscription',
-            selected: pathname.startsWith(getUrl('/subscription'))
+            selected: pathname.startsWith(prependRoute('/subscription'))
           }
         ]}
       />

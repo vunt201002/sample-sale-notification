@@ -1,14 +1,14 @@
 import axios from 'axios';
 import createApp from '@shopify/app-bridge';
-import {authenticatedFetch, isShopifyEmbedded} from '@shopify/app-bridge-utils';
+import {authenticatedFetch} from '@shopify/app-bridge-utils';
 import {Redirect} from '@shopify/app-bridge/actions';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/analytics';
 import 'firebase/compat/storage';
 import 'firebase/compat/auth';
-import appRoute from '@assets/const/app';
 import {createBrowserHistoryWithBasename} from '@assets/services/historyService';
 import {getApiPrefix} from '@functions/const/app';
+import {isEmbeddedApp} from '@assets/config/app';
 
 firebase.initializeApp({
   appId: process.env.FIREBASE_APP_ID,
@@ -35,9 +35,9 @@ function createEmbedApp() {
  * @return {(uri: string, options?: {headers?, body?, method?: 'GET' | 'POST' | 'PUT' | 'DELETE'}) => Promise<any>}
  */
 function createApi() {
-  const prefix = getApiPrefix(isEmbeddedApp());
+  const prefix = getApiPrefix(isEmbeddedApp);
 
-  if (isEmbeddedApp()) {
+  if (isEmbeddedApp) {
     const fetchFunction = authenticatedFetch(embedApp);
     return async (uri, options = {}) => {
       if (options.body) {
@@ -83,8 +83,4 @@ function checkHeadersForReauthorization(headers, app) {
       ? `https://${window.location.host}${authUrlHeader}`
       : authUrlHeader
   );
-}
-
-export function isEmbeddedApp() {
-  return isShopifyEmbedded() || window.location.pathname.startsWith(appRoute.embed);
 }
