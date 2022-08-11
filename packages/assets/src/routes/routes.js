@@ -7,7 +7,7 @@ import {prependRoute} from '@assets/config/app';
 const createRoute = route => {
   const {path} = route;
   const routePath = (() => {
-    if (path === '/home') return prependRoute('');
+    if (path === '/home') return prependRoute('/');
     if (path === '/not-found') return '*';
     return prependRoute(path);
   })();
