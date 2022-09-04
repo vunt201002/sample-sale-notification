@@ -2,12 +2,12 @@ import {handleError} from '@assets/services/errorService';
 import {api, auth} from '@assets/helpers';
 
 export const storeTypes = {
-  SET_USER: '@@layout/SET_USER',
-  SET_LOADING: '@layout/SET_LOADING',
-  SET_TOAST: '@layout/SET_TOAST',
-  CLOSE_TOAST: '@layout/CLOSE_TOAST',
-  SET_SHOP: '@@shop/SET_SHOP',
-  SET_SUBSCRIPTION: '@@subscription/SET_SUBSCRIPTION'
+  SET_USER: 'SET_USER',
+  SET_LOADING: 'SET_LOADING',
+  SET_TOAST: 'SET_TOAST',
+  CLOSE_TOAST: 'CLOSE_TOAST',
+  SET_SHOP: 'SET_SHOP',
+  SET_SUBSCRIPTION: 'SET_SUBSCRIPTION'
 };
 
 export const reducer = (state, {type, payload}) => {

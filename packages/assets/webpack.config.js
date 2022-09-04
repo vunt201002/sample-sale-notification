@@ -4,6 +4,7 @@ const workboxPlugin = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const {WebpackPluginServe} = require('webpack-plugin-serve');
@@ -42,6 +43,9 @@ const plugins = [
     defaults: '.env.example',
     systemvars: true,
     path: path.resolve(__dirname, environmentPath)
+  }),
+  new CleanWebpackPlugin({
+    cleanStaleWebpackAssets: false
   }),
   isProduction &&
     new FaviconsWebpackPlugin({
@@ -122,7 +126,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../../static'),
     filename: `${indexFile}/js/[name]~[${outputSuffix}].js`,
-    chunkFilename: `${indexFile}/js/[name]~[${outputSuffix}].chuck.js`,
+    chunkFilename: `${indexFile}/js/[name]~[contenthash].chunk.js`,
     publicPath: '/',
     pathinfo: false
   },

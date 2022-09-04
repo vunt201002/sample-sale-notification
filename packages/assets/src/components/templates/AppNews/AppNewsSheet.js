@@ -82,6 +82,7 @@ export default function AppNewsSheet({closeSheet}) {
               <div onKeyDown={event => event.keyCode === 13 && onSearch()}>
                 <TextField
                   label=""
+                  autoFocus
                   value={actions.searchValue}
                   placeholder="Search by title"
                   onChange={val => handleActionsChange('searchValue', val)}

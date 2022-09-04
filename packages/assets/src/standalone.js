@@ -51,3 +51,5 @@ auth.onAuthStateChanged(async user => {
 
 // Register a service worker for PWA application
 serviceWorker.register();
+
+if (module.hot) module.hot.accept();
