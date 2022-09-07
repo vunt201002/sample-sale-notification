@@ -14,6 +14,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 const environmentPath = !process.env.ENVIRONMENT ? '.env' : `.env.${process.env.ENVIRONMENT}`;
 const isEmbeddedApp = process.env.IS_EMBEDDED_APP === 'yes';
 const indexFile = isEmbeddedApp ? 'embed' : 'standalone';
+const excludeCleanPath = isEmbeddedApp ? 'standalone' : 'embed';
 
 const [sslKey, sslCert] = ['ssl.key', 'ssl.crt'].map(file => {
   try {
@@ -43,9 +44,6 @@ const plugins = [
     defaults: '.env.example',
     systemvars: true,
     path: path.resolve(__dirname, environmentPath)
-  }),
-  new CleanWebpackPlugin({
-    cleanStaleWebpackAssets: false
   }),
   isProduction &&
     new FaviconsWebpackPlugin({
@@ -95,6 +93,15 @@ const plugins = [
       ]
     }),
   isHotReloadEnabled &&
+    new CleanWebpackPlugin({
+      cleanStaleWebpackAssets: false,
+      cleanOnceBeforeBuildPatterns: [
+        '**/*',
+        `!${excludeCleanPath}/**`,
+        `!${excludeCleanPath}.html*`
+      ]
+    }),
+  isHotReloadEnabled &&
     new WebpackPluginServe({
       // client: {silent: true},
       compress: true,
@@ -124,7 +131,7 @@ module.exports = {
     ].filter(Boolean)
   },
   output: {
-    path: path.resolve(__dirname, '../../static'),
+    path: outputPath,
     filename: `${indexFile}/js/[name]~[${outputSuffix}].js`,
     chunkFilename: `${indexFile}/js/[name]~[contenthash].chunk.js`,
     publicPath: '/',
