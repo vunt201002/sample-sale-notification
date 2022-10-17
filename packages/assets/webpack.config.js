@@ -14,6 +14,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 const environmentPath = !process.env.ENVIRONMENT ? '.env' : `.env.${process.env.ENVIRONMENT}`;
 const isEmbeddedApp = process.env.IS_EMBEDDED_APP === 'yes';
 const indexFile = isEmbeddedApp ? 'embed' : 'standalone';
+const wpsPort = (process.env.WPS_PORT || 45000) + (isEmbeddedApp ? -5000 : 5000);
 
 const [sslKey, sslCert] = ['ssl.key', 'ssl.crt'].map(file => {
   try {
@@ -23,9 +24,6 @@ const [sslKey, sslCert] = ['ssl.key', 'ssl.crt'].map(file => {
   }
 });
 const isHotReloadEnabled = sslKey && sslCert && !isProduction;
-
-const outputPath = path.resolve(__dirname, '../../static');
-const outputSuffix = isHotReloadEnabled ? 'hash' : 'contenthash';
 
 const plugins = [
   new HtmlWebpackPlugin({
@@ -43,9 +41,6 @@ const plugins = [
     defaults: '.env.example',
     systemvars: true,
     path: path.resolve(__dirname, environmentPath)
-  }),
-  new CleanWebpackPlugin({
-    cleanStaleWebpackAssets: false
   }),
   isProduction &&
     new FaviconsWebpackPlugin({
@@ -95,6 +90,17 @@ const plugins = [
       ]
     }),
   isHotReloadEnabled &&
+    new CleanWebpackPlugin({
+      verbose: true,
+      cleanStaleWebpackAssets: false,
+      cleanOnceBeforeBuildPatterns: [
+        '**/*',
+        '!embed.html*',
+        '!standalone.html*',
+        `!${isEmbeddedApp ? 'standalone' : 'embed'}/**`
+      ]
+    }),
+  isHotReloadEnabled &&
     new WebpackPluginServe({
       // client: {silent: true},
       compress: true,
@@ -102,9 +108,9 @@ const plugins = [
       hmr: 'refresh-on-failure',
       // progress: 'minimal',
       host: 'localhost',
-      port: 45000 + (isEmbeddedApp ? -5000 : 5000),
+      port: wpsPort,
       https: {key: sslKey, cert: sslCert},
-      static: outputPath,
+      static: path.resolve(__dirname, '../../static'),
       status: false
     }),
   isHotReloadEnabled &&
@@ -125,7 +131,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '../../static'),
-    filename: `${indexFile}/js/[name]~[${outputSuffix}].js`,
+    filename: `${indexFile}/js/[name]~[${isHotReloadEnabled ? 'hash' : 'contenthash'}].js`,
     chunkFilename: `${indexFile}/js/[name]~[contenthash].chunk.js`,
     publicPath: '/',
     pathinfo: false

@@ -4,7 +4,7 @@
  * @param shop
  * @returns {*}
  */
-export default function getDomain(shop) {
+export default function getDomain(shop = {}) {
   const {domain, shopifyDomain} = shop;
 
   if (domain) {

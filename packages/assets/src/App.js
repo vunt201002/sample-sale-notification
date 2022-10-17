@@ -1,5 +1,5 @@
 import React from 'react';
-import {Router} from 'react-router-dom';
+import {Router, withRouter} from 'react-router-dom';
 import ReactRouterLink from '@assets/components/atoms/ReactRouterLink';
 import {AppProvider} from '@shopify/polaris';
 import translations from '@shopify/polaris/locales/en.json';
@@ -9,8 +9,7 @@ import Routes from './routes/routes';
 import theme from '@assets/config/theme';
 import PropTypes from 'prop-types';
 import AppBridgeProvider from '@assets/components/templates/AppBridgeProvider';
-import AppEmbeddedLayout from '@assets/layouts/EmbeddedLayout/AppEmbeddedLayout';
-import AppFullLayout from '@assets/layouts/FullLayout/AppFullLayout';
+import AppLayout from '@assets/layouts/AppLayout';
 import {isEmbeddedApp} from '@assets/config/app';
 
 /**
@@ -28,26 +27,28 @@ export default function App() {
       features={{newDesignLanguage: isEmbeddedApp}}
     >
       <Router history={history}>
-        <AppLayout>
+        <MainLayout>
           <ErrorBoundary>
             <Routes />
           </ErrorBoundary>
-        </AppLayout>
+        </MainLayout>
       </Router>
     </AppProvider>
   );
 }
 
-const AppLayout = ({children}) => {
+const AppFullLayout = withRouter(({children}) => <AppLayout>{children}</AppLayout>);
+
+const MainLayout = ({children}) => {
   return isEmbeddedApp ? (
     <AppBridgeProvider>
-      <AppEmbeddedLayout>{children}</AppEmbeddedLayout>
+      <AppLayout>{children}</AppLayout>
     </AppBridgeProvider>
   ) : (
     <AppFullLayout>{children}</AppFullLayout>
   );
 };
 
-AppLayout.propTypes = {
+MainLayout.propTypes = {
   children: PropTypes.node
 };

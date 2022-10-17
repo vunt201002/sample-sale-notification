@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import useScreenType from '@assets/hooks/utils/useScreenType';
 import {chunk} from '@avada/utils';
 import useInput from '@assets/hooks/form/useInput';
-import Footer from '@assets/components/atoms/Footer';
 
 /**
  * @return {React.ReactElement}
@@ -68,7 +67,6 @@ export default function Integration({history}) {
           </Layout.Section>
         ))}
       </Layout>
-      <Footer />
     </Page>
   );
 }

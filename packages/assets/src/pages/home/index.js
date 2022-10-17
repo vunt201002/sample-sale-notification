@@ -31,12 +31,6 @@ export default function Home() {
             <p>Upload your store’s logo, change colors and fonts, and more.</p>
           </CalloutCard>
         </Layout.Section>
-        <Layout.Section>
-          <FooterHelp>
-            {'Learn more about '}
-            <Link url="">fulfilling orders</Link>
-          </FooterHelp>
-        </Layout.Section>
       </Layout>
     </Page>
   );

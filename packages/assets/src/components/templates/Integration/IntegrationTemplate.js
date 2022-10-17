@@ -14,7 +14,6 @@ import {
 import React from 'react';
 import PropTypes from 'prop-types';
 import {getRawSupport} from '@assets/services/crispService';
-import Footer from '@assets/components/atoms/Footer';
 
 export default function IntegrationTemplate({app, children}) {
   return (
@@ -75,7 +74,6 @@ export default function IntegrationTemplate({app, children}) {
           </FormLayout>
         </Layout.Section>
       </Layout>
-      <Footer />
     </Page>
   );
 }

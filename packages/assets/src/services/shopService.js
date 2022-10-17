@@ -16,5 +16,5 @@ export function collectActiveShopData({shop, shopInfo}) {
 }
 
 export function isShopUpgradable(_shop) {
-  return true;
+  return false;
 }
