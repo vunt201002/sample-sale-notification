@@ -1,16 +1,25 @@
 import React from 'react';
 import {Spinner} from '@shopify/polaris';
+import NotFound from '@assets/pages/not-found';
+import PropTypes from 'prop-types';
+import '@assets/styles/preloader.scss';
 
 /**
  * Global loading component
  *
- * @return {React.ReactElement}
+ * @returns {JSX.Element|null}
  * @constructor
  */
-export default function Loading() {
-  return (
-    <div className="PreLoading">
-      <Spinner />
-    </div>
-  );
+export default function Loading({error, pastDelay = true}) {
+  if (error) {
+    console.error(error);
+    return <NotFound />;
+  }
+
+  return <div className="PreLoading PreLoading-Spinner">{pastDelay && <Spinner />}</div>;
 }
+
+Loading.propTypes = {
+  error: PropTypes.any,
+  pastDelay: PropTypes.bool
+};
