@@ -12,6 +12,7 @@
     "start": "avada app:serve",
     "logs": "firebase functions:log",
     "emulators": "firebase emulators:start",
+    "emulators-only": "firebase emulators:start --only hosting,functions,pubsub",
     "predeploy": "yarn workspace @avada/assets run production && yarn workspace @avada/functions run production",
     "eslint-fix": "npm --prefix packages/assets/ run eslint-fix && npm --prefix packages/functions/ run eslint-fix",
     "start-dev": "concurrently \"yarn workspace @avada/assets run watch\" \"yarn workspace @avada/functions run watch\""

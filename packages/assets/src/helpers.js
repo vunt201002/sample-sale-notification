@@ -2,15 +2,12 @@ import axios from 'axios';
 import createApp from '@shopify/app-bridge';
 import {authenticatedFetch} from '@shopify/app-bridge-utils';
 import {Redirect} from '@shopify/app-bridge/actions';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/analytics';
-import 'firebase/compat/storage';
-import 'firebase/compat/auth';
-import {createBrowserHistoryWithBasename} from '@assets/services/historyService';
+import {initializeApp} from 'firebase/app';
+import {getAuth} from 'firebase/auth';
 import {getApiPrefix} from '@functions/const/app';
 import {isEmbeddedApp} from '@assets/config/app';
 
-firebase.initializeApp({
+const app = initializeApp({
   appId: process.env.FIREBASE_APP_ID,
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -19,12 +16,12 @@ firebase.initializeApp({
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET
 });
 
-export const auth = firebase.auth();
-export const storage = firebase.storage();
-export const history = createBrowserHistoryWithBasename();
+export const auth = getAuth(app);
 export const embedApp = createEmbedApp();
 export const client = axios.create({timeout: 60000});
 export const api = createApi();
+
+if (module.hot) module.hot.accept();
 
 function createEmbedApp() {
   const host = new URL(window.location).searchParams.get('host');

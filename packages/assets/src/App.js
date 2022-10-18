@@ -3,7 +3,7 @@ import {Router, withRouter} from 'react-router-dom';
 import ReactRouterLink from '@assets/components/atoms/ReactRouterLink';
 import {AppProvider} from '@shopify/polaris';
 import translations from '@shopify/polaris/locales/en.json';
-import {history} from './helpers';
+import {history} from '@assets/history';
 import ErrorBoundary from '@assets/components/templates/ErrorBoundary';
 import Routes from './routes/routes';
 import theme from '@assets/config/theme';

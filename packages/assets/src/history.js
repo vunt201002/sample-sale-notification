@@ -1,7 +1,7 @@
 import {createBrowserHistory} from 'history';
 import {routePrefix} from '@assets/config/app';
 
-export function createBrowserHistoryWithBasename() {
+function createBrowserHistoryWithBasename() {
   const basename = routePrefix;
   const history = createBrowserHistory();
   history.basename = basename;
@@ -9,13 +9,16 @@ export function createBrowserHistoryWithBasename() {
   const push = history.push;
   const replace = history.replace;
   history.push = (to, state = undefined) => {
-    if (to.pathname) {
-      to = to.pathname.replace(basename, '');
-      return appendBaseName(basename, to, state, push);
-    }
     if (typeof to === 'undefined') {
       console.log('No URL found');
       return;
+    }
+    if (to.length === 0) {
+      return;
+    }
+    if (to.pathname) {
+      to = to.pathname.replace(basename, '');
+      return appendBaseName(basename, to, state, push);
     }
     to = to.replace(basename, '');
     appendBaseName(basename, to, state, push);
@@ -45,3 +48,5 @@ function appendBaseName(basename, to, state, callback) {
 
   return callback(to, state);
 }
+
+export const history = createBrowserHistoryWithBasename();

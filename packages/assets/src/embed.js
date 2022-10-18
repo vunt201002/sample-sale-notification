@@ -31,3 +31,5 @@ import {collectActiveShopData} from '@assets/services/shopService';
     document.getElementById('app')
   );
 })();
+
+if (module.hot) module.hot.accept();

@@ -1,5 +1,5 @@
 import React from 'react';
-import {CalloutCard, FooterHelp, Layout, Link, Page} from '@shopify/polaris';
+import {CalloutCard, Layout, Page} from '@shopify/polaris';
 import {getSubscription, setToast} from '@assets/actions/storeActions';
 import {useStore} from '@assets/reducers/storeReducer';
 

@@ -22,7 +22,7 @@
     "@shopify/polaris": "^7.6.0",
     "@shopify/polaris-icons": "^4.23.0",
     "axios": "^0.27.2",
-    "firebase": "^9.9.1",
+    "firebase": "9.10.0",
     "history": "^4.10.1",
     "pegasus-loader": "^1.1.0",
     "prop-types": "^15.8.1",
