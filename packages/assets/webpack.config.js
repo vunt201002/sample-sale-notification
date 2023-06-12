@@ -146,14 +146,11 @@ const plugins = [
     }),
   isHotReloadEnabled &&
     new WebpackPluginServe({
-      // client: {silent: true},
       compress: true,
       historyFallback: true,
       hmr: 'refresh-on-failure',
-      // progress: 'minimal',
       host: 'localhost',
       port: wpsPort,
-      https: {key: sslKey, cert: sslCert},
       static: path.resolve(__dirname, '../../static'),
       status: false
     }),
