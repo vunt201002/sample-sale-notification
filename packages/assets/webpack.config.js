@@ -9,6 +9,7 @@ const Dotenv = require('dotenv-webpack');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const {WebpackPluginServe} = require('webpack-plugin-serve');
 const fs = require('fs');
+const os = require('os');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const environmentPath = !process.env.ENVIRONMENT ? '.env' : `.env.${process.env.ENVIRONMENT}`;
@@ -24,6 +25,49 @@ const [sslKey, sslCert] = ['ssl.key', 'ssl.crt'].map(file => {
   }
 });
 const isHotReloadEnabled = sslKey && sslCert && !isProduction;
+
+if (!isProduction) {
+  const runtimeFile = '../functions/.runtimeconfig.json';
+  fs.readFile(runtimeFile, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    const configData = JSON.parse(data);
+    configData.app.base_url = process.env.HOST.replace('https://', '');
+    configData.shopify.api_key = process.env.SHOPIFY_API_KEY;
+    configData.shopify.secret = process.env.SHOPIFY_API_SECRET;
+    fs.writeFileSync(runtimeFile, JSON.stringify(configData));
+  });
+
+  updateEnvFile('.env.development', {
+    SHOPIFY_API_KEY: process.env.SHOPIFY_API_KEY
+  });
+}
+
+/**
+ *
+ * @param file
+ * @param data
+ */
+function updateEnvFile(file, data) {
+  const ENV_VARS = fs.readFileSync(file, 'utf8').split(os.EOL);
+  const keys = Object.keys(data);
+  for (const key of keys) {
+    // find the env we want based on the key
+    const target = ENV_VARS.indexOf(
+      ENV_VARS.find(line => {
+        return line.match(new RegExp(key));
+      })
+    );
+
+    // replace the key/value with the new value
+    ENV_VARS.splice(target, 1, `${key}=${data[key]}`);
+  }
+
+  // write everything back to the file system
+  fs.writeFileSync(file, ENV_VARS.join(os.EOL));
+}
 
 const plugins = [
   new HtmlWebpackPlugin({

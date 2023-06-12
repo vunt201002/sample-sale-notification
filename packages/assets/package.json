@@ -16,9 +16,9 @@
   "dependencies": {
     "@avada/common-ui": "^1.0.11",
     "@avada/utils": "^0.0.7",
-    "@shopify/app-bridge": "^3.1.4",
-    "@shopify/app-bridge-react": "^3.1.4",
-    "@shopify/app-bridge-utils": "^3.1.4",
+    "@shopify/app-bridge": "^3.7.2",
+    "@shopify/app-bridge-react": "^3.7.2",
+    "@shopify/app-bridge-utils": "^3.5.1",
     "@shopify/polaris": "^7.6.0",
     "@shopify/polaris-icons": "^4.23.0",
     "axios": "^0.27.2",

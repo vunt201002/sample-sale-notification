@@ -15,7 +15,7 @@ export default function AppBridgeProvider({children}) {
       config={{
         host: new URL(window.location).searchParams.get('host'),
         apiKey: process.env.SHOPIFY_API_KEY,
-        forceRedirect: false
+        forceRedirect: true
       }}
     >
       {children}

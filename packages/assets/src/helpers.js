@@ -25,7 +25,7 @@ if (module.hot) module.hot.accept();
 
 function createEmbedApp() {
   const host = new URL(window.location).searchParams.get('host');
-  if (host) return createApp({host, apiKey: process.env.SHOPIFY_API_KEY});
+  if (host) return createApp({host, apiKey: process.env.SHOPIFY_API_KEY, forceRedirect: true});
 }
 
 /**
