@@ -6,12 +6,12 @@
 export function collectActiveShopData({shop, shopInfo}) {
   return {
     ...shop,
-    shopifyPlan: shopInfo.planName,
-    shopifyCountry: shopInfo.country,
-    shopAddress: `${shopInfo.address1 || ''}, ${shopInfo.country}`,
-    shopifyPhone: shopInfo.phone || '',
-    timezone: shopInfo.ianaTimezone,
-    createdAt: shopInfo.createdAt
+    shopifyPlan: shopInfo?.planName,
+    shopifyCountry: shopInfo?.country,
+    shopAddress: `${shopInfo?.address1 || ''}, ${shopInfo?.country}`,
+    shopifyPhone: shopInfo?.phone || '',
+    timezone: shopInfo?.ianaTimezone,
+    createdAt: shopInfo?.createdAt
   };
 }
 

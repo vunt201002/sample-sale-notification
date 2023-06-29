@@ -51,18 +51,15 @@ if (!isProduction) {
  * @param data
  */
 function updateEnvFile(file, data) {
-  const ENV_VARS = fs.readFileSync(file, 'utf8').split(os.EOL);
+  const ENV_VARS = fs.readFileSync(file, 'utf8').split(/\r?\n/);
   const keys = Object.keys(data);
   for (const key of keys) {
     // find the env we want based on the key
-    const target = ENV_VARS.indexOf(
-      ENV_VARS.find(line => {
-        return line.match(new RegExp(key));
-      })
-    );
+    const target = ENV_VARS.indexOf(ENV_VARS.find(line => line.match(new RegExp(key))));
+    const replaceIndex = target === -1 ? ENV_VARS.length - 1 : target;
 
     // replace the key/value with the new value
-    ENV_VARS.splice(target, 1, `${key}=${data[key]}`);
+    ENV_VARS[replaceIndex] = `${key}=${data[key]}`;
   }
 
   // write everything back to the file system
