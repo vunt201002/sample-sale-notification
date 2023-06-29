@@ -26,7 +26,7 @@ const [sslKey, sslCert] = ['ssl.key', 'ssl.crt'].map(file => {
 });
 const isHotReloadEnabled = sslKey && sslCert && !isProduction;
 
-if (!isProduction) {
+if (!isProduction && process.env.SHOPIFY_API_KEY) {
   const runtimeFile = '../functions/.runtimeconfig.json';
   fs.readFile(runtimeFile, 'utf8', (err, data) => {
     if (err) {
