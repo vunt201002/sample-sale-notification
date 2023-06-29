@@ -20,7 +20,7 @@
 firebase use --add
 ```
 
-* Configure all settings for Firebase development environment by create a new file `.runtimeconfig.json`
+* Configure all settings for Firebase development environment by create a new file `.runtimeconfig.json` inside the `packages/functions`
 
 ```json
 {
@@ -28,6 +28,9 @@ firebase use --add
     "api_key": "<Shopify API Key>",
     "secret": "<Shopify Secret>",
     "firebase_api_key": "<Firebase API Key>"
+  },
+  "app": {
+    "base_url": ""
   }
 }
 ```
