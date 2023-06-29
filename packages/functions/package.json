@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "lib/index.js",
   "engines": {
-    "node": "14"
+    "node": "16"
   },
   "scripts": {
     "production": "babel src --out-dir lib --copy-files --include-dotfiles",
