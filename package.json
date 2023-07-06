@@ -21,7 +21,8 @@
     "info": "shopify app info",
     "app-url": "shopify app update-url",
     "extension-create": "shopify app generate extension",
-    "deploy-shopify": "shopify app deploy"
+    "deploy-shopify": "shopify app deploy",
+    "make:ssl": "avada make:ssl"
   },
   "devDependencies": {
     "babel-jest": "^24.9.0",

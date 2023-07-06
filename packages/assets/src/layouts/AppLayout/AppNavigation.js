@@ -79,8 +79,8 @@ export default function AppNavigation() {
             includeUrl: ''
           },
           {
-            label: 'Samples',
-            url: '/samples',
+            label: 'Notifications',
+            url: '/notifications',
             icon: ShareMinor
           },
           {

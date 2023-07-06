@@ -1,6 +1,8 @@
-import React from 'react';
-import {CalloutCard, Layout, Page} from '@shopify/polaris';
-import {getSubscription, setToast} from '@assets/actions/storeActions';
+import React, {useState} from 'react';
+import {
+  Layout,
+  Page, SettingToggle, TextStyle
+} from '@shopify/polaris';
 import {useStore} from '@assets/reducers/storeReducer';
 
 /**
@@ -10,27 +12,24 @@ import {useStore} from '@assets/reducers/storeReducer';
  * @constructor
  */
 export default function Home() {
+  const [enabled, setEnabled] = useState(false);
   const {dispatch} = useStore();
 
   return (
     <Page title="Dashboard">
       <Layout>
         <Layout.Section>
-          <h1>Hello world</h1>
-          <CalloutCard
-            title="Customize the style of your checkout"
-            illustration="https://cdn.shopify.com/s/assets/admin/checkout/settings-customizecart-705f57c725ac05be5a34ec20c05b94298cb8afd10aac7bd9c7ad02030f48cfa0.svg"
-            primaryAction={{
-              content: 'Show toast',
-              onAction: () => setToast(dispatch, 'Success response')
+          <SettingToggle
+            action={{
+              content: enabled ? 'Disable' : 'Enable',
+              onAction() {
+                setEnabled(prev => !prev);
+              }
             }}
-            secondaryAction={{
-              content: 'Get subscription',
-              onAction: () => getSubscription(dispatch)
-            }}
+            enabled={enabled}
           >
-            <p>Upload your store’s logo, change colors and fonts, and more.</p>
-          </CalloutCard>
+            <TextStyle>Our app is {enabled ? 'enabled' : 'disabled'} on your store</TextStyle>
+          </SettingToggle>
         </Layout.Section>
       </Layout>
     </Page>
