@@ -40,7 +40,7 @@
     "delay-cli": "2.0.0"
   },
   "dependencies": {
-    "@avada/console": "^0.0.27-alpha.4",
+    "@avada/console": "1.0.0",
     "concurrently": "^7.6.0",
     "@avada/shopify-app": "3.48.1",
     "@avada/shopify-cli": "3.48.0"
