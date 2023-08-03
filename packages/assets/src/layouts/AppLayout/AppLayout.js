@@ -6,7 +6,7 @@ import {closeToast} from '@assets/actions/storeActions';
 import AppTopBar from '@assets/layouts/AppLayout/AppTopBar';
 import AppNavigation from '@assets/layouts/AppLayout/AppNavigation';
 import {isEmbeddedApp} from '@assets/config/app';
-import {Footer} from '@avada/common-ui';
+import Footer from '@assets/components/Footer/Footer';
 
 /**
  * Render an app layout

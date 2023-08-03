@@ -1,42 +1,18 @@
 import React from 'react';
 import {Route, Switch} from 'react-router-dom';
-import loadable from 'react-loadable';
-import Loading from '@assets/components/atoms/Loading';
-import {prependRoute} from '@assets/config/app';
+import Home from '@assets/loadables/Home';
+import NotFound from '@assets/loadables/NotFound';
+import Samples from '@assets/loadables/Samples/Samples';
+import Settings from '@assets/loadables/Settings/Settings';
+import {routePrefix} from '@assets/config/app';
 
-const createRoute = route => {
-  const {path} = route;
-  const routePath = (() => {
-    if (path === '/home') return prependRoute('/');
-    if (path === '/not-found') return '*';
-    return prependRoute(path);
-  })();
-  const component = loadable({
-    loader: () => import(`../pages${route.path.replace(':', '@')}`),
-    loading: Loading
-  });
-  const exact = path !== '/not-found';
-  return {path: routePath, component, exact};
-};
-
-const createList = routes => {
-  const list = [];
-  routes.forEach(route => {
-    list.push(createRoute(route));
-    list.push(...createList(route.childRoutes));
-  });
-  return list;
-};
-
-const allPages = require('!pegasus-loader!../loaders');
-const allRoutes = createList(allPages.childRoutes);
-allRoutes.sort(a => (a.path === '*' ? 0 : -1));
-
-const Routes = () => (
+// eslint-disable-next-line react/prop-types
+const Routes = ({prefix = routePrefix}) => (
   <Switch>
-    {allRoutes.map((props, key) => (
-      <Route key={key} {...props} />
-    ))}
+    <Route exact path={prefix + '/'} component={Home} />
+    <Route exact path={prefix + '/samples'} component={Samples} />
+    <Route exact path={prefix + '/settings'} component={Settings} />
+    <Route path="*" component={NotFound} />
   </Switch>
 );
 

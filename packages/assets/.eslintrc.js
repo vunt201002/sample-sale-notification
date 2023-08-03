@@ -27,7 +27,8 @@ module.exports = {
   'rules': {
     'prettier/prettier': 'error',
     "require-jsdoc" : 0,
-    "valid-jsdoc": 0
+    "valid-jsdoc": 0,
+    'new-cap': 0
   },
   'settings': {
     'react': {

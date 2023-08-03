@@ -3,7 +3,7 @@ import React from 'react';
 import './styles/app.scss';
 import * as ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import {auth, api} from './helpers';
+import {api, auth} from './helpers';
 import {isEmpty} from '@avada/utils';
 import {StoreProvider} from '@assets/reducers/storeReducer';
 import {collectActiveShopData} from '@assets/services/shopService';

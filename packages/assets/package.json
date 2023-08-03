@@ -10,7 +10,7 @@
     "watch:standalone": "cross-env NODE_ENV=development ENVIRONMENT=development IS_EMBEDDED_APP=no ./node_modules/.bin/webpack --hide-modules --watch --config=webpack.config.js",
     "production": "npm run production:embed && npm run production:standalone",
     "development": "npm run development:embed && npm run development:standalone",
-    "watch": "concurrently \"npm run watch:embed\" \"npm run watch:standalone\"",
+    "watch": "echo 'frontend build running...' && concurrently \"npm run watch:embed\" \"npm run watch:standalone\"",
     "eslint-fix": "./node_modules/.bin/eslint --fix ."
   },
   "dependencies": {

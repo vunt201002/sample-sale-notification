@@ -16,7 +16,7 @@ import '@assets/styles/layout/topbar.scss';
 import {isShopUpgradable} from '@assets/services/shopService';
 import {useStore} from '@assets/reducers/storeReducer';
 import useConfirmSheet from '@assets/hooks/popup/useConfirmSheet';
-import AppNewsSheet from '@assets/components/templates/AppNews/AppNewsSheet';
+import AppNewsSheet from '@assets/components/AppNews/AppNewsSheet';
 
 /**
  * @param {boolean} isNavOpen
@@ -38,7 +38,7 @@ export default function AppTopBar({isNavOpen, toggleOpenNav}) {
             <Button plain onClick={toggleOpenNav}>
               <Icon source={isNavOpen ? MobileCancelMajor : MobileHamburgerMajor} />
             </Button>
-            <img alt="AVADA App Name" src={LOGO_URL} width={LOGO_WIDTH} />
+            <img alt="Avada App Name" src={LOGO_URL} width={LOGO_WIDTH} />
             <DisplayText size="small">
               <Link url="/" removeUnderline>
                 App Name

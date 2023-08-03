@@ -1,24 +1,19 @@
 import React from 'react';
 import {Navigation} from '@shopify/polaris';
-import {useLocation} from 'react-router-dom';
-import {
-  ArrowLeftMinor,
-  HomeMajor,
-  SettingsMajor,
-  ShareMinor,
-  TapChipMajor,
-  TeamMajor
-} from '@shopify/polaris-icons';
+import {useHistory, useLocation} from 'react-router-dom';
+import {ArrowLeftMinor, HomeMajor, SettingsMajor, ShareMinor} from '@shopify/polaris-icons';
 import '@assets/styles/layout/navigation.scss';
 import {useStore} from '@assets/reducers/storeReducer';
 import {isEmbeddedApp, prependRoute} from '@assets/config/app';
 import getDomain from '@assets/helpers/getDomain';
+import {getUrl} from '@assets/helpers/getUrl';
 
 /**
  * @return {JSX.Element}
  * @constructor
  */
 export default function AppNavigation() {
+  const history = useHistory();
   const {pathname} = useLocation();
   const {state} = useStore();
   const {shop} = state;
@@ -76,22 +71,19 @@ export default function AppNavigation() {
             url: '/',
             icon: HomeMajor,
             label: 'Dashboard',
-            includeUrl: ''
+            selected: location.pathname === getUrl('/'),
+            onClick: () => {
+              history.push('/');
+            }
           },
           {
-            label: 'Notifications',
-            url: '/notifications',
-            icon: ShareMinor
-          },
-          {
-            label: 'Integrations',
-            path: '/integrations',
-            icon: TeamMajor
-          },
-          {
-            label: 'Subscription',
-            url: '/subscription',
-            icon: TapChipMajor
+            url: '/samples',
+            icon: ShareMinor,
+            label: 'Samples',
+            selected: location.pathname === getUrl('/samples'),
+            onClick: () => {
+              history.push('/samples');
+            }
           }
         ].reduce(prepareMenu, [])}
       />

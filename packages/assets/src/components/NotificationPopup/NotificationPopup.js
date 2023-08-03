@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './NoticationPopup.scss';
 
 const NotificationPopup = ({
@@ -25,9 +24,7 @@ const NotificationPopup = ({
               <div className={'Avada-SP__Title'}>
                 {firstName} in {city}, {country}
               </div>
-              <div className={'Avada-SP__Subtitle'}>
-                purchased {productName}
-              </div>
+              <div className={'Avada-SP__Subtitle'}>purchased {productName}</div>
               <div className={'Avada-SP__Footer'}>
                 {timestamp}{' '}
                 <span className="uni-blue">

@@ -1,14 +1,14 @@
 import React from 'react';
 import {Router, withRouter} from 'react-router-dom';
-import ReactRouterLink from '@assets/components/atoms/ReactRouterLink';
+import ReactRouterLink from '@assets/components/ReactRouterLink';
 import {AppProvider} from '@shopify/polaris';
 import translations from '@shopify/polaris/locales/en.json';
 import {history} from '@assets/history';
-import ErrorBoundary from '@assets/components/templates/ErrorBoundary';
+import ErrorBoundary from '@assets/components/ErrorBoundary';
 import Routes from './routes/routes';
 import theme from '@assets/config/theme';
 import PropTypes from 'prop-types';
-import AppBridgeProvider from '@assets/components/templates/AppBridgeProvider';
+import AppBridgeProvider from '@assets/components/AppBridgeProvider';
 import AppLayout from '@assets/layouts/AppLayout';
 import {isEmbeddedApp} from '@assets/config/app';
 

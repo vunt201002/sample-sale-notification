@@ -24,25 +24,30 @@ const [sslKey, sslCert] = ['ssl.key', 'ssl.crt'].map(file => {
     return null;
   }
 });
+
 const isHotReloadEnabled = sslKey && sslCert && !isProduction;
 
 if (!isProduction && process.env.SHOPIFY_API_KEY) {
-  const runtimeFile = '../functions/.runtimeconfig.json';
-  fs.readFile(runtimeFile, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    const configData = JSON.parse(data);
-    configData.app.base_url = process.env.HOST.replace('https://', '');
-    configData.shopify.api_key = process.env.SHOPIFY_API_KEY;
-    configData.shopify.secret = process.env.SHOPIFY_API_SECRET;
-    fs.writeFileSync(runtimeFile, JSON.stringify(configData));
-  });
+  try {
+    const runtimeFile = '../functions/.runtimeconfig.json';
+    fs.readFile(runtimeFile, 'utf8', (err, data) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      const configData = JSON.parse(data);
+      configData.app.base_url = process.env.HOST.replace('https://', '');
+      configData.shopify.api_key = process.env.SHOPIFY_API_KEY;
+      configData.shopify.secret = process.env.SHOPIFY_API_SECRET;
+      fs.writeFileSync(runtimeFile, JSON.stringify(configData, null, 4));
+    });
 
-  updateEnvFile('.env.development', {
-    SHOPIFY_API_KEY: process.env.SHOPIFY_API_KEY
-  });
+    updateEnvFile('.env.development', {
+      SHOPIFY_API_KEY: process.env.SHOPIFY_API_KEY
+    });
+  } catch (e) {
+    console.error('Error changing the env file');
+  }
 }
 
 /**
