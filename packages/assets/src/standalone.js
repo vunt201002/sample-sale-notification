@@ -1,7 +1,7 @@
 import App from './App';
 import React from 'react';
 import './styles/app.scss';
-import * as ReactDOM from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import * as serviceWorker from './serviceWorker';
 import {api, auth} from './helpers';
 import {isEmpty} from '@avada/utils';
@@ -11,9 +11,13 @@ import {collectActiveShopData} from '@assets/services/shopService';
 window.isAuthenticated = false;
 
 auth.onAuthStateChanged(async user => {
+  const container = document.getElementById('app');
+  const root = createRoot(container);
+
   if (user === null && !window.isAuthenticated) {
+    debugger;
     window.location.href = 'auth/login';
-    ReactDOM.render(<div />, document.getElementById('app'));
+    root.render(<div />);
   } else {
     window.isAuthenticated = true;
 
@@ -40,11 +44,11 @@ auth.onAuthStateChanged(async user => {
     if (loading !== null) {
       loading.style.display = 'none';
     }
-    ReactDOM.render(
+
+    root.render(
       <StoreProvider {...{user, activeShop}}>
         <App />
-      </StoreProvider>,
-      document.getElementById('app')
+      </StoreProvider>
     );
   }
 });

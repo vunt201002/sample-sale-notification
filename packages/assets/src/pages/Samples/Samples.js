@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, IndexTable, Layout, Page, TextStyle, useIndexResourceState} from '@shopify/polaris';
+import {Card, IndexTable, Layout, Page, useIndexResourceState, Text} from '@shopify/polaris';
 import useFetchApi from '@assets/hooks/api/useFetchApi';
 
 /**
@@ -14,7 +14,7 @@ export default function Samples() {
   const {selectedResources, handleSelectionChange} = useIndexResourceState(todos);
 
   return (
-    <Page title="Samples" breadcrumbs={[{url: '/'}]}>
+    <Page title="Samples">
       <Layout>
         <Layout.Section>
           <Card>
@@ -34,7 +34,9 @@ export default function Samples() {
                   selected={selectedResources.includes(id)}
                 >
                   <IndexTable.Cell>
-                    <TextStyle variation="strong">{title}</TextStyle>
+                    <Text variant="bodyMd" as="span" fontWeight="semibold">
+                      {title}
+                    </Text>
                   </IndexTable.Cell>
                 </IndexTable.Row>
               ))}

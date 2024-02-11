@@ -15,7 +15,7 @@ import Footer from '@assets/components/Footer/Footer';
  * @return {React.ReactNode}
  * @constructor
  */
-export default function AppLayout({children}) {
+export default function AppFullLayout({children}) {
   const {state, dispatch} = useStore();
   const {loading, toast} = state;
 
@@ -52,6 +52,6 @@ export default function AppLayout({children}) {
   );
 }
 
-AppLayout.propTypes = {
+AppFullLayout.propTypes = {
   children: PropTypes.node.isRequired
 };

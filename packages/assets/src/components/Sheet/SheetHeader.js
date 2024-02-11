@@ -1,7 +1,7 @@
 import React from 'react';
-import {Button, DisplayText} from '@shopify/polaris';
+import {Button, Text} from '@shopify/polaris';
 import * as PropTypes from 'prop-types';
-import {MobileCancelMajor} from '@shopify/polaris-icons';
+import {XIcon} from '@shopify/polaris-icons';
 
 /**
  * @param handleClose
@@ -14,9 +14,13 @@ import {MobileCancelMajor} from '@shopify/polaris-icons';
 export default function SheetHeader({handleClose, title = '', loading = false, children}) {
   return (
     <div className="Avada-Sheet__Header">
-      {title && <DisplayText size="small">{title}</DisplayText>}
+      {title && (
+        <Text variant="headingLg" as="p">
+          {title}
+        </Text>
+      )}
       {children}
-      <Button icon={MobileCancelMajor} disabled={loading} onClick={() => handleClose()} plain />
+      <Button icon={XIcon} disabled={loading} onClick={() => handleClose()} variant="plain" />
     </div>
   );
 }

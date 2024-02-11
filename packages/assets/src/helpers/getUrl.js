@@ -1,9 +1,10 @@
-import {routePrefix} from '../config/app';
+import appRoute from '../const/app';
+import isEmbeddedAppEnv from './isEmbeddedAppEnv';
 
 /**
  * @param url
  * @returns {string}
  */
 export function getUrl(url) {
-  return routePrefix + url;
+  return (isEmbeddedAppEnv ? appRoute.embed : appRoute.standalone) + url;
 }

@@ -4,20 +4,19 @@ import {
   Badge,
   Button,
   Card,
-  DisplayText,
   EmptyState,
   SkeletonBodyText,
   SkeletonDisplayText,
   Spinner,
-  Stack,
+  LegacyStack,
   TextContainer,
   TextField,
-  TextStyle
+  Text
 } from '@shopify/polaris';
 import usePaginate from '@assets/hooks/api/usePaginate';
 import SheetBody from '@assets/components/Sheet/SheetBody';
 import SheetHeader from '@assets/components/Sheet/SheetHeader';
-import {SearchMajor} from '@shopify/polaris-icons';
+import {SearchIcon} from '@shopify/polaris-icons';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
@@ -76,8 +75,8 @@ export default function AppNewsSheet({closeSheet}) {
   return (
     <>
       <SheetHeader handleClose={closeSheet} loading={loading}>
-        <Stack alignment="center">
-          <Stack.Item fill>
+        <LegacyStack alignment="center">
+          <LegacyStack.Item fill>
             {actions.openSearch ? (
               <div onKeyDown={event => event.keyCode === 13 && onSearch()}>
                 <TextField
@@ -97,17 +96,24 @@ export default function AppNewsSheet({closeSheet}) {
                 />
               </div>
             ) : (
-              <DisplayText size="small">{"What's new on Avada"}</DisplayText>
+              <Text variant="headingLg" as="p">
+                {"What's new on Avada"}
+              </Text>
             )}
-          </Stack.Item>
-        </Stack>
+          </LegacyStack.Item>
+        </LegacyStack>
         {!actions.openSearch && loading && (
           <div style={{marginTop: '5px'}}>
             <Spinner size="small" />
           </div>
         )}
         <div style={{marginRight: '1rem'}} />
-        <Button icon={SearchMajor} disabled={loading} onClick={() => toggleSearch()} plain />
+        <Button
+          icon={SearchIcon}
+          disabled={loading}
+          onClick={() => toggleSearch()}
+          variant="plain"
+        />
         <div style={{marginRight: '1rem'}} />
       </SheetHeader>
       <SheetBody
@@ -117,19 +123,29 @@ export default function AppNewsSheet({closeSheet}) {
         classNames={['Avada-Sheet__AppNews']}
         onScrolledToBottom={() => loadMoreOnScroll()}
       >
-        <Stack vertical>
+        <LegacyStack vertical>
           {!fetched && <AppNewsSkeleton loop={2} />}
           {data.map((item, index) => (
             <Card sectioned key={index}>
-              <Stack alignment="center" spacing="tight">
+              <LegacyStack alignment="center" spacing="tight">
                 <Badge status="success">{category(item).title}</Badge>
-                <TextStyle variation="subdued">{formatDateOnly(item.updated_at)}</TextStyle>
-              </Stack>
+                <Text variant="bodyMd" as="span" color="subdued">
+                  {formatDateOnly(item.updated_at)}
+                </Text>
+              </LegacyStack>
               <div style={{marginBottom: '1rem'}} />
-              <Button url={prepareUrl(item)} removeUnderline external plain textAlign="left">
-                <DisplayText>
-                  <TextStyle variation="strong">{item.title}</TextStyle>
-                </DisplayText>
+              <Button
+                url={prepareUrl(item)}
+                removeUnderline
+                external
+                textAlign="left"
+                variant="plain"
+              >
+                <Text variant="headingXl" as="p">
+                  <Text variant="bodyMd" as="span" fontWeight="semibold">
+                    {item.title}
+                  </Text>
+                </Text>
               </Button>
               <ReactMarkdown
                 className="prose"
@@ -146,7 +162,7 @@ export default function AppNewsSheet({closeSheet}) {
               Try changing the filters or search term
             </EmptyState>
           )}
-        </Stack>
+        </LegacyStack>
       </SheetBody>
     </>
   );

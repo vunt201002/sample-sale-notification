@@ -1,7 +1,7 @@
 import React from 'react';
 import {Navigation} from '@shopify/polaris';
 import {useHistory, useLocation} from 'react-router-dom';
-import {ArrowLeftMinor, HomeMajor, SettingsMajor, ShareMinor} from '@shopify/polaris-icons';
+import {ArrowLeftIcon, HomeIcon, SettingsIcon, ShareIcon} from '@shopify/polaris-icons';
 import '@assets/styles/layout/navigation.scss';
 import {useStore} from '@assets/reducers/storeReducer';
 import {isEmbeddedApp, prependRoute} from '@assets/config/app';
@@ -56,7 +56,7 @@ export default function AppNavigation() {
         <Navigation.Section
           items={[
             {
-              icon: ArrowLeftMinor,
+              icon: ArrowLeftIcon,
               label: 'Back to Shopify',
               onClick: () => window.open(`https://${getDomain(shop)}/admin`)
             }
@@ -69,7 +69,7 @@ export default function AppNavigation() {
         items={[
           {
             url: '/',
-            icon: HomeMajor,
+            icon: HomeIcon,
             label: 'Dashboard',
             selected: location.pathname === getUrl('/'),
             onClick: () => {
@@ -78,7 +78,7 @@ export default function AppNavigation() {
           },
           {
             url: '/samples',
-            icon: ShareMinor,
+            icon: ShareIcon,
             label: 'Samples',
             selected: location.pathname === getUrl('/samples'),
             onClick: () => {
@@ -93,7 +93,7 @@ export default function AppNavigation() {
           {
             label: 'Settings',
             url: '/settings',
-            icon: SettingsMajor
+            icon: SettingsIcon
           }
         ].reduce(prepareMenu, [])}
       />

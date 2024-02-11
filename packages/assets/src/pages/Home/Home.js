@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Layout, Page, SettingToggle, TextStyle} from '@shopify/polaris';
+import {Layout, Page, SettingToggle, Text} from '@shopify/polaris';
 import {useStore} from '@assets/reducers/storeReducer';
 
 /**
@@ -25,7 +25,9 @@ export default function Home() {
             }}
             enabled={enabled}
           >
-            <TextStyle>Our app is {enabled ? 'enabled' : 'disabled'} on your store</TextStyle>
+            <Text variant="bodyMd" as="span">
+              Our app is{enabled ? 'enabled' : 'disabled'}on your store
+            </Text>
           </SettingToggle>
         </Layout.Section>
       </Layout>

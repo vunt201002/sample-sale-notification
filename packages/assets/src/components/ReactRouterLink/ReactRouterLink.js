@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
  * @constructor
  */
 export default function ReactRouterLink({children, url = '', ...rest}) {
-  // Use a regular a tag for external and download links
+  // Use an regular a tag for external and download links
   if (isOutboundLink(url) || rest.download || rest.external) {
     if (rest.external) {
       delete rest.external;

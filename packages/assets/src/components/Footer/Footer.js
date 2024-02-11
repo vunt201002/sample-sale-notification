@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="Avada-Footer__Body">
           <FooterHelp>
             {'Created by '}
-            <Button plain external url="https://avada.io">
+            <Button external url="https://avada.io" variant="plain">
               Avada
             </Button>
             {' with love'}

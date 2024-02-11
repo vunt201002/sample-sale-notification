@@ -1,11 +1,11 @@
 import App from './App';
 import React from 'react';
 import './styles/app.scss';
-import * as ReactDOM from 'react-dom';
 import {api} from './helpers';
 import {isEmpty} from '@avada/utils';
 import {StoreProvider} from '@assets/reducers/storeReducer';
 import {collectActiveShopData} from '@assets/services/shopService';
+import {createRoot} from 'react-dom/client';
 
 (async () => {
   const {shop, shopInfo} = await api('/shops');
@@ -24,11 +24,13 @@ import {collectActiveShopData} from '@assets/services/shopService';
   if (loading !== null) {
     loading.style.display = 'none';
   }
-  ReactDOM.render(
+
+  const container = document.getElementById('app');
+  const root = createRoot(container);
+  root.render(
     <StoreProvider {...{user, activeShop}}>
       <App />
-    </StoreProvider>,
-    document.getElementById('app')
+    </StoreProvider>
   );
 })();
 
