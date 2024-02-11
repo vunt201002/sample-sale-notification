@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
-import {Button, DisplayText, Sheet} from '@shopify/polaris';
-import {CancelSmallMinor} from '@shopify/polaris-icons';
+import {Button, Sheet, Text} from '@shopify/polaris';
+import {XSmallIcon} from '@shopify/polaris-icons';
 
 /**
  * @param Header
@@ -58,8 +58,10 @@ export default function useConfirmSheet({
       <div className="Avada-Sheet__Wrapper">
         {title && (
           <div className="Avada-Sheet__Header">
-            <DisplayText size="small">{title}</DisplayText>
-            <Button icon={CancelSmallMinor} onClick={() => closeSheet()} plain />
+            <Text variant="headingLg" as="p">
+              {title}
+            </Text>
+            <Button icon={XSmallIcon} onClick={() => closeSheet()} variant="plain" />
           </div>
         )}
         <Content {...params} />

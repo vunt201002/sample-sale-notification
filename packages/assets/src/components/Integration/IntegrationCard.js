@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button, Card, Icon, Stack, TextStyle} from '@shopify/polaris';
+import {Button, Card, Icon, LegacyStack, Text} from '@shopify/polaris';
 
 export default function IntegrationCard({app, handleOpenLink}) {
   return (
@@ -11,15 +11,19 @@ export default function IntegrationCard({app, handleOpenLink}) {
             {app.img && <img src={app.img} alt={app.title} width={45} />}
             {app.icon && <Icon source={app.icon} />}
           </div>
-          <Stack vertical spacing="tight">
-            <TextStyle variation="strong">{app.title}</TextStyle>
-            <TextStyle>{app.description}</TextStyle>
+          <LegacyStack vertical spacing="tight">
+            <Text variant="bodyMd" as="span" fontWeight="semibold">
+              {app.title}
+            </Text>
+            <Text variant="bodyMd" as="span">
+              {app.description}
+            </Text>
             {app.button && (
-              <Button primary disabled={app.status === 'disable'}>
+              <Button disabled={app.status === 'disable'} variant="primary">
                 {app.button}
               </Button>
             )}
-          </Stack>
+          </LegacyStack>
         </div>
       </AppLink>
     </Card>

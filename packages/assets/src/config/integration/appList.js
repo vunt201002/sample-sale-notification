@@ -1,4 +1,4 @@
-import {CodeMajor} from '@shopify/polaris-icons';
+import {CodeIcon} from '@shopify/polaris-icons';
 
 export const LOGO_ALI_REVIEWS = 'https://cdn1.avada.io/joy/alireview-logo.jpeg';
 export const LOGO_RYVIU = 'https://cdn1.avada.io/joy/ryviu-logo.png';
@@ -26,7 +26,7 @@ export const integrationApps = [
     title: 'Sample title 1',
     description: `Sample description 1`,
     url: '/integrations/sample',
-    icon: CodeMajor,
+    icon: CodeIcon,
     button: 'Sample button 1 ',
     category: INTEGRATION_CATEGORY_SAMPLE_1,
     externalUrl: 'https://apps.shopify.com/partners/avada',

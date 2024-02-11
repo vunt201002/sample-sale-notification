@@ -4,7 +4,7 @@ import * as errorService from '@functions/services/errorService';
 import apiRouter from '@functions/routes/api';
 import render from 'koa-ejs';
 import path from 'path';
-import {verifyEmbedRequest} from '@avada/shopify-auth';
+import {verifyEmbedRequest} from '@avada/core';
 import shopifyConfig from '@functions/config/shopify';
 import appConfig from '@functions/config/app';
 

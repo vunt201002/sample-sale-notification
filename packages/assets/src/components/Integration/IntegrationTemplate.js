@@ -9,7 +9,7 @@ import {
   Link,
   List,
   Page,
-  Stack
+  LegacyStack
 } from '@shopify/polaris';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -18,14 +18,14 @@ import {getRawSupport} from '@assets/services/crispService';
 export default function IntegrationTemplate({app, children}) {
   return (
     <Page
-      breadcrumbs={[{url: '/integrations'}]}
+      backAction={{url: '/integrations'}}
       fullWidth
       title={
-        <Stack alignment="center" spacing="tight">
+        <LegacyStack alignment="center" spacing="tight">
           {app.img && <img src={app.img} alt={app.title} width={45} />}
           {app.icon && <Icon source={app.icon} />}
-          <Stack.Item>{app.title}</Stack.Item>
-        </Stack>
+          <LegacyStack.Item>{app.title}</LegacyStack.Item>
+        </LegacyStack>
       }
     >
       <Layout>
@@ -35,9 +35,8 @@ export default function IntegrationTemplate({app, children}) {
             <Banner status="info" title={`Cannot integrate with ${app.title}?`}>
               {'Don’t hesitate. '}
               <Button
-                plain
-                primary
                 onClick={() => getRawSupport(`Hi, please help us integrate with ${app.title}`)}
+                variant="tertiary"
               >
                 Contact us for more support
               </Button>
@@ -46,7 +45,7 @@ export default function IntegrationTemplate({app, children}) {
         </Layout.Section>
         <Layout.Section oneHalf>
           <FormLayout>
-            <Button fullWidth external primary url={app.externalUrl}>
+            <Button fullWidth external url={app.externalUrl} variant="primary">
               Go to App
             </Button>
             {app.usefulLinks?.length > 0 && (

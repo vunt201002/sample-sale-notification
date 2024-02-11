@@ -6,12 +6,12 @@
     "packages/*"
   ],
   "scripts": {
-    "deploy": "firebase deploy",
-    "serve": "firebase serve",
-    "shell": "firebase functions:shell",
+    "deploy": "./node_modules/.bin/firebase deploy",
+    "serve": "./node_modules/.bin/firebase serve",
+    "shell": "./node_modules/.bin/firebase functions:shell",
     "start": "avada app:serve",
-    "logs": "firebase functions:log",
-    "emulators": "firebase emulators:start",
+    "logs": "./node_modules/.bin/firebase functions:log",
+    "emulators": "npx kill-port 8095 &&  ./node_modules/.bin/firebase emulators:start --only hosting,functions,pubsub",
     "predeploy": "yarn workspace @avada/assets run production && yarn workspace @avada/functions run production",
     "eslint-fix": "npm --prefix packages/assets/ run eslint-fix && npm --prefix packages/functions/ run eslint-fix",
     "start-dev-embed": "npm run timeout && echo 'backend build running...' && concurrently \"yarn workspace @avada/functions run watch\"",
@@ -37,7 +37,8 @@
     "eslint-plugin-react": "^7.16.0",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
-    "delay-cli": "2.0.0"
+    "delay-cli": "2.0.0",
+    "firebase-tools": "^12.9.1"
   },
   "dependencies": {
     "@avada/console": "1.0.0",

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "lib/index.js",
   "engines": {
-    "node": "16"
+    "node": "20"
   },
   "scripts": {
     "production": "babel src --out-dir lib --copy-files --include-dotfiles",
@@ -12,7 +12,9 @@
     "eslint-fix": "./node_modules/.bin/eslint --fix ."
   },
   "dependencies": {
+    "@avada/core": "1.1.12",
     "@avada/firestore-utils": "0.0.3",
+    "@google-cloud/pubsub": "^3.7.1",
     "@avada/shopify-auth": "1.4.0",
     "@avada/subscription": "0.0.15",
     "@avada/shopify-charge": "1.3.12",
