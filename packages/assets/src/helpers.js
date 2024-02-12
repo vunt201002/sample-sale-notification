@@ -8,12 +8,12 @@ import {getApiPrefix} from '@functions/const/app';
 import {isEmbeddedApp} from '@assets/config/app';
 
 const app = initializeApp({
-  appId: process.env.FIREBASE_APP_ID,
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET
 });
 
 export const auth = getAuth(app);
@@ -21,11 +21,10 @@ export const embedApp = createEmbedApp();
 export const client = axios.create({timeout: 60000});
 export const api = createApi();
 
-if (module.hot) module.hot.accept();
-
 function createEmbedApp() {
   const host = new URL(window.location).searchParams.get('host');
-  if (host) return createApp({host, apiKey: process.env.SHOPIFY_API_KEY, forceRedirect: true});
+  if (host)
+    return createApp({host, apiKey: import.meta.env.VITE_SHOPIFY_API_KEY, forceRedirect: true});
 }
 
 /**

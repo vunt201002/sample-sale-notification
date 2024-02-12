@@ -87,81 +87,81 @@ const plugins = [
     defaults: '.env.example',
     systemvars: true,
     path: path.resolve(__dirname, environmentPath)
-  }),
-  isProduction &&
-    new FaviconsWebpackPlugin({
-      logo: path.resolve('webpack/icons/icon.png'),
-      favicons: {
-        icons: {
-          android: true,
-          appleIcon: true,
-          appleStartup: true,
-          coast: true,
-          favicons: true,
-          firefox: true,
-          windows: true,
-          yandex: true
-        }
-      }
-    }),
-  isProduction &&
-    new workboxPlugin.GenerateSW({
-      swDest: 'sw.js',
-      clientsClaim: true,
-      skipWaiting: true
-    }),
-  isProduction &&
-    new WebpackPwaManifest({
-      filename: 'manifest.json',
-      inject: true,
-      start_url: '.',
-      orientation: 'portrait',
-      display: 'standalone',
-      fingerprints: true,
-      name: 'AVADA',
-      short_name: 'avada',
-      description: 'An AVADA application for Shopify',
-      background_color: '#ffffff',
-      icons: [
-        {
-          src: path.resolve('webpack/icons/icon.png'),
-          sizes: [96, 128, 192, 256, 384, 512],
-          destination: path.join('icons')
-        },
-        {
-          src: path.resolve('webpack/icons/icon-large.png'),
-          size: '1024x1024',
-          destination: path.join('icons')
-        }
-      ]
-    }),
-  isHotReloadEnabled &&
-    new CleanWebpackPlugin({
-      verbose: true,
-      cleanStaleWebpackAssets: false,
-      cleanOnceBeforeBuildPatterns: [
-        '**/*',
-        '!embed.html*',
-        '!standalone.html*',
-        `!${isEmbeddedApp ? 'standalone' : 'embed'}/**`
-      ]
-    }),
-  isHotReloadEnabled &&
-    new WebpackPluginServe({
-      compress: true,
-      historyFallback: true,
-      hmr: 'refresh-on-failure',
-      host: 'localhost',
-      port: wpsPort,
-      static: path.resolve(__dirname, '../../static'),
-      status: false
-    }),
-  isHotReloadEnabled &&
-    new ReactRefreshWebpackPlugin({
-      overlay: {
-        sockIntegration: 'wps'
-      }
-    })
+  })
+  // isProduction &&
+  //   new FaviconsWebpackPlugin({
+  //     logo: path.resolve('webpack/icons/icon.png'),
+  //     favicons: {
+  //       icons: {
+  //         android: true,
+  //         appleIcon: true,
+  //         appleStartup: true,
+  //         coast: true,
+  //         favicons: true,
+  //         firefox: true,
+  //         windows: true,
+  //         yandex: true
+  //       }
+  //     }
+  //   }),
+  // isProduction &&
+  //   new workboxPlugin.GenerateSW({
+  //     swDest: 'sw.js',
+  //     clientsClaim: true,
+  //     skipWaiting: true
+  //   }),
+  // isProduction &&
+  //   new WebpackPwaManifest({
+  //     filename: 'manifest.json',
+  //     inject: true,
+  //     start_url: '.',
+  //     orientation: 'portrait',
+  //     display: 'standalone',
+  //     fingerprints: true,
+  //     name: 'AVADA',
+  //     short_name: 'avada',
+  //     description: 'An AVADA application for Shopify',
+  //     background_color: '#ffffff',
+  //     icons: [
+  //       {
+  //         src: path.resolve('webpack/icons/icon.png'),
+  //         sizes: [96, 128, 192, 256, 384, 512],
+  //         destination: path.join('icons')
+  //       },
+  //       {
+  //         src: path.resolve('webpack/icons/icon-large.png'),
+  //         size: '1024x1024',
+  //         destination: path.join('icons')
+  //       }
+  //     ]
+  //   }),
+  // isHotReloadEnabled &&
+  //   new CleanWebpackPlugin({
+  //     verbose: true,
+  //     cleanStaleWebpackAssets: false,
+  //     cleanOnceBeforeBuildPatterns: [
+  //       '**/*',
+  //       '!embed.html*',
+  //       '!standalone.html*',
+  //       `!${isEmbeddedApp ? 'standalone' : 'embed'}/**`
+  //     ]
+  //   }),
+  // isHotReloadEnabled &&
+  //   new WebpackPluginServe({
+  //     compress: true,
+  //     historyFallback: true,
+  //     hmr: 'refresh-on-failure',
+  //     host: 'localhost',
+  //     port: wpsPort,
+  //     static: path.resolve(__dirname, '../../static'),
+  //     status: false
+  //   }),
+  // isHotReloadEnabled &&
+  //   new ReactRefreshWebpackPlugin({
+  //     overlay: {
+  //       sockIntegration: 'wps'
+  //     }
+  //   })
 ].filter(Boolean);
 
 module.exports = {

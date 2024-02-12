@@ -4,7 +4,7 @@
  * @link https://developers.google.com/web/tools/workbox/guides/codelabs/webpack
  */
 export function register() {
-  if (process.env.NODE_ENV !== 'production' || !'serviceWorker' in navigator) {
+  if (import.meta.env.VITE_NODE_ENV !== 'production' || !'serviceWorker' in navigator) {
     return;
   }
   window.addEventListener('load', () => {
