@@ -6,7 +6,7 @@ import {Card, Layout, Page} from '@shopify/polaris';
  */
 export default function Settings() {
   return (
-    <Page title="Settings 23434">
+    <Page title="Settings">
       <Layout sectioned>
         <Card sectioned>Settings 3</Card>
       </Layout>

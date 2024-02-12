@@ -1,6 +1,10 @@
 import {defineConfig, transformWithEsbuild} from 'vite';
 import react from '@vitejs/plugin-react';
 import * as path from 'path';
+import fs from 'fs';
+import os from 'os';
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 let hmrConfig;
 if (host === 'localhost') {
@@ -27,6 +31,50 @@ const proxyOptions = {
 };
 
 const host = process.env.HOST ? process.env.HOST.replace(/https?:\/\//, '') : 'localhost';
+
+if (!isProduction && process.env.SHOPIFY_API_KEY) {
+  try {
+    const runtimeFile = '../functions/.runtimeconfig.json';
+    fs.readFile(runtimeFile, 'utf8', (err, data) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      const configData = JSON.parse(data);
+      configData.app.base_url = process.env.HOST.replace('https://', '');
+      configData.shopify.api_key = process.env.SHOPIFY_API_KEY;
+      configData.shopify.secret = process.env.SHOPIFY_API_SECRET;
+      fs.writeFileSync(runtimeFile, JSON.stringify(configData, null, 4));
+    });
+
+    updateEnvFile('.env.development', {
+      VITE_SHOPIFY_API_KEY: process.env.SHOPIFY_API_KEY
+    });
+  } catch (e) {
+    console.error('Error changing the env file');
+  }
+}
+
+/**
+ *
+ * @param file
+ * @param data
+ */
+function updateEnvFile(file, data) {
+  const ENV_VARS = fs.readFileSync(file, 'utf8').split(/\r?\n/);
+  const keys = Object.keys(data);
+  for (const key of keys) {
+    // find the env we want based on the key
+    const target = ENV_VARS.indexOf(ENV_VARS.find(line => line.match(new RegExp(key))));
+    const replaceIndex = target === -1 ? ENV_VARS.length - 1 : target;
+
+    // replace the key/value with the new value
+    ENV_VARS[replaceIndex] = `${key}=${data[key]}`;
+  }
+
+  // write everything back to the file system
+  fs.writeFileSync(file, ENV_VARS.join(os.EOL));
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
