@@ -2,7 +2,7 @@
 
 name = "avada sample app embed"
 client_id = "ebacb85ac65eef49580f3662abba24ce"
-application_url = "https://foundations-real-bad-bidder.trycloudflare.com/auth/shopify"
+application_url = "https://qatar-mortality-smoking-featured.trycloudflare.com/auth/shopify"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ use_legacy_install_flow = true
 
 [auth]
 redirect_urls = [
-  "https://foundations-real-bad-bidder.trycloudflare.com/auth/shopify/callback",
-  "https://foundations-real-bad-bidder.trycloudflare.com/authSa/shopify/callback",
-  "https://foundations-real-bad-bidder.trycloudflare.com/auth/shopify/embed/callback",
+  "https://qatar-mortality-smoking-featured.trycloudflare.com/auth/shopify/callback",
+  "https://qatar-mortality-smoking-featured.trycloudflare.com/authSa/shopify/callback",
+  "https://qatar-mortality-smoking-featured.trycloudflare.com/auth/shopify/embed/callback",
   "https://localhost:3000/auth/shopify/callback",
   "https://localhost:3000/authSa/shopify/callback",
   "https://localhost:3000/auth/shopify/embed/callback"

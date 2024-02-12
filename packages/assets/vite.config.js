@@ -5,6 +5,7 @@ import fs from 'fs';
 import os from 'os';
 
 const isProduction = process.env.NODE_ENV === 'production';
+const host = process.env.HOST ? process.env.HOST.replace(/https?:\/\//, '') : 'localhost';
 
 let hmrConfig;
 if (host === 'localhost') {
@@ -29,8 +30,6 @@ const proxyOptions = {
   secure: true,
   ws: false
 };
-
-const host = process.env.HOST ? process.env.HOST.replace(/https?:\/\//, '') : 'localhost';
 
 if (!isProduction && process.env.SHOPIFY_API_KEY) {
   try {
@@ -99,7 +98,7 @@ export default defineConfig({
       name: 'index-html-build-replacement',
       apply: 'build',
       async transformIndexHtml() {
-        return fs.readFile('./embed.html');
+        return fs.readFile('./embed.html', () => {});
       }
     },
     react()
@@ -126,6 +125,14 @@ export default defineConfig({
       '^/(\\?.*)?$': proxyOptions,
       '^/api(/|(\\?.*)?$)': proxyOptions,
       '^/auth(/|(\\?.*)?$)': proxyOptions
+    }
+  },
+  build: {
+    outDir: '../../static',
+    rollupOptions: {
+      input: {
+        app: './embed.html'
+      }
     }
   }
 });

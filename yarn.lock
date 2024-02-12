@@ -4115,12 +4115,17 @@
   resolved "https://registry.yarnpkg.com/@shopify/app-bridge-core/-/app-bridge-core-1.0.2.tgz#083835998082c1577f30c34224ab0750d9bee204"
   integrity sha512-lI+nZHMDqBJSqTBQiI1GY3Xs7YjPuZ83/sW7TIvWtTsxQZyoanAVXloo63sGEd58t1KvKFnDtVFN1NJYe/zouQ==
 
-"@shopify/app-bridge-react@^3.7.2":
-  version "3.7.7"
-  resolved "https://registry.yarnpkg.com/@shopify/app-bridge-react/-/app-bridge-react-3.7.7.tgz#660c07dcbb5b6cbc41d1abfbb71691bdd73dfb92"
-  integrity sha512-uvv0uWMvKRdB7+VPAt9E9M8kC+MKkTvt88Q+lxasD8E6NOHEczZ1YhPFYHoZQCeV4ug44ebcK44XSQwbGplGtg==
+"@shopify/app-bridge-core@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@shopify/app-bridge-core/-/app-bridge-core-1.1.1.tgz#b8b16e7c4ba60d6d593a89f397e4abef9be6ef50"
+  integrity sha512-kEnJUpkC9vDdmGMN3Mezq/FlDBqP+DFg/A1PFzqTW8FILu0wzFmz1aFk4Hxy6Y6ilceMmn8QXsyLA9DfaeH4jQ==
+
+"@shopify/app-bridge-react@^3.7.10":
+  version "3.7.10"
+  resolved "https://registry.yarnpkg.com/@shopify/app-bridge-react/-/app-bridge-react-3.7.10.tgz#92059bbdfd88d711cc19b301e413f76d419aa22b"
+  integrity sha512-MIvsSnJ/YNd8iOdfUiPJK5hPSHhQRO8PKmjfwvNqpduQiBVrN5Y29AAYth9NFwP20QMxC92MIkyYWtENYXRoVA==
   dependencies:
-    "@shopify/app-bridge" "^3.7.7"
+    "@shopify/app-bridge" "^3.7.10"
 
 "@shopify/app-bridge-utils@^3.5.1":
   version "3.5.1"
@@ -4129,12 +4134,21 @@
   dependencies:
     "@shopify/app-bridge" "^3.5.1"
 
-"@shopify/app-bridge@^3.5.1", "@shopify/app-bridge@^3.7.2", "@shopify/app-bridge@^3.7.7":
+"@shopify/app-bridge@^3.5.1":
   version "3.7.7"
   resolved "https://registry.yarnpkg.com/@shopify/app-bridge/-/app-bridge-3.7.7.tgz#cd14af21f9e58a96559ff4de54fd20c6ab6c8d85"
   integrity sha512-8Y3gCur852ATEiLUjen3SEuKV9GGceC7yalLaA99MIuBpefaOUDafCHrdX6Fv+MlaP8vL49cfCeCJZUB7yq0Ig==
   dependencies:
     "@shopify/app-bridge-core" "1.0.2"
+    base64url "^3.0.1"
+    web-vitals "^3.0.1"
+
+"@shopify/app-bridge@^3.7.10":
+  version "3.7.10"
+  resolved "https://registry.yarnpkg.com/@shopify/app-bridge/-/app-bridge-3.7.10.tgz#f2f72a7897afdd6b48b0e5484efd56fff71892b5"
+  integrity sha512-zy4c05DEOkYXm1yWIe0FrI0lq6hzffIT4JWzb9XKqY5OPRNHRHg+ihDt0ZnR8eMVmYV03yStpGAITIfqOgn4TQ==
+  dependencies:
+    "@shopify/app-bridge-core" "1.1.1"
     base64url "^3.0.1"
     web-vitals "^3.0.1"
 
