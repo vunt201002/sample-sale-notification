@@ -2,17 +2,15 @@
   "name": "@avada/assets",
   "version": "0.0.1",
   "scripts": {
-    "production:embed": "cross-env NODE_ENV=production ENVIRONMENT=production IS_EMBEDDED_APP=yes ./node_modules/.bin/webpack --config=webpack.config.js",
-    "development:embed": "cross-env NODE_ENV=development ENVIRONMENT=development IS_EMBEDDED_APP=yes ./node_modules/.bin/webpack --config=webpack.config.js",
-    "watch:embed": "cross-env NODE_ENV=development ENVIRONMENT=development IS_EMBEDDED_APP=yes ./node_modules/.bin/webpack --watch --config=webpack.config.js",
+    "production:embed": "cross-env NODE_ENV=production ENVIRONMENT=production IS_EMBEDDED_APP=yes vite build",
+    "watch:embed": "cross-env NODE_ENV=development ENVIRONMENT=development IS_EMBEDDED_APP=yes vite",
     "production:standalone": "cross-env NODE_ENV=production ENVIRONMENT=production IS_EMBEDDED_APP=no ./node_modules/.bin/webpack --config=webpack.config.js",
     "development:standalone": "cross-env NODE_ENV=development ENVIRONMENT=development IS_EMBEDDED_APP=no ./node_modules/.bin/webpack --config=webpack.config.js",
     "watch:standalone": "cross-env NODE_ENV=development ENVIRONMENT=development IS_EMBEDDED_APP=no ./node_modules/.bin/webpack --watch --config=webpack.config.js",
     "production": "npm run production:embed && npm run production:standalone",
     "development": "npm run development:embed && npm run development:standalone",
     "watch": "echo 'frontend build running...' && concurrently \"npm run watch:embed\" \"npm run watch:standalone\"",
-    "eslint-fix": "./node_modules/.bin/eslint --fix .",
-    "dev": "cross-env NODE_ENV=development ENVIRONMENT=development IS_EMBEDDED_APP=yes vite"
+    "eslint-fix": "./node_modules/.bin/eslint --fix ."
   },
   "dependencies": {
     "@avada/common-ui": "^1.0.11",
