@@ -95,6 +95,13 @@ export default defineConfig({
         });
       }
     },
+    {
+      name: 'index-html-build-replacement',
+      apply: 'build',
+      async transformIndexHtml() {
+        return fs.readFile('./embed.html');
+      }
+    },
     react()
   ],
   optimizeDeps: {
@@ -117,7 +124,8 @@ export default defineConfig({
     hmr: hmrConfig,
     proxy: {
       '^/(\\?.*)?$': proxyOptions,
-      '^/api(/|(\\?.*)?$)': proxyOptions
+      '^/api(/|(\\?.*)?$)': proxyOptions,
+      '^/auth(/|(\\?.*)?$)': proxyOptions
     }
   }
 });
