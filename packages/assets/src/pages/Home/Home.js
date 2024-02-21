@@ -26,7 +26,7 @@ export default function Home() {
             enabled={enabled}
           >
             <Text variant="bodyMd" as="span">
-              Our app is{enabled ? 'enabled' : 'disabled'}on your store
+              Our app is {enabled ? 'enabled' : 'disabled'} on your store
             </Text>
           </SettingToggle>
         </Layout.Section>
