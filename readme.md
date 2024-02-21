@@ -38,13 +38,13 @@ firebase use --add
 * Create a file `.env.development` with content in [packages/assets](/packages/assets)
 
 ```dotenv
-SHOPIFY_API_KEY=<Insert here>
-FIREBASE_API_KEY=<Insert here>
-FIREBASE_AUTH_DOMAIN=<Insert here>
-FIREBASE_PROJECT_ID=<Insert here>
-FIREBASE_STORAGE_BUCKET=<Insert here>
-FIREBASE_APP_ID=<Insert here>
-FIREBASE_MEASUREMENT_ID=<Insert here>
+VITE_SHOPIFY_API_KEY=<Insert here>
+VITE_FIREBASE_API_KEY=<Insert here>
+VITE_FIREBASE_AUTH_DOMAIN=<Insert here>
+VITE_FIREBASE_PROJECT_ID=<Insert here>
+VITE_FIREBASE_STORAGE_BUCKET=<Insert here>
+VITE_FIREBASE_APP_ID=<Insert here>
+VITE_FIREBASE_MEASUREMENT_ID=<Insert here>
 ```
 
 * Create an empty Firestore database
@@ -58,7 +58,7 @@ firebase deploy --only firestore
 * To start to develop, please run 2 below commands
 
 ```bash
-npm run start-dev
+npm run dev
 ```
 
 ```bash
