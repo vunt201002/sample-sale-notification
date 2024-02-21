@@ -21,12 +21,18 @@ export const embedApp = createEmbedApp();
 export const client = axios.create({timeout: 60000});
 export const api = createApi();
 
-function createEmbedApp() {
-  const host = new URL(window.location).searchParams.get('host');
-  if (host)
-    return createApp({host, apiKey: import.meta.env.VITE_SHOPIFY_API_KEY, forceRedirect: true});
-}
+export function createEmbedApp() {
+  const localStorageHost = localStorage.getItem('avada-dev-host');
+  const host = new URLSearchParams(location.search).get('host') || localStorageHost;
+  if (!host) return;
 
+  localStorage.setItem('avada-dev-host', host);
+  return createApp({
+    apiKey: import.meta.env.VITE_SHOPIFY_API_KEY,
+    host,
+    forceRedirect: true
+  });
+}
 /**
  * @return {(uri: string, options?: {headers?, body?, method?: 'GET' | 'POST' | 'PUT' | 'DELETE'}) => Promise<any>}
  */
