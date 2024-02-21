@@ -7,6 +7,7 @@ import {api, auth} from './helpers';
 import {isEmpty} from '@avada/utils';
 import {StoreProvider} from '@assets/reducers/storeReducer';
 import {collectActiveShopData} from '@assets/services/shopService';
+import '@shopify/polaris/build/esm/styles.css';
 
 window.isAuthenticated = false;
 

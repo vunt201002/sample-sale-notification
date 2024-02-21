@@ -2,7 +2,7 @@
 
 name = "avada sample app embed"
 client_id = "ebacb85ac65eef49580f3662abba24ce"
-application_url = "https://bibliography-nomination-appropriate-dis.trycloudflare.com/auth/shopify"
+application_url = "https://pressed-capitol-slow-monitored.trycloudflare.com/auth/shopify"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ use_legacy_install_flow = true
 
 [auth]
 redirect_urls = [
-  "https://bibliography-nomination-appropriate-dis.trycloudflare.com/auth/shopify/callback",
-  "https://bibliography-nomination-appropriate-dis.trycloudflare.com/authSa/shopify/callback",
-  "https://bibliography-nomination-appropriate-dis.trycloudflare.com/auth/shopify/embed/callback",
+  "https://pressed-capitol-slow-monitored.trycloudflare.com/auth/shopify/callback",
+  "https://pressed-capitol-slow-monitored.trycloudflare.com/authSa/shopify/callback",
+  "https://pressed-capitol-slow-monitored.trycloudflare.com/auth/shopify/embed/callback",
   "https://localhost:3000/auth/shopify/callback",
   "https://localhost:3000/authSa/shopify/callback",
   "https://localhost:3000/auth/shopify/embed/callback"

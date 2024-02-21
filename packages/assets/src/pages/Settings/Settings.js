@@ -8,7 +8,7 @@ export default function Settings() {
   return (
     <Page title="Settings">
       <Layout sectioned>
-        <Card sectioned>Settings</Card>
+        <Card sectioned>Settings 3</Card>
       </Layout>
     </Page>
   );

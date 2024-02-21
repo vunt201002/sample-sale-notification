@@ -1,7 +1,3 @@
-import Loadable from 'react-loadable';
-import Loading from '@assets/components/Loading';
+import React from 'react';
 
-export default Loadable({
-  loader: () => import('../../pages/NotFound/NotFound'),
-  loading: Loading
-});
+export default React.lazy(() => import('../../pages/NotFound/NotFound'));

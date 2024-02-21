@@ -1,8 +1,5 @@
-import Loadable from 'react-loadable';
-import Loading from '@assets/components/Loading';
+import React from 'react';
 
-// eslint-disable-next-line new-cap
-export default Loadable({
-  loader: () => import('../../pages/Home/Home'),
-  loading: Loading
-});
+const HomeLoadable = React.lazy(() => import('../../pages/Home/Home'));
+
+export default HomeLoadable;

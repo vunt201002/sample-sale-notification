@@ -16,7 +16,7 @@ export default function AppBridgeProvider({children}) {
       router={router}
       config={{
         host,
-        apiKey: process.env.SHOPIFY_API_KEY,
+        apiKey: import.meta.env.VITE_SHOPIFY_API_KEY,
         forceRedirect: true
       }}
     >
