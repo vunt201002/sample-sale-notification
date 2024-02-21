@@ -3,9 +3,18 @@ import react from '@vitejs/plugin-react';
 import * as path from 'path';
 import fs from 'fs';
 import os from 'os';
+import EnvironmentPlugin from 'vite-plugin-environment';
+import {nodePolyfills} from 'vite-plugin-node-polyfills';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const host = process.env.HOST ? process.env.HOST.replace(/https?:\/\//, '') : 'localhost';
+const isEmbed = process.env.IS_EMBEDDED_APP === 'yes';
+const templateFile = isEmbed ? 'index.html' : 'standalone.html';
+const templateOutFile = isEmbed ? 'embed.html' : 'standalone.html';
+const fePort = process.env.FRONTEND_PORT || 5000;
+const bePort = process.env.BACKEND_PORT || 5050;
+
+console.log('Template file', templateFile, fePort, bePort);
 
 let hmrConfig;
 if (host === 'localhost') {
@@ -13,19 +22,21 @@ if (host === 'localhost') {
     protocol: 'ws',
     host: 'localhost',
     port: 64999,
-    clientPort: 64999
+    clientPort: 64999,
+    overlay: true
   };
 } else {
   hmrConfig = {
     protocol: 'wss',
     host: host,
-    port: process.env.FRONTEND_PORT,
-    clientPort: 443
+    port: fePort,
+    clientPort: 443,
+    overlay: true
   };
 }
 
 const proxyOptions = {
-  target: `http://127.0.0.1:${process.env.BACKEND_PORT}`,
+  target: `http://127.0.0.1:${bePort}`,
   changeOrigin: false,
   secure: true,
   ws: false
@@ -75,12 +86,34 @@ function updateEnvFile(file, data) {
   fs.writeFileSync(file, ENV_VARS.join(os.EOL));
 }
 
+const proxyConfig = {
+  '^/api(/|(\\?.*)?$)': proxyOptions,
+  '^/authSa(/|(\\?.*)?$)': proxyOptions,
+  '^/auth(/|(\\?.*)?$)': proxyOptions,
+  '^/apiSa(/|(\\?.*)?$)': proxyOptions
+};
+
 // https://vitejs.dev/config/
 export default defineConfig({
   define: {
-    'process.env': process.env
+    'process.env.IS_EMBEDDED_APP': process.env.IS_EMBEDDED_APP
   },
   plugins: [
+    nodePolyfills(),
+    // eslint-disable-next-line new-cap
+    EnvironmentPlugin(
+      {
+        IS_EMBEDDED_APP: true,
+        SHOPIFY_API_KEY: null,
+        HOST: 'localhost',
+        FRONTEND_PORT: 5000,
+        BACKEND_PORT: 5050,
+        NODE_ENV: 'development'
+      },
+      {
+        loadEnvFiles: true
+      }
+    ),
     {
       name: 'treat-js-files-as-jsx',
       async transform(code, id) {
@@ -96,9 +129,11 @@ export default defineConfig({
     },
     {
       name: 'index-html-build-replacement',
-      apply: 'build',
-      async transformIndexHtml() {
-        return fs.readFile('./embed.html', () => {});
+      async transformIndexHtml(html) {
+        if (!isEmbed) {
+          return html.replace('embed.js', 'standalone.js');
+        }
+        return html;
       }
     },
     react()
@@ -108,6 +143,9 @@ export default defineConfig({
     esbuildOptions: {
       loader: {
         '.js': 'jsx'
+      },
+      define: {
+        global: 'globalThis'
       }
     }
   },
@@ -119,19 +157,19 @@ export default defineConfig({
   },
   server: {
     host: 'localhost',
-    port: process.env.FRONTEND_PORT,
+    port: fePort,
     hmr: hmrConfig,
-    proxy: {
-      '^/(\\?.*)?$': proxyOptions,
-      '^/api(/|(\\?.*)?$)': proxyOptions,
-      '^/auth(/|(\\?.*)?$)': proxyOptions
-    }
+    proxy: proxyConfig
   },
   build: {
+    commonjsOptions: {
+      transformMixedEsModules: true
+    },
     outDir: '../../static',
+    emptyOutDir: false,
     rollupOptions: {
       input: {
-        app: './embed.html'
+        app: './' + templateOutFile
       }
     }
   }
