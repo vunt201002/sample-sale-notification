@@ -12,6 +12,7 @@ import defaultSettings from '@functions/const/defaultSettings';
 import {getShopByShopifyDomain} from '@avada/shopify-auth';
 import {createWebhook} from '@functions/services/webhookService';
 import {syncNotifications} from '@functions/services/notificationService';
+import {getNotificationItems, getOrderDatas} from '@functions/services/apiService';
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp();
