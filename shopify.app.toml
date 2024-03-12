@@ -2,7 +2,7 @@
 
 name = "sample-sales-notifications"
 client_id = "f01701a99260beb98dc4f45e142bf205"
-application_url = "https://sussex-sara-vincent-exceed.trycloudflare.com/auth/shopify"
+application_url = "https://attempts-lexington-denmark-museums.trycloudflare.com/auth/shopify"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ use_legacy_install_flow = true
 
 [auth]
 redirect_urls = [
-  "https://sussex-sara-vincent-exceed.trycloudflare.com/auth/shopify/callback",
-  "https://sussex-sara-vincent-exceed.trycloudflare.com/authSa/shopify/callback",
-  "https://sussex-sara-vincent-exceed.trycloudflare.com/auth/shopify/embed/callback",
+  "https://attempts-lexington-denmark-museums.trycloudflare.com/auth/shopify/callback",
+  "https://attempts-lexington-denmark-museums.trycloudflare.com/authSa/shopify/callback",
+  "https://attempts-lexington-denmark-museums.trycloudflare.com/auth/shopify/embed/callback",
   "https://localhost:3000/auth/shopify/callback",
   "https://localhost:3000/authSa/shopify/callback",
   "https://localhost:3000/auth/shopify/embed/callback"
