@@ -10,9 +10,8 @@ import appConfig from '@functions/config/app';
 import {addSetting} from '@functions/repositories/settingsRepository';
 import defaultSettings from '@functions/const/defaultSettings';
 import {getShopByShopifyDomain} from '@avada/shopify-auth';
-import {createWebhook} from '@functions/services/webhookService';
+import {registerWebhook} from '@functions/services/webhookService';
 import {syncNotifications} from '@functions/services/notificationService';
-import {getNotificationItems, getOrderDatas} from '@functions/services/apiService';
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp();
@@ -61,7 +60,7 @@ app.use(
             accessToken: shop.accessToken,
             shopId: shop.id
           }),
-          createWebhook(
+          registerWebhook(
             {
               shopName: shopifyDomain,
               accessToken: shop.accessToken

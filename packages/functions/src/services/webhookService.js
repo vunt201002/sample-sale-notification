@@ -7,7 +7,7 @@ export function createShopifyInstance({shopName, accessToken}) {
   });
 }
 
-export async function createWebhook({shopName, accessToken}, {address, topic, format}) {
+export async function registerWebhook({shopName, accessToken}, {address, topic, format}) {
   const shopify = createShopifyInstance({shopName, accessToken});
   return shopify.webhook.create({address, topic, format});
 }
