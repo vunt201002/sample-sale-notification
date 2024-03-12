@@ -7,13 +7,11 @@ import path from 'path';
 import createErrorHandler from '@functions/middleware/errorHandler';
 import firebase from 'firebase-admin';
 import appConfig from '@functions/config/app';
-import {addSettings} from '@functions/repositories/settingsRepository';
+import {addSetting} from '@functions/repositories/settingsRepository';
 import defaultSettings from '@functions/const/defaultSettings';
-import {createNotifications} from '@functions/repositories/notificationsRepository';
-import {getNotificationItem, getOrderData} from '@functions/services/apiService';
 import {getShopByShopifyDomain} from '@avada/shopify-auth';
-import Shopify from 'shopify-api-node';
 import {createWebhook} from '@functions/services/webhookService';
+import {syncNotifications} from '@functions/services/notificationService';
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp();
@@ -55,23 +53,13 @@ app.use(
         const shopifyDomain = ctx.state.shopify.shop;
         const shop = await getShopByShopifyDomain(shopifyDomain);
 
-        const orderData = await getOrderData({
-          shopifyDomain: shopifyDomain,
-          accessToken: shop.accessToken,
-          limit: 30,
-          fields: 'customer,line_items,created_at'
-        });
-
-        const listNotifications = await getNotificationItem({
-          shopId: shop.id,
-          shopDomain: shopifyDomain,
-          orderData: orderData,
-          accessToken: shop.accessToken
-        });
-
         await Promise.all([
-          addSettings({shopDomain: shopifyDomain, shopId: shop.id, addInfo: defaultSettings}),
-          createNotifications(listNotifications),
+          addSetting({shopDomain: shopifyDomain, shopId: shop.id, addInfo: defaultSettings}),
+          syncNotifications({
+            shopDomain: shopifyDomain,
+            accessToken: shop.accessToken,
+            shopId: shop.id
+          }),
           createWebhook(
             {
               shopName: shopifyDomain,

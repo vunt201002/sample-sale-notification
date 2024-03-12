@@ -7,7 +7,7 @@ const headerApi = accessToken => ({
   'X-Shopify-Access-Token': accessToken
 });
 
-export async function getOrderData({shopifyDomain, accessToken, limit, fields}) {
+export async function getOrderDatas({shopifyDomain, accessToken, limit, fields}) {
   const resOrder = await api(
     `https://${shopifyDomain}/${apiVersion}/orders.json?limit=${limit}&fields=${fields}`,
     'GET',
@@ -19,7 +19,7 @@ export async function getOrderData({shopifyDomain, accessToken, limit, fields}) 
   return resOrder.orders;
 }
 
-export async function getNotificationItem({shopId, shopDomain, orderData, accessToken}) {
+export async function getNotificationItems({shopId, shopDomain, orderData, accessToken}) {
   const ids = Array.isArray(orderData)
     ? orderData.map(order => order.line_items[0].product_id)
     : [orderData.line_items[0].product_id];

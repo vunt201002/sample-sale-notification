@@ -32,15 +32,15 @@ export async function getListNotificationsByShopDomain(shopDomain) {
   }));
 }
 
-export async function createNotification(noti) {
-  const relativeTime = timestampToRelativeTime(noti.timestamp);
-  return await notificationsRef.add({time: relativeTime, ...noti});
+export async function createNotification(notification) {
+  const relativeTime = timestampToRelativeTime(notification.timestamp);
+  return await notificationsRef.add({time: relativeTime, ...notification});
 }
 
-export async function createNotifications(notiArr) {
+export async function createNotifications(notArr) {
   return Promise.all(
-    notiArr.map(async noti => {
-      return createNotification(noti);
+    notArr.map(async not => {
+      return createNotification(not);
     })
   );
 }

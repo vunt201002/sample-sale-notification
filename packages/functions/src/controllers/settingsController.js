@@ -1,15 +1,15 @@
-import {getSettings, updateSettings} from '@functions/repositories/settingsRepository';
+import {getSetting, updateSetting} from '@functions/repositories/settingsRepository';
 import {getCurrentShop} from '@functions/helpers/auth';
 
 export async function get(ctx) {
   try {
     // const shopDomain = ctx.state.user.shopifyDomain;
     const shopId = getCurrentShop(ctx);
-    const settings = await getSettings(shopId);
+    const setting = await getSetting(shopId);
 
     ctx.status = 200;
     return (ctx.body = {
-      data: settings,
+      data: setting,
       success: true
     });
   } catch (err) {
@@ -28,7 +28,7 @@ export async function update(ctx) {
     const shopId = getCurrentShop(ctx);
     const {data} = ctx.req.body;
 
-    const res = await updateSettings(shopDomain, shopId, data);
+    const res = await updateSetting(shopDomain, shopId, data);
 
     ctx.status = 200;
     return (ctx.body = {
