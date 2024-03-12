@@ -1,7 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Navigation} from '@shopify/polaris';
 import {useHistory, useLocation} from 'react-router-dom';
-import {ArrowLeftIcon, HomeIcon, SettingsIcon, ShareIcon} from '@shopify/polaris-icons';
+import {
+  ArrowLeftIcon,
+  HomeFilledIcon,
+  SettingsFilledIcon,
+  NotificationFilledIcon
+} from '@shopify/polaris-icons';
 import '@assets/styles/layout/navigation.scss';
 import {useStore} from '@assets/reducers/storeReducer';
 import {isEmbeddedApp, prependRoute} from '@assets/config/app';
@@ -69,7 +74,7 @@ export default function AppNavigation() {
         items={[
           {
             url: '/',
-            icon: HomeIcon,
+            icon: HomeFilledIcon,
             label: 'Dashboard',
             selected: location.pathname === getUrl('/'),
             onClick: () => {
@@ -77,26 +82,27 @@ export default function AppNavigation() {
             }
           },
           {
-            url: '/samples',
-            icon: ShareIcon,
-            label: 'Samples',
-            selected: location.pathname === getUrl('/samples'),
+            url: '/notifications',
+            icon: NotificationFilledIcon,
+            label: 'Notifications',
+            selected: location.pathname === getUrl('/notifications'),
             onClick: () => {
-              history.push('/samples');
+              history.push('/notifications');
             }
-          }
-        ].reduce(prepareMenu, [])}
-      />
-      <Navigation.Section
-        separator
-        items={[
+          },
           {
             label: 'Settings',
             url: '/settings',
-            icon: SettingsIcon
+            icon: SettingsFilledIcon
           }
         ].reduce(prepareMenu, [])}
       />
+      {/* <Navigation.Section*/}
+      {/*  separator*/}
+      {/*  items={[*/}
+      {/*    */}
+      {/*  ].reduce(prepareMenu, [])}*/}
+      {/* />*/}
     </Navigation>
   );
 }

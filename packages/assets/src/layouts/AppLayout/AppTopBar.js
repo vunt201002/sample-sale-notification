@@ -1,5 +1,5 @@
-import React from 'react';
-import {Button, Icon, LegacyStack, Link, Text, Thumbnail, TopBar} from '@shopify/polaris';
+import React, {useEffect} from 'react';
+import {Avatar, Button, Icon, InlineStack, LegacyStack, Link, Text, Thumbnail, TopBar} from '@shopify/polaris';
 import PropTypes from 'prop-types';
 import {BugIcon, MenuIcon, PaymentIcon, XIcon} from '@shopify/polaris-icons';
 import isLocal from '@assets/helpers/isLocal';
@@ -27,18 +27,11 @@ export default function AppTopBar({isNavOpen, toggleOpenNav}) {
 
   return (
     <TopBar
+      id="topbar"
       secondaryMenu={
         <div className="Avada-TopBar__Wrapper">
           <div className="Avada-TopBar__Title">
-            <Button onClick={toggleOpenNav} variant="plain">
-              <Icon source={isNavOpen ? XIcon : MenuIcon} />
-            </Button>
             <img alt="Avada App Name" src={LOGO_URL} width={LOGO_WIDTH} />
-            <Text variant="headingLg" as="p">
-              <Link url="/" removeUnderline>
-                App Name
-              </Link>
-            </Text>
             {isLocal && (
               <LegacyStack alignment="center">
                 <Button url="/dev_zone" icon={BugIcon} variant="plain" />
@@ -46,13 +39,9 @@ export default function AppTopBar({isNavOpen, toggleOpenNav}) {
             )}
           </div>
           <div className="Avada-TopBar__Icons">
-            <LegacyStack alignment="center" spacing="extraTight">
-              <Button url={docLink} external variant="plain">
-                <Thumbnail source={InfoIcon} size="small" alt="" />
-              </Button>
-              <Button onClick={() => openNewsSheet()} variant="plain">
-                <Thumbnail source={NotificationIcon} size="small" alt="" />
-              </Button>
+            <LegacyStack className="avatar">
+              <Avatar initials="A" />
+              <Text variant="bodyMd">Avada</Text>
             </LegacyStack>
           </div>
           {isShopUpgradable(shop) && (

@@ -1,0 +1,76 @@
+.Avada-Frame__Content {
+  flex: 1 1;
+  padding-left: 6.8rem;
+  -webkit-transition: padding 0.3s ease 75ms;
+  -moz-transition: padding 0.3s ease 75ms;
+  -o-transition: padding 0.3s ease 75ms;
+  transition: padding 0.3s ease 75ms;
+}
+.Avada-Frame__Content.Avada-Frame__Content--isExpanded {
+  padding-left: 24rem;
+}
+
+.Avada-Frame__Navigation {
+  position: fixed !important;
+  z-index: 30;
+  height: 100vh;
+}
+.Avada-Frame__Navigation .Polaris-Navigation {
+  -webkit-transition: width 0.3s ease 75ms;
+  -moz-transition: width 0.3s ease 75ms;
+  -o-transition: width 0.3s ease 75ms;
+  transition: width 0.3s ease 75ms;
+  overflow: hidden;
+  min-width: 0;
+  width: 6.8rem;
+}
+.Avada-Frame__Navigation .Polaris-Navigation .Polaris-Navigation__Item:not(.Polaris-Navigation--subNavigationActive) .Polaris-Navigation__Icon svg {
+  fill: var(--avada-icon-navigation);
+}
+.Avada-Frame__Navigation .Polaris-Navigation .Polaris-Navigation__ListItem .Polaris-Navigation--subNavigationActive:not(.Polaris-Navigation__Item--selected) {
+  -webkit-transition: background-color 0.3s ease;
+  -moz-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+  background-color: var(--p-background-selected);
+}
+.Avada-Frame__Navigation .Polaris-Navigation .Polaris-Navigation__ListItem .Polaris-Navigation__SecondaryNavigation {
+  -webkit-transition: max-height 0.2s ease;
+  -moz-transition: max-height 0.2s ease;
+  -o-transition: max-height 0.2s ease;
+  transition: max-height 0.2s ease;
+  overflow: hidden;
+  margin-bottom: 0;
+  max-height: 0;
+}
+.Avada-Frame__Navigation .Polaris-Navigation .Polaris-Navigation__PrimaryNavigation > .Polaris-Navigation__Section--withSeparator:nth-child(1) {
+  border-top: none;
+  padding-bottom: 1.2rem;
+}
+.Avada-Frame__Navigation .Polaris-Navigation .Polaris-Navigation__PrimaryNavigation > .Polaris-Navigation__Section + .Polaris-Navigation__Section {
+  padding: 1.2rem 0;
+}
+.Avada-Frame__Navigation:hover, .Avada-Frame__Navigation.Avada-Frame__Navigation--isExpanded {
+  min-width: fit-content;
+}
+.Avada-Frame__Navigation:hover .Polaris-Navigation, .Avada-Frame__Navigation.Avada-Frame__Navigation--isExpanded .Polaris-Navigation {
+  width: 24rem;
+}
+.Avada-Frame__Navigation:hover .Polaris-Navigation .Polaris-Navigation__ListItem .Polaris-Navigation--subNavigationActive:not(.Polaris-Navigation__Item--selected), .Avada-Frame__Navigation.Avada-Frame__Navigation--isExpanded .Polaris-Navigation .Polaris-Navigation__ListItem .Polaris-Navigation--subNavigationActive:not(.Polaris-Navigation__Item--selected) {
+  background-color: unset;
+}
+.Avada-Frame__Navigation:hover .Polaris-Navigation .Polaris-Navigation__ListItem .Polaris-Navigation__SecondaryNavigation.Polaris-Navigation--isExpanded, .Avada-Frame__Navigation.Avada-Frame__Navigation--isExpanded .Polaris-Navigation .Polaris-Navigation__ListItem .Polaris-Navigation__SecondaryNavigation.Polaris-Navigation--isExpanded {
+  max-height: 100%;
+}
+
+.Polaris-Navigation .Polaris-Navigation__Item {
+  align-items: center;
+  overflow: hidden;
+}
+.Polaris-Navigation .Polaris-Navigation__Item .Polaris-Navigation__Text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/*# sourceMappingURL=navigation.css.map */

@@ -10,13 +10,13 @@ if (loading !== null) {
 }
 
 ReactDOM.createRoot(document.getElementById('app')).render(
-  <React.StrictMode>
-    <AppProvider i18n={enTranslations}>
-      <Page title="Example app">
-        <LegacyCard sectioned>
-          <Button onClick={() => alert('Button clicked!')}>Example button 657</Button>
-        </LegacyCard>
-      </Page>
-    </AppProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <AppProvider i18n={enTranslations}>
+    <Page title="Example app">
+      <LegacyCard sectioned>
+        <Button onClick={() => alert('Button clicked!')}>Example button 657</Button>
+      </LegacyCard>
+    </Page>
+  </AppProvider>
+  // </React.StrictMode>
 );

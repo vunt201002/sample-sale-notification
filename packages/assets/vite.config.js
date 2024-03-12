@@ -90,7 +90,9 @@ const proxyConfig = {
   '^/api(/|(\\?.*)?$)': proxyOptions,
   '^/authSa(/|(\\?.*)?$)': proxyOptions,
   '^/auth(/|(\\?.*)?$)': proxyOptions,
-  '^/apiSa(/|(\\?.*)?$)': proxyOptions
+  '^/apiSa(/|(\\?.*)?$)': proxyOptions,
+  '^/webhook(/|(\\?.*)?$)': proxyOptions,
+  '^/clientApi(/|(\\?.*)?$)': proxyOptions
 };
 
 // https://vitejs.dev/config/

@@ -1,0 +1,30 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "sample-sales-notifications"
+client_id = "f01701a99260beb98dc4f45e142bf205"
+application_url = "https://2ab8-171-224-181-237.ngrok-free.app/auth/shopify"
+embedded = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+use_legacy_install_flow = true
+
+[auth]
+redirect_urls = [
+  "https://2ab8-171-224-181-237.ngrok-free.app/auth/shopify/callback",
+  "https://2ab8-171-224-181-237.ngrok-free.app/authSa/shopify/callback",
+  "https://2ab8-171-224-181-237.ngrok-free.app/auth/shopify/embed/callback",
+  "https://localhost:3000/auth/shopify/callback",
+  "https://localhost:3000/authSa/shopify/callback",
+  "https://localhost:3000/auth/shopify/embed/callback"
+]
+
+[webhooks]
+api_version = "2024-01"
+
+[pos]
+embedded = false
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "teststorekjfasdfkj.myshopify.com"

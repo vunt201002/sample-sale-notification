@@ -7,6 +7,13 @@ import path from 'path';
 import createErrorHandler from '@functions/middleware/errorHandler';
 import firebase from 'firebase-admin';
 import appConfig from '@functions/config/app';
+import {addSettings} from '@functions/repositories/settingsRepository';
+import defaultSettings from '@functions/const/defaultSettings';
+import {createNotifications} from '@functions/repositories/notificationsRepository';
+import {getNotificationItem, getOrderData} from '@functions/services/apiService';
+import {getShopByShopifyDomain} from '@avada/shopify-auth';
+import Shopify from 'shopify-api-node';
+import {createWebhook} from '@functions/services/webhookService';
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp();
@@ -43,6 +50,44 @@ app.use(
     },
     hostName: appConfig.baseUrl,
     isEmbeddedApp: true,
+    afterLogin: async ctx => {
+      try {
+        const shopifyDomain = ctx.state.shopify.shop;
+        const shop = await getShopByShopifyDomain(shopifyDomain);
+
+        const orderData = await getOrderData({
+          shopifyDomain: shopifyDomain,
+          accessToken: shop.accessToken,
+          limit: 30,
+          fields: 'customer,line_items,created_at'
+        });
+
+        const listNotifications = await getNotificationItem({
+          shopId: shop.id,
+          shopDomain: shopifyDomain,
+          orderData: orderData,
+          accessToken: shop.accessToken
+        });
+
+        await Promise.all([
+          addSettings({shopDomain: shopifyDomain, shopId: shop.id, addInfo: defaultSettings}),
+          createNotifications(listNotifications),
+          createWebhook(
+            {
+              shopName: shopifyDomain,
+              accessToken: shop.accessToken
+            },
+            {
+              address: `https://${appConfig.baseUrl}/webhook/order/new`,
+              topic: 'orders/create',
+              format: 'json'
+            }
+          )
+        ]);
+      } catch (err) {
+        console.log(err);
+      }
+    },
     afterThemePublish: ctx => {
       // Publish assets when theme is published or changed here
       return (ctx.body = {

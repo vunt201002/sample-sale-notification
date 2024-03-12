@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Layout, Page, SettingToggle, Text} from '@shopify/polaris';
+import {Layout, Page, SettingToggle, Text, Button} from '@shopify/polaris';
 import {useStore} from '@assets/reducers/storeReducer';
 
 /**
@@ -13,7 +13,7 @@ export default function Home() {
   const {dispatch} = useStore();
 
   return (
-    <Page title="Dashboard">
+    <Page title="Home">
       <Layout>
         <Layout.Section>
           <SettingToggle
@@ -26,7 +26,10 @@ export default function Home() {
             enabled={enabled}
           >
             <Text variant="bodyMd" as="span">
-              Our app is {enabled ? 'enabled' : 'disabled'} on your store
+              App status is
+              <Text fontWeight={'bold'} as="span">
+                {enabled ? ' enabled' : ' disabled'}
+              </Text>
             </Text>
           </SettingToggle>
         </Layout.Section>

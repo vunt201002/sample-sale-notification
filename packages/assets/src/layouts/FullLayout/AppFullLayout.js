@@ -6,7 +6,6 @@ import {closeToast} from '@assets/actions/storeActions';
 import AppTopBar from '@assets/layouts/AppLayout/AppTopBar';
 import AppNavigation from '@assets/layouts/AppLayout/AppNavigation';
 import {isEmbeddedApp} from '@assets/config/app';
-import Footer from '@assets/components/Footer/Footer';
 
 /**
  * Render an app layout
@@ -41,9 +40,7 @@ export default function AppFullLayout({children}) {
         </div>
         <Scrollable className={contentClass.join(' ')}>
           {children}
-          <Layout>
-            <Footer />
-          </Layout>
+          <Layout>{/* <Footer />*/}</Layout>
         </Scrollable>
       </div>
       {loading && <Loading />}

@@ -78,6 +78,3 @@ stats.json
 .runtimeconfig.json
 serviceAccount.json
 serviceAccount.*.json
-
-# Shopify
-shopify.**.toml

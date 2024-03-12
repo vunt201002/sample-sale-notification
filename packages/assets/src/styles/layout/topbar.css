@@ -1,0 +1,76 @@
+:root {
+  --avada-icon-navigation: #6d7175;
+}
+
+.Polaris-TopBar {
+  background-color: white;
+}
+.Polaris-TopBar .Avada-Pricing__Badge {
+  position: absolute;
+  left: 6.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+@media all and (max-width: 768px) {
+  .Polaris-TopBar .Avada-Pricing__Badge {
+    left: 5rem;
+  }
+}
+@media all and (max-width: 411px) {
+  .Polaris-TopBar .Avada-Pricing__Badge {
+    display: none;
+  }
+}
+
+.Polaris-TopBar__SearchField {
+  display: none;
+}
+
+.Avada-TopBar__Wrapper {
+  display: flex;
+  align-items: center;
+}
+.Avada-TopBar__Wrapper > *:not(:nth-child(1)) {
+  margin-left: 2rem;
+}
+.Avada-TopBar__Wrapper > *:nth-last-child(1) {
+  margin-right: 2rem;
+}
+.Avada-TopBar__Wrapper .Avada-TopBar__Title {
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+.Avada-TopBar__Wrapper .Avada-TopBar__Title a {
+  font-weight: 600;
+  color: #003a89;
+}
+.Avada-TopBar__Wrapper .Avada-TopBar__Title > * {
+  margin-right: 1.2rem;
+}
+.Avada-TopBar__Wrapper .Avada-TopBar__Icons {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+.Avada-TopBar__Wrapper .Avada-TopBar__Icons .avatar {
+  display: flex;
+  align-items: center;
+}
+.Avada-TopBar__Wrapper .Avada-TopBar__Icons .Polaris-Button--plain:active:not(.Polaris-Button--iconOnly) > .Polaris-Button__Content {
+  background: transparent;
+}
+.Avada-TopBar__Wrapper .Avada-TopBar__Icons .Polaris-Thumbnail {
+  border: unset;
+}
+.Avada-TopBar__Wrapper .Avada-TopBar__Icons .Polaris-Thumbnail img {
+  width: 2rem;
+}
+
+/*# sourceMappingURL=topbar.css.map */

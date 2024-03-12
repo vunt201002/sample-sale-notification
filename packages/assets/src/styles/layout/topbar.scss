@@ -2,6 +2,8 @@
 
 // subscription plan badge
 .Polaris-TopBar {
+  background-color: white;
+
   .Avada-Pricing__Badge {
     position: absolute;
     left: 6.5rem;
@@ -59,7 +61,17 @@
 
   // top right icons
   .Avada-TopBar__Icons {
-    margin-top: 0.4rem;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+
+    .avatar {
+      display: flex;
+      align-items: center;
+    }
 
     .Polaris-Button--plain:active:not(.Polaris-Button--iconOnly) > .Polaris-Button__Content {
       background: transparent;

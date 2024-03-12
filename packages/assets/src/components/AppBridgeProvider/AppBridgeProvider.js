@@ -29,8 +29,8 @@ export default function AppBridgeProvider({children}) {
         }}
         navigationLinks={[
           {
-            label: 'Samples',
-            destination: '/samples'
+            label: 'Notifications',
+            destination: '/notifications'
           },
           {
             label: 'Settings',

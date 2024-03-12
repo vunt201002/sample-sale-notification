@@ -14,7 +14,7 @@ export default function Samples() {
   const {selectedResources, handleSelectionChange} = useIndexResourceState(todos);
 
   return (
-    <Page title="Samples">
+    <Page title="Notifications" subtitle="List of sales notification fomr Shopify">
       <Layout>
         <Layout.Section>
           <Card>

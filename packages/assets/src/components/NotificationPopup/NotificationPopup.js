@@ -1,14 +1,21 @@
 import React from 'react';
 import './NoticationPopup.scss';
-
+import '@shopify/polaris/build/esm/styles.css';
+import defaultNotification from '@assets/const/defaultNotification';
 const NotificationPopup = ({
-  firstName = 'John Doe',
-  city = 'New York',
-  country = 'United States',
-  productName = 'Puffer Jacket With Hidden Hood',
-  timestamp = 'a day ago',
-  productImage = 'http://paris.mageplaza.com/images/shop/single/big-1.jpg'
+  firstName,
+  city,
+  productName,
+  country,
+  productId,
+  timestamp,
+  productImage,
+  time
 }) => {
+  const date = new Date(
+    (timestamp?._seconds + timestamp?._nanoseconds / 1000000000) * 1000
+  ).toDateString();
+
   return (
     <div className="Avava-SP__Wrapper fadeInUp animated">
       <div className="Avava-SP__Inner">
@@ -26,15 +33,17 @@ const NotificationPopup = ({
               </div>
               <div className={'Avada-SP__Subtitle'}>purchased {productName}</div>
               <div className={'Avada-SP__Footer'}>
-                {timestamp}{' '}
+                {time}{' '}
                 <span className="uni-blue">
-                  <i className="fa fa-check" aria-hidden="true" /> by Avada
+                  <i>V</i> by Avada
                 </span>
               </div>
             </div>
           </a>
+          <div className="close-btn">x</div>
         </div>
       </div>
+      <div>{date !== 'Invalid Date' ? date : ''}</div>
     </div>
   );
 };
