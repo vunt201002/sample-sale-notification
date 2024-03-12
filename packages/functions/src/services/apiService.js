@@ -1,5 +1,6 @@
 import {Timestamp} from '@google-cloud/firestore/build/src';
 import {createShopifyInstance} from '@functions/services/webhookService';
+import onlyUnique from '@functions/helpers/utils/onlyUnique';
 
 export async function getOrderDatas({shopifyDomain, accessToken, limit, fields}) {
   const shopify = createShopifyInstance({shopName: shopifyDomain, accessToken});
@@ -20,7 +21,7 @@ export async function getNotificationItems({shopId, shopDomain, orderData, acces
   const fields = 'id,title,image';
 
   const products = await shopify.product.list({
-    ids: ids.join(','),
+    ids: ids.filter(onlyUnique).join(','),
     fields: fields
   });
 
