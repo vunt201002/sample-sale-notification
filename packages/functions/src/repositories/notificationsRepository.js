@@ -6,7 +6,9 @@ const firestore = new Firestore();
 const notificationsRef = firestore.collection('notifications');
 
 export async function getListNotifications(shopId) {
-  const snapshot = await notificationsRef.get();
+  const snapshot = await notificationsRef
+    .orderBy('timestamp', 'desc')
+    .get();
 
   if (snapshot.empty) {
     return null;
@@ -20,7 +22,10 @@ export async function getListNotifications(shopId) {
 }
 
 export async function getListNotificationsByShopDomain(shopDomain) {
-  const snapshot = await notificationsRef.where('shopDomain', '==', shopDomain).get();
+  const snapshot = await notificationsRef
+    .where('shopDomain', '==', shopDomain)
+    .orderBy('timestamp', 'desc')
+    .get();
 
   if (snapshot.empty) {
     return null;

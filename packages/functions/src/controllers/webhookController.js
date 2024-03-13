@@ -13,11 +13,12 @@ export async function listenNewOrder(ctx) {
         shopId: '',
         shopDomain: shopifyDomain,
         accessToken: shop.accessToken,
-        orderData
+        orderData: [orderData]
       })
     )[0];
 
     await createNotification(notification);
+    console.log('webhook create noti');
   } catch (err) {
     console.log(err);
     return (ctx.body = {

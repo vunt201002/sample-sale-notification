@@ -1,7 +1,10 @@
 import React from 'react';
 import './NoticationPopup.scss';
 import '@shopify/polaris/build/esm/styles.css';
-import defaultNotification from '@assets/const/defaultNotification';
+import {
+  CheckIcon
+} from '@shopify/polaris-icons';
+import {Icon} from '@shopify/polaris';
 const NotificationPopup = ({
   firstName,
   city,
@@ -35,7 +38,10 @@ const NotificationPopup = ({
               <div className={'Avada-SP__Footer'}>
                 {time}{' '}
                 <span className="uni-blue">
-                  <i>V</i> by Avada
+                  <i>
+                    <Icon source={CheckIcon} tone="info" />
+                  </i>
+                  by Avada
                 </span>
               </div>
             </div>

@@ -17,7 +17,7 @@ export default function Notifications() {
 
   const {data: notifications, loading} = useFetchApi({
     url: '/notifications',
-    defaultData: [defaultNotification]
+    defaultData: defaultNotification
   });
 
   if (loading) {

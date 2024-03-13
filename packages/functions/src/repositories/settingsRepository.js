@@ -23,7 +23,7 @@ export async function getSetting(shopId) {
 export async function updateSetting(shopDomain, shopId, updateInfo) {
   const settingsDoc = await getSetting(shopId);
   delete updateInfo.id;
-  return await settingsRef.doc(settingsDoc.id).update(updateInfo);
+  return await settingsRef.doc(settingsDoc.id).update({...updateInfo});
 }
 
 export async function addSetting({shopDomain, shopId, addInfo}) {

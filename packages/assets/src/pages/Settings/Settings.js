@@ -27,7 +27,7 @@ export default function Settings() {
 
   const {data: settings, setData: setSettings, loading} = useFetchApi({
     url: '/settings',
-    defaultData: [defaultSettings]
+    defaultData: defaultSettings
   });
   console.log(settings);
   const handleSettingsChange = (key, value) => {
@@ -194,7 +194,7 @@ export default function Settings() {
               <NotificationPopup
                 firstName="John Doe"
                 city="New York"
-                country="United States"
+                country="US"
                 productName="Puffer Jacket With Hidden Hood"
                 productImage="https://s.net.vn/pA9G"
                 time="a day ago"

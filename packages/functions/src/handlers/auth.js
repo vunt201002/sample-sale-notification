@@ -48,7 +48,7 @@ app.use(
     },
     hostName: appConfig.baseUrl,
     isEmbeddedApp: true,
-    afterLogin: async ctx => {
+    afterInstall: async ctx => {
       try {
         const shopifyDomain = ctx.state.shopify.shop;
         const shop = await getShopByShopifyDomain(shopifyDomain);
