@@ -8,8 +8,8 @@ export async function get(ctx) {
     const shop = await getShopByShopifyDomain(shopDomain);
     const shopId = shop.id;
     const [setting, notifications] = await Promise.all([
-      await getSetting(shopId),
-      await getListNotificationsByShopDomain(shopDomain)
+      getSetting(shopId),
+      getListNotificationsByShopDomain(shopDomain)
     ]);
 
     return (ctx.body = {

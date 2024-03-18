@@ -82,6 +82,7 @@ app.use(
         success: true
       });
     }
+    // afterLogin: () => {}
   }).routes()
 );
 
