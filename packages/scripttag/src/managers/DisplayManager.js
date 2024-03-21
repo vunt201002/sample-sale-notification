@@ -6,6 +6,10 @@ import {replaceSubstring} from '../helpers/replaceSubstring';
 import React from 'react';
 
 export default class DisplayManager {
+  constructor() {
+    this.notifications = [];
+    this.settings = {};
+  }
   shopifyDomain = 'https://teststorekjfasdfkj.myshopify.com/';
 
   async initialize({notifications, settings}) {
@@ -15,24 +19,24 @@ export default class DisplayManager {
 
     const currentUrl = window.location.href;
 
-    if (settings.allowShow === 'all') {
-      const excludedPages = this.filterPage(settings.excludedUrls);
-      excludedPages.map(page => {
-        currentUrl.includes(page) ? this.fadeOut() : this.displaySetting(settings, notifications);
-      });
-    } else {
-      const includedPages = this.filterPage(settings.includedUrls);
-      const excludedPages = this.filterPage(settings.excludedUrls);
-      const pages = includedPages.filter(p => !excludedPages.includes(p));
+    if (!this.checkIfCanShow()) return;
 
-      pages.map(page => {
-        currentUrl.includes(page) ? this.displaySetting(settings, notifications) : this.fadeOut();
-      });
-    }
-  }
-  constructor() {
-    this.notifications = [];
-    this.settings = {};
+    this.displaySetting();
+
+    // if (settings.allowShow === 'all') {
+    //   const excludedPages = this.filterPage(settings.excludedUrls);
+    //   excludedPages.map(page => {
+    //     currentUrl.includes(page) ? this.fadeOut() : this.displaySetting(settings, notifications);
+    //   });
+    // } else {
+    //   const includedPages = this.filterPage(settings.includedUrls);
+    //   const excludedPages = this.filterPage(settings.excludedUrls);
+    //   const pages = includedPages.filter(p => !excludedPages.includes(p));
+    //
+    //   pages.map(page => {
+    //     currentUrl.includes(page) ? this.displaySetting(settings, notifications) : this.fadeOut();
+    //   });
+    // }
   }
 
   fadeOut() {
@@ -40,9 +44,16 @@ export default class DisplayManager {
     container.innerHTML = '';
   }
 
-  display({notification, position}) {
+  display({notification, position, truncateProductName}) {
     const container = document.querySelector('#Avada-SalePop');
-    render(<NotificationPopup {...notification} position={position} />, container);
+    render(
+      <NotificationPopup
+        {...notification}
+        position={position}
+        truncateProductName={truncateProductName}
+      />,
+      container
+    );
   }
 
   insertContainer() {
@@ -66,7 +77,8 @@ export default class DisplayManager {
     await delay(settings.firstDelay);
     await this.display({
       notification: notifications[0],
-      position: settings.position
+      position: settings.position,
+      truncateProductName: settings.truncateProductName
     });
     await delay(settings.displayDuration);
     this.fadeOut();
@@ -77,7 +89,8 @@ export default class DisplayManager {
       await delay(settings.popsInterval);
       await this.display({
         notification: notifications[i],
-        position: settings.position
+        position: settings.position,
+        truncateProductName: settings.truncateProductName
       });
       await delay(settings.displayDuration);
       this.fadeOut();

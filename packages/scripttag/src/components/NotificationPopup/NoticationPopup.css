@@ -25,6 +25,12 @@
   right: 15px;
 }
 
+.text-elipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .Avava-SP__Wrapper .Avava-SP__LinkWrapper {
   color: #333;
 }

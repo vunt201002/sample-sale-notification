@@ -5,10 +5,11 @@ const NotificationPopup = ({
   firstName = 'John Doe',
   city = 'New York',
   country = 'United States',
-  productName = 'Puffer Jacket With Hidden Hood',
+  productName = 'Puffer Jacket With Hidden Hoodafsdfasdfsadfdsfsadfasdfsdafasdfsadfasdfasdfsadfsadfsadfsadfsadfsadfwqerqwegfasdfsdafasd',
   relativeDate = 'a day ago',
   productImage = 'http://paris.mageplaza.com/images/shop/single/big-1.jpg',
-  position = 'top-left'
+  position = 'top-left',
+  truncateProductName = true
 }) => {
   return (
     <div className={`Avava-SP__Wrapper fadeInUp animated ${position}`}>
@@ -25,7 +26,13 @@ const NotificationPopup = ({
               <div className={'Avada-SP__Title'}>
                 {firstName} in {city}, {country}
               </div>
-              <div className={'Avada-SP__Subtitle'}>purchased {productName}</div>
+              <div
+                className={
+                  truncateProductName ? 'Avada-SP__Subtitle text-elipsis' : 'Avada-SP__Subtitle'
+                }
+              >
+                purchased {productName}
+              </div>
               <div className={'Avada-SP__Footer'}>
                 {relativeDate}{' '}
                 <span className="uni-blue">

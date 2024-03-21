@@ -18,7 +18,6 @@ export async function listenNewOrder(ctx) {
     )[0];
 
     await createNotification(notification);
-    console.log('webhook create noti');
   } catch (err) {
     console.log(err);
     return (ctx.body = {

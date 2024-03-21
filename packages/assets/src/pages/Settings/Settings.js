@@ -7,7 +7,8 @@ import {
   LegacyCard,
   LegacyTabs,
   Page,
-  Select
+  Select,
+  Spinner
 } from '@shopify/polaris';
 import NotificationPopup from '@assets/components/NotificationPopup/NotificationPopup';
 import PageInput from '@assets/components/PageInput/PageInput';
@@ -16,8 +17,8 @@ import SliderRange from '@assets/components/SliderRange/SliderRange';
 import useFetchApi from '@assets/hooks/api/useFetchApi';
 import defaultSettings from '@assets/const/defaultSettings.';
 import {api} from '@assets/helpers';
-import Loading from '@assets/components/Loading';
 import useSelectedTab from '@assets/hooks/tabs/useSelectedTab';
+import './settings.css';
 
 /**
  * @return {JSX.Element}
@@ -29,7 +30,14 @@ export default function Settings() {
     url: '/settings',
     defaultData: defaultSettings
   });
-  console.log(settings);
+  if (loading) {
+    return (
+      <div className="loading">
+        <Spinner size={'small'} />
+      </div>
+    );
+  }
+  console.log(settings, loading);
   const handleSettingsChange = (key, value) => {
     setSettings(prev => ({
       ...prev,
@@ -173,10 +181,6 @@ export default function Settings() {
     } finally {
     }
   };
-
-  if (loading) {
-    return <Loading />;
-  }
 
   return (
     <div style={{marginBottom: '50px'}}>

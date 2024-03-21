@@ -1,10 +1,8 @@
 import {Card, Layout, Page, ResourceItem, ResourceList} from '@shopify/polaris';
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import NotificationPopup from '@assets/components/NotificationPopup/NotificationPopup';
 import './Notifications.css';
 import useFetchApi from '@assets/hooks/api/useFetchApi';
-import defaultNotification from '@assets/const/defaultNotification';
-import Loading from '@assets/components/Loading';
 
 export default function Notifications() {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -17,12 +15,8 @@ export default function Notifications() {
 
   const {data: notifications, loading} = useFetchApi({
     url: '/notifications',
-    defaultData: defaultNotification
+    defaultData: []
   });
-
-  if (loading) {
-    return <Loading />;
-  }
 
   return (
     <div className="space-bottom">
@@ -31,6 +25,7 @@ export default function Notifications() {
           <Layout.Section>
             <Card>
               <ResourceList
+                loading={loading}
                 resourceName={resourceName}
                 items={notifications}
                 totalItemsCount={notifications.length}
