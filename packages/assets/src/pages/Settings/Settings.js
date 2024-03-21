@@ -26,7 +26,7 @@ import './settings.css';
 export default function Settings() {
   const {tabSelected, handleTabChange} = useSelectedTab(0);
 
-  const {data: settings, setData: setSettings, loading} = useFetchApi({
+  const {data: settings, setData: setSettings, loading, setLoading} = useFetchApi({
     url: '/settings',
     defaultData: defaultSettings
   });
@@ -170,14 +170,21 @@ export default function Settings() {
 
   const handleSaveSettings = async () => {
     try {
+      setLoading(true);
       const res = await api('/settings', {
         method: 'PUT',
         body: {data: settings}
       });
 
       console.log(res);
+      await api('/settings', {
+        method: 'GET'
+      });
+      setLoading(false);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 

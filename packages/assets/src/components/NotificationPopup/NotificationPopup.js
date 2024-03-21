@@ -1,10 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './NoticationPopup.scss';
 import '@shopify/polaris/build/esm/styles.css';
-import {
-  CheckIcon
-} from '@shopify/polaris-icons';
+import {CheckIcon} from '@shopify/polaris-icons';
 import {Icon} from '@shopify/polaris';
+import timestampToRelativeTime from '@assets/helpers/utils/timestampToRelativeTime';
 const NotificationPopup = ({
   firstName,
   city,
@@ -12,12 +11,20 @@ const NotificationPopup = ({
   country,
   productId,
   timestamp,
-  productImage,
-  time
+  productImage
 }) => {
-  const date = new Date(
-    (timestamp?._seconds + timestamp?._nanoseconds / 1000000000) * 1000
-  ).toDateString();
+  const [time, setTime] = useState('');
+  const [date, setDate] = useState('');
+
+  useEffect(() => {
+    const dateData = new Date(
+      (timestamp?._seconds + timestamp?._nanoseconds / 1000000000) * 1000
+    ).toDateString();
+    const timeData = timestampToRelativeTime(timestamp);
+
+    setTime(timeData);
+    setDate(dateData);
+  }, []);
 
   return (
     <div className="Avava-SP__Wrapper fadeInUp animated">

@@ -56,7 +56,7 @@ export default function Notifications() {
 }
 
 function renderItem(item) {
-  const {firstName, city, productName, country, id, timestamp, productImage, time} = item;
+  const {firstName, city, productName, country, id, timestamp, productImage} = item;
 
   return (
     <ResourceItem id={id}>
@@ -68,7 +68,6 @@ function renderItem(item) {
         country={country}
         timestamp={timestamp}
         productImage={productImage}
-        time={time}
       />
     </ResourceItem>
   );
