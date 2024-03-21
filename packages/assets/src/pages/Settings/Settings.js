@@ -178,7 +178,6 @@ export default function Settings() {
       console.log(res);
     } catch (err) {
       console.log(err);
-    } finally {
     }
   };
 

@@ -9,34 +9,20 @@ export default class DisplayManager {
   constructor() {
     this.notifications = [];
     this.settings = {};
+    this.shopifyDomain = 'https://' + Shopify.shop;
   }
-  shopifyDomain = 'https://teststorekjfasdfkj.myshopify.com/';
 
   async initialize({notifications, settings}) {
     this.notifications = notifications;
     this.settings = settings;
     this.insertContainer();
 
-    const currentUrl = window.location.href;
+    let currentUrl = window.location.href;
+    currentUrl = currentUrl.replace(this.shopifyDomain, '');
 
-    if (!this.checkIfCanShow()) return;
+    if (!this.allowShow(currentUrl, settings)) return;
 
-    this.displaySetting();
-
-    // if (settings.allowShow === 'all') {
-    //   const excludedPages = this.filterPage(settings.excludedUrls);
-    //   excludedPages.map(page => {
-    //     currentUrl.includes(page) ? this.fadeOut() : this.displaySetting(settings, notifications);
-    //   });
-    // } else {
-    //   const includedPages = this.filterPage(settings.includedUrls);
-    //   const excludedPages = this.filterPage(settings.excludedUrls);
-    //   const pages = includedPages.filter(p => !excludedPages.includes(p));
-    //
-    //   pages.map(page => {
-    //     currentUrl.includes(page) ? this.displaySetting(settings, notifications) : this.fadeOut();
-    //   });
-    // }
+    await this.displayFromSetting(settings, notifications);
   }
 
   fadeOut() {
@@ -44,13 +30,14 @@ export default class DisplayManager {
     container.innerHTML = '';
   }
 
-  display({notification, position, truncateProductName}) {
+  display({notification, position, truncateProductName, hideTimeAgo}) {
     const container = document.querySelector('#Avada-SalePop');
     render(
       <NotificationPopup
         {...notification}
         position={position}
         truncateProductName={truncateProductName}
+        hideTimeAgo={hideTimeAgo}
       />,
       container
     );
@@ -73,7 +60,7 @@ export default class DisplayManager {
     popupEl.remove();
   }
 
-  async displaySetting(settings, notifications) {
+  async displayFromSetting(settings, notifications) {
     await delay(settings.firstDelay);
     await this.display({
       notification: notifications[0],
@@ -98,8 +85,19 @@ export default class DisplayManager {
     }
   }
 
-  filterPage(urlsArr) {
-    const urls = urlsArr.split('\n');
-    return replaceSubstring(urls, this.shopifyDomain);
+  filterPageUrls(urls) {
+    const urlsArr = urls.split('\n');
+    return replaceSubstring(urlsArr, this.shopifyDomain);
+  }
+
+  allowShow(currentUrl, settings) {
+    const excludedUrls = this.filterPageUrls(settings.excludedUrls);
+    const includedUrls = this.filterPageUrls(settings.includedUrls);
+
+    if (excludedUrls.includes(currentUrl)) return false;
+
+    if (settings.allowShow === 'specific' && includedUrls.includes(currentUrl)) return true;
+
+    return settings.allowShow === 'all';
   }
 }

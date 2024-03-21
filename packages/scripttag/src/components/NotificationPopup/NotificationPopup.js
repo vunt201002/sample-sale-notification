@@ -9,7 +9,8 @@ const NotificationPopup = ({
   relativeDate = 'a day ago',
   productImage = 'http://paris.mageplaza.com/images/shop/single/big-1.jpg',
   position = 'top-left',
-  truncateProductName = true
+  truncateProductName = false,
+  hideTimeAgo = false
 }) => {
   return (
     <div className={`Avava-SP__Wrapper fadeInUp animated ${position}`}>
@@ -34,7 +35,7 @@ const NotificationPopup = ({
                 purchased {productName}
               </div>
               <div className={'Avada-SP__Footer'}>
-                {relativeDate}{' '}
+                <span className={hideTimeAgo ? 'hide' : ''}>{relativeDate} </span>
                 <span className="uni-blue">
                   <i className="fa fa-check" aria-hidden="true" /> by Avada
                 </span>
