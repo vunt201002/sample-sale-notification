@@ -3,6 +3,9 @@ import React, {useState} from 'react';
 import NotificationPopup from '@assets/components/NotificationPopup/NotificationPopup';
 import './Notifications.css';
 import useFetchApi from '@assets/hooks/api/useFetchApi';
+import timestampToRelativeTime from '@assets/helpers/utils/timestampToRelativeTime';
+import Empty from '@assets/components/Empty/Empty';
+import defaultNotification from '@assets/const/defaultNotification';
 
 export default function Notifications() {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -14,20 +17,23 @@ export default function Notifications() {
   };
 
   const {data: notifications, loading} = useFetchApi({
-    url: '/notifications',
-    defaultData: []
+    url: '/notifications'
   });
+
+  const sortNotifications = selected => {
+    setSortValue(selected);
+  };
 
   return (
     <div className="space-bottom">
-      <Page title="Notifications" subtitle="List of sales notification fomr Shopify">
+      <Page title="Notifications" subtitle="List of sales notification from Shopify">
         <Layout>
           <Layout.Section>
             <Card>
               <ResourceList
                 loading={loading}
                 resourceName={resourceName}
-                items={notifications}
+                items={notifications || []}
                 totalItemsCount={notifications.length}
                 renderItem={renderItem}
                 selectedItems={selectedItems}
@@ -38,14 +44,12 @@ export default function Notifications() {
                   {label: 'Newest update', value: 'DATE_MODIFIED_DESC'},
                   {label: 'Oldest update', value: 'DATE_MODIFIED_ASC'}
                 ]}
-                onSortChange={selected => {
-                  setSortValue(selected);
-                  console.log(`Sort option changed to ${selected}.`);
-                }}
+                onSortChange={selected => sortNotifications(selected)}
                 pagination={{
                   hasNext: true,
                   onNext: () => {}
                 }}
+                emptyState={<Empty />}
               />
             </Card>
           </Layout.Section>
@@ -57,6 +61,7 @@ export default function Notifications() {
 
 function renderItem(item) {
   const {firstName, city, productName, country, id, timestamp, productImage} = item;
+  const time = timestampToRelativeTime(timestamp);
 
   return (
     <ResourceItem id={id}>
@@ -68,6 +73,7 @@ function renderItem(item) {
         country={country}
         timestamp={timestamp}
         productImage={productImage}
+        time={time}
       />
     </ResourceItem>
   );

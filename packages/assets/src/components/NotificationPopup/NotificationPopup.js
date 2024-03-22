@@ -11,20 +11,12 @@ const NotificationPopup = ({
   country,
   productId,
   timestamp,
-  productImage
+  productImage,
+  time
 }) => {
-  const [time, setTime] = useState('');
-  const [date, setDate] = useState('');
-
-  useEffect(() => {
-    const dateData = new Date(
-      (timestamp?._seconds + timestamp?._nanoseconds / 1000000000) * 1000
-    ).toDateString();
-    const timeData = timestampToRelativeTime(timestamp);
-
-    setTime(timeData);
-    setDate(dateData);
-  }, []);
+  const date = new Date(
+    (timestamp?._seconds + timestamp?._nanoseconds / 1000000000) * 1000
+  ).toDateString();
 
   return (
     <div className="Avava-SP__Wrapper fadeInUp animated">

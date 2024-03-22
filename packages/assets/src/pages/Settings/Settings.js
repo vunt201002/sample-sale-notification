@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Checkbox,
   FormLayout,
+  Frame,
   InlineGrid,
   Layout,
   LegacyCard,
@@ -19,12 +20,14 @@ import defaultSettings from '@assets/const/defaultSettings.';
 import {api} from '@assets/helpers';
 import useSelectedTab from '@assets/hooks/tabs/useSelectedTab';
 import './settings.css';
+import useActiveToast from '@assets/hooks/toast/useActiveToast';
 
 /**
  * @return {JSX.Element}
  */
 export default function Settings() {
   const {tabSelected, handleTabChange} = useSelectedTab(0);
+  const {toastMarkup, handleActiveToastChange} = useActiveToast(false, '');
 
   const {data: settings, setData: setSettings, loading, setLoading} = useFetchApi({
     url: '/settings',
@@ -37,7 +40,7 @@ export default function Settings() {
       </div>
     );
   }
-  console.log(settings, loading);
+  console.log(settings);
   const handleSettingsChange = (key, value) => {
     setSettings(prev => ({
       ...prev,
@@ -177,47 +180,50 @@ export default function Settings() {
       });
 
       console.log(res);
-      await api('/settings', {
-        method: 'GET'
-      });
+
+      setSettings(res.data);
       setLoading(false);
+      handleActiveToastChange('Save successfully');
     } catch (err) {
       console.log(err);
-    } finally {
       setLoading(false);
+      handleActiveToastChange('Save failed');
     }
   };
 
   return (
     <div style={{marginBottom: '50px'}}>
-      <Page
-        title="Settings"
-        subtitle="Dicide how your notifications will display"
-        primaryAction={{
-          content: 'Save',
-          onAction: handleSaveSettings
-        }}
-      >
-        <Layout sectioned>
-          <InlineGrid columns={['oneThird', 'twoThirds']}>
-            <div>
-              <NotificationPopup
-                firstName="John Doe"
-                city="New York"
-                country="US"
-                productName="Puffer Jacket With Hidden Hood"
-                productImage="https://s.net.vn/pA9G"
-                time="a day ago"
-              />
-            </div>
-            <LegacyCard>
-              <LegacyTabs tabs={tabs} selected={tabSelected} onSelect={handleTabChange}>
-                <LegacyCard.Section>{tabs[tabSelected].body}</LegacyCard.Section>
-              </LegacyTabs>
-            </LegacyCard>
-          </InlineGrid>
-        </Layout>
-      </Page>
+      <Frame>
+        <Page
+          title="Settings"
+          subtitle="Dicide how your notifications will display"
+          primaryAction={{
+            content: 'Save',
+            onAction: handleSaveSettings
+          }}
+        >
+          <Layout sectioned>
+            <InlineGrid columns={['oneThird', 'twoThirds']}>
+              <div>
+                <NotificationPopup
+                  firstName="John Doe"
+                  city="New York"
+                  country="US"
+                  productName="Puffer Jacket With Hidden Hood"
+                  productImage="https://s.net.vn/pA9G"
+                  time="a day ago"
+                />
+              </div>
+              <LegacyCard>
+                <LegacyTabs tabs={tabs} selected={tabSelected} onSelect={handleTabChange}>
+                  <LegacyCard.Section>{tabs[tabSelected].body}</LegacyCard.Section>
+                </LegacyTabs>
+              </LegacyCard>
+            </InlineGrid>
+          </Layout>
+          {toastMarkup}
+        </Page>
+      </Frame>
     </div>
   );
 }
