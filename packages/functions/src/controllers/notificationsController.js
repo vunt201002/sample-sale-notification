@@ -7,10 +7,13 @@ import {
 export async function getList(ctx) {
   try {
     const shopId = getCurrentShop(ctx);
-    const notifications = await getListNotifications(shopId);
-    console.log(shopId);
+    const {limit, sort, searchKey, page} = ctx.query;
+    const notificationsData = await getListNotifications(shopId, {limit, sort, searchKey, page});
+
     return (ctx.body = {
-      data: notifications,
+      data: notificationsData.data,
+      count: notificationsData.count,
+      pageInfo: notificationsData.pageInfo,
       success: true
     });
   } catch (err) {

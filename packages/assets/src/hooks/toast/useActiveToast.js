@@ -12,7 +12,7 @@ export default function useActiveToast(defaultState = false, defaultMessage = 'M
   };
 
   const toastMarkup = activeToast ? (
-    <Toast content={msg} onDismiss={handleActiveToastChange} />
+    <Toast duration={2000} content={msg} onDismiss={handleActiveToastChange} />
   ) : null;
 
   return {

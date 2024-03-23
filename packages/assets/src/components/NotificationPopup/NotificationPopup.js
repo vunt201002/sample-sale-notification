@@ -4,6 +4,7 @@ import '@shopify/polaris/build/esm/styles.css';
 import {CheckIcon} from '@shopify/polaris-icons';
 import {Icon} from '@shopify/polaris';
 import timestampToRelativeTime from '@assets/helpers/utils/timestampToRelativeTime';
+import timestampToDate from '@assets/helpers/utils/timestampToDate';
 const NotificationPopup = ({
   firstName,
   city,
@@ -14,9 +15,7 @@ const NotificationPopup = ({
   productImage,
   time
 }) => {
-  const date = new Date(
-    (timestamp?._seconds + timestamp?._nanoseconds / 1000000000) * 1000
-  ).toDateString();
+  const date = timestampToDate(timestamp);
 
   return (
     <div className="Avava-SP__Wrapper fadeInUp animated">

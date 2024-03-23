@@ -1,4 +1,5 @@
 const defaultNotification = {
+  orderId: '',
   firstName: 'John Doe',
   city: 'New York',
   country: 'United States',

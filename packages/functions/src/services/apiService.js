@@ -26,6 +26,7 @@ export async function getNotificationItems({shopId, shopDomain, orderData, acces
   });
 
   return orderData.map(order => ({
+    orderId: order.id,
     city: order.customer.default_address.city,
     firstName: order.customer.first_name,
     country: order.customer.default_address.country,

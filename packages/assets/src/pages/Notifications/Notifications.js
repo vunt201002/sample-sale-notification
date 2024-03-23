@@ -2,26 +2,44 @@ import {Card, Layout, Page, ResourceItem, ResourceList} from '@shopify/polaris';
 import React, {useState} from 'react';
 import NotificationPopup from '@assets/components/NotificationPopup/NotificationPopup';
 import './Notifications.css';
-import useFetchApi from '@assets/hooks/api/useFetchApi';
 import timestampToRelativeTime from '@assets/helpers/utils/timestampToRelativeTime';
 import Empty from '@assets/components/Empty/Empty';
-import defaultNotification from '@assets/const/defaultNotification';
+import usePaginate from '@assets/hooks/api/usePaginate';
 
 export default function Notifications() {
   const [selectedItems, setSelectedItems] = useState([]);
-  const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
+  const [sortValue, setSortValue] = useState('desc');
+
+  const {
+    data: notifications,
+    loading,
+    nextPage,
+    prevPage,
+    count,
+    pageInfo,
+    onQueriesChange
+  } = usePaginate({
+    url: '/notifications',
+    defaultSort: sortValue,
+    defaultLimit: 5,
+    searchKey: ''
+  });
 
   const resourceName = {
     singular: 'notification',
     plural: 'notifications'
   };
-
-  const {data: notifications, loading} = useFetchApi({
-    url: '/notifications'
-  });
-
-  const sortNotifications = selected => {
+  const sortNotifications = async selected => {
     setSortValue(selected);
+
+    await onQueriesChange(
+      {
+        page: pageInfo.pageNumber,
+        sort: selected,
+        limit: 5
+      },
+      true
+    );
   };
 
   return (
@@ -41,13 +59,16 @@ export default function Notifications() {
                 selectable
                 sortValue={sortValue}
                 sortOptions={[
-                  {label: 'Newest update', value: 'DATE_MODIFIED_DESC'},
-                  {label: 'Oldest update', value: 'DATE_MODIFIED_ASC'}
+                  {label: 'Newest update', value: 'desc'},
+                  {label: 'Oldest update', value: 'asc'}
                 ]}
                 onSortChange={selected => sortNotifications(selected)}
                 pagination={{
-                  hasNext: true,
-                  onNext: () => {}
+                  hasNext: pageInfo.pageNumber < count,
+                  hasPrevious: pageInfo.pageNumber > 1,
+                  label: `page ${pageInfo.pageNumber || ''} of ${count || ''}`,
+                  onNext: nextPage,
+                  onPrevious: prevPage
                 }}
                 emptyState={<Empty />}
               />
@@ -60,7 +81,7 @@ export default function Notifications() {
 }
 
 function renderItem(item) {
-  const {firstName, city, productName, country, id, timestamp, productImage} = item;
+  const {firstName, city, productName, country, timestamp, productImage, id} = item;
   const time = timestampToRelativeTime(timestamp);
 
   return (

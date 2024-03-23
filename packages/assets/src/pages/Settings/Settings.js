@@ -21,6 +21,7 @@ import {api} from '@assets/helpers';
 import useSelectedTab from '@assets/hooks/tabs/useSelectedTab';
 import './settings.css';
 import useActiveToast from '@assets/hooks/toast/useActiveToast';
+import useConfirmModal from '@assets/hooks/popup/useConfirmModal';
 
 /**
  * @return {JSX.Element}
@@ -29,19 +30,58 @@ export default function Settings() {
   const {tabSelected, handleTabChange} = useSelectedTab(0);
   const {toastMarkup, handleActiveToastChange} = useActiveToast(false, '');
 
-  const {data: settings, setData: setSettings, loading, setLoading} = useFetchApi({
+  const handleSaveSettings = async () => {
+    try {
+      if (fetched) {
+        handleActiveToastChange('Your setting is not change');
+        closeModal();
+        return;
+      }
+
+      setLoading(true);
+      const res = await api('/settings', {
+        method: 'PUT',
+        body: {data: settings}
+      });
+
+      console.log(res);
+
+      setSettings(res.data);
+      closeModal();
+      setLoading(false);
+      setFetched(true);
+
+      handleActiveToastChange('Save successfully');
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+
+      handleActiveToastChange('Save failed');
+    }
+  };
+
+  const {modal, openModal, closeModal} = useConfirmModal({
+    title: 'Save change',
+    content: 'Do you want to update your setting change',
+    confirmAction: handleSaveSettings
+  });
+
+  const {
+    data: settings,
+    setData: setSettings,
+    loading,
+    setLoading,
+    fetched,
+    setFetched
+  } = useFetchApi({
     url: '/settings',
     defaultData: defaultSettings
   });
-  if (loading) {
-    return (
-      <div className="loading">
-        <Spinner size={'small'} />
-      </div>
-    );
-  }
+
   console.log(settings);
+
   const handleSettingsChange = (key, value) => {
+    setFetched(false);
     setSettings(prev => ({
       ...prev,
       [key]: value
@@ -49,8 +89,41 @@ export default function Settings() {
   };
 
   const pageOptions = [
-    {label: 'All pages', value: 'all'},
-    {label: 'Specific page', value: 'specific'}
+    {
+      label: 'All pages',
+      value: 'all',
+      body: (
+        <LegacyCard.Section key={0}>
+          <PageInput
+            label={'Excluded pages'}
+            value={settings.excludedUrls}
+            handleChange={newValue => handleSettingsChange('excludedUrls', newValue)}
+            line={4}
+          />
+        </LegacyCard.Section>
+      )
+    },
+    {
+      label: 'Specific page',
+      value: 'specific',
+      body: (
+        <LegacyCard.Section key={1}>
+          <PageInput
+            label={'Included pages'}
+            value={settings.includedUrls}
+            handleChange={newValue => handleSettingsChange('includedUrls', newValue)}
+            line={4}
+          />
+          <br />
+          <PageInput
+            label={'Excluded pages'}
+            value={settings.excludedUrls}
+            handleChange={newValue => handleSettingsChange('excludedUrls', newValue)}
+            line={4}
+          />
+        </LegacyCard.Section>
+      )
+    }
   ];
 
   const tabs = [
@@ -135,61 +208,33 @@ export default function Settings() {
           <LegacyCard.Section>
             <Select
               label="PAGE RESTRICTION"
-              options={pageOptions}
+              options={[
+                ...pageOptions.map(pageOption => ({
+                  label: pageOption.label,
+                  value: pageOption.value
+                }))
+              ]}
               value={settings.allowShow}
               onChange={newValue => handleSettingsChange('allowShow', newValue)}
             />
           </LegacyCard.Section>
-          {settings.allowShow === 'all' ? (
-            <LegacyCard.Section>
-              <PageInput
-                label={'Excluded pages'}
-                value={settings.excludedUrls}
-                handleChange={newValue => handleSettingsChange('excludedUrls', newValue)}
-                line={4}
-              />
-            </LegacyCard.Section>
-          ) : (
-            <LegacyCard.Section>
-              <PageInput
-                label={'Included pages'}
-                value={settings.includedUrls}
-                handleChange={newValue => handleSettingsChange('includedUrls', newValue)}
-                line={4}
-              />
-              <br />
-              <PageInput
-                label={'Excluded pages'}
-                value={settings.excludedUrls}
-                handleChange={newValue => handleSettingsChange('excludedUrls', newValue)}
-                line={4}
-              />
-            </LegacyCard.Section>
-          )}
+          {pageOptions.map((pageOption, index) => {
+            if (pageOption.value === settings.allowShow) {
+              return pageOption.body;
+            }
+          })}
         </FormLayout>
       )
     }
   ];
 
-  const handleSaveSettings = async () => {
-    try {
-      setLoading(true);
-      const res = await api('/settings', {
-        method: 'PUT',
-        body: {data: settings}
-      });
-
-      console.log(res);
-
-      setSettings(res.data);
-      setLoading(false);
-      handleActiveToastChange('Save successfully');
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
-      handleActiveToastChange('Save failed');
-    }
-  };
+  if (loading) {
+    return (
+      <div className="loading">
+        <Spinner size={'small'} />
+      </div>
+    );
+  }
 
   return (
     <div style={{marginBottom: '50px'}}>
@@ -199,7 +244,9 @@ export default function Settings() {
           subtitle="Dicide how your notifications will display"
           primaryAction={{
             content: 'Save',
-            onAction: handleSaveSettings
+            onAction: async () => {
+              openModal();
+            }
           }}
         >
           <Layout sectioned>
@@ -223,6 +270,7 @@ export default function Settings() {
           </Layout>
           {toastMarkup}
         </Page>
+        {modal}
       </Frame>
     </div>
   );

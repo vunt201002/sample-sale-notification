@@ -1,5 +1,5 @@
 const defaultSettings = {
-  position: 'bottom-left',
+  position: 'top-right',
   hideTimeAgo: false,
   truncateProductName: false,
   displayDuration: 5,

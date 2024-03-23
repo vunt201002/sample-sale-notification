@@ -33,7 +33,7 @@ export async function update(ctx) {
     ctx.status = 200;
     return (ctx.body = {
       success: true,
-      res
+      data: res
     });
   } catch (err) {
     ctx.status = 400;
