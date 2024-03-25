@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './NoticationPopup.scss';
 import '@shopify/polaris/build/esm/styles.css';
 import {CheckIcon} from '@shopify/polaris-icons';
-import {Icon} from '@shopify/polaris';
-import timestampToRelativeTime from '@assets/helpers/utils/timestampToRelativeTime';
+import {Icon, Text, TextContainer, Tooltip} from '@shopify/polaris';
 import timestampToDate from '@assets/helpers/utils/timestampToDate';
 const NotificationPopup = ({
   firstName,
@@ -44,7 +43,11 @@ const NotificationPopup = ({
               </div>
             </div>
           </a>
-          <div className="close-btn">x</div>
+          <div className="close-btn">
+            <Tooltip content="Delete notification">
+              <TextContainer>x</TextContainer>
+            </Tooltip>
+          </div>
         </div>
       </div>
       <div>{date !== 'Invalid Date' ? date : ''}</div>

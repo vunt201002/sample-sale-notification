@@ -1,13 +1,14 @@
-import {getCurrentShop} from '@functions/helpers/auth';
 import {
   getListNotifications,
   getListNotificationsByShopDomain
 } from '@functions/repositories/notificationsRepository';
+import {getCurrentShop} from '@functions/helpers/auth';
 
 export async function getList(ctx) {
   try {
     const shopId = getCurrentShop(ctx);
-    const {limit, sort, searchKey, page} = ctx.query;
+    const {limit, sort, page, ...searchKey} = ctx.query;
+
     const notificationsData = await getListNotifications(shopId, {limit, sort, searchKey, page});
 
     return (ctx.body = {

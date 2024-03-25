@@ -10,7 +10,7 @@ import appConfig from '@functions/config/app';
 import {addSetting} from '@functions/repositories/settingsRepository';
 import defaultSettings from '@functions/const/defaultSettings';
 import {getShopByShopifyDomain} from '@avada/shopify-auth';
-import {registerWebhook} from '@functions/services/webhookService';
+import {deleteWebhooks, getWebhooks, registerWebhook} from '@functions/services/webhookService';
 import {syncNotifications} from '@functions/services/notificationService';
 
 if (firebase.apps.length === 0) {
@@ -72,6 +72,39 @@ app.use(
             }
           )
         ]);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    afterLogin: async ctx => {
+      try {
+        const shopifyDomain = ctx.state.shopify.shop;
+        const shop = await getShopByShopifyDomain(shopifyDomain);
+
+        const webhooks = await getWebhooks({
+          shopName: shopifyDomain,
+          accessToken: shop.accessToken
+        });
+
+        const webhooksToDelete = webhooks
+          .filter(webhook => !webhook.address.includes(appConfig.baseUrl))
+          .map(webhook => webhook.id);
+
+        if (webhooks.length === webhooksToDelete.length) {
+          await registerWebhook(
+            {shopName: shopifyDomain, accessToken: shop.accessToken},
+            {
+              address: `https://${appConfig.baseUrl}/webhook/order/new`,
+              topic: 'orders/create',
+              format: 'json'
+            }
+          );
+        }
+
+        await deleteWebhooks(
+          {shopName: shopifyDomain, accessToken: shop.accessToken},
+          webhooksToDelete
+        );
       } catch (err) {
         console.log(err);
       }

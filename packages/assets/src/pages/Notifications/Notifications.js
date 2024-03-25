@@ -5,6 +5,9 @@ import './Notifications.css';
 import timestampToRelativeTime from '@assets/helpers/utils/timestampToRelativeTime';
 import Empty from '@assets/components/Empty/Empty';
 import usePaginate from '@assets/hooks/api/usePaginate';
+import useFilter from '@assets/hooks/form/useFilter';
+import debounce from '@assets/helpers/debounce';
+import titleCaseToCamelCase from '@assets/helpers/utils/titleCaseToCamelCase';
 
 export default function Notifications() {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -22,7 +25,7 @@ export default function Notifications() {
     url: '/notifications',
     defaultSort: sortValue,
     defaultLimit: 5,
-    searchKey: ''
+    searchKey: 'productName'
   });
 
   const resourceName = {
@@ -37,10 +40,33 @@ export default function Notifications() {
         page: pageInfo.pageNumber,
         sort: selected,
         limit: 5
+        // ['productName']: queryValue
       },
       true
     );
   };
+
+  // const searchChange = async value => {
+  //   setQueryValue(value);
+  //
+  //   debounce(
+  //     await onQueriesChange(
+  //       {
+  //         page: 1,
+  //         ['productName']: value,
+  //         limit: 5,
+  //         sort: sortValue
+  //       },
+  //       true
+  //     ),
+  //     3000
+  //   );
+  // };
+  //
+  // const {filterControl, queryValue, setQueryValue} = useFilter({
+  //   defaultQuery: '',
+  //   onSearchChange: searchChange
+  // });
 
   return (
     <div className="space-bottom">
@@ -49,10 +75,11 @@ export default function Notifications() {
           <Layout.Section>
             <Card>
               <ResourceList
+                // filterControl={filterControl}
                 loading={loading}
                 resourceName={resourceName}
                 items={notifications || []}
-                totalItemsCount={notifications.length}
+                totalItemsCount={count}
                 renderItem={renderItem}
                 selectedItems={selectedItems}
                 onSelectionChange={setSelectedItems}
@@ -64,9 +91,9 @@ export default function Notifications() {
                 ]}
                 onSortChange={selected => sortNotifications(selected)}
                 pagination={{
-                  hasNext: pageInfo.pageNumber < count,
+                  hasNext: pageInfo.pageNumber < pageInfo.totalPage,
                   hasPrevious: pageInfo.pageNumber > 1,
-                  label: `page ${pageInfo.pageNumber || ''} of ${count || ''}`,
+                  label: `page ${pageInfo.pageNumber || ''} of ${pageInfo.totalPage || ''}`,
                   onNext: nextPage,
                   onPrevious: prevPage
                 }}

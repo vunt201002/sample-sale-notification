@@ -7,12 +7,14 @@ const notificationsRef = firestore.collection('notifications');
 
 export async function getListNotifications(shopId, {limit, sort, searchKey, page}) {
   let query = notificationsRef;
-
-  // if (searchKey) {
-  //   const searchTerm = searchKey.toLowerCase();
+  console.log(limit, sort, searchKey, page);
+  // if (Object.keys(searchKey)[0] && Object.values(searchKey)[0]) {
+  //   const searchField = Object.keys(searchKey)[0];
+  //   const searchTerm = Object.values(searchKey)[0];
+  //   console.log(`searchField: ${searchField}, searchTerm: ${searchTerm}`);
   //   query = query
-  //     .where('productName', '>=', searchTerm)
-  //     .where('productName', '<=', searchTerm + '\uf8ff');
+  //     .where(searchField, '>=', searchTerm)
+  //     .where(searchField, '<=', searchTerm + '\uf8ff');
   // }
 
   query = query.orderBy('timestamp', sort || 'desc');
@@ -31,7 +33,7 @@ export async function getListNotifications(shopId, {limit, sort, searchKey, page
   const snapshot = await query.get();
 
   if (snapshot.empty) {
-    return null;
+    return [];
   }
 
   const data = snapshot.docs.map(doc => ({
@@ -40,10 +42,11 @@ export async function getListNotifications(shopId, {limit, sort, searchKey, page
   }));
 
   return {
-    data,
-    count: totalCount,
+    data: data || [],
+    count: totalSnapshot.size,
     pageInfo: {
-      pageNumber: parseIntoInt(page)
+      pageNumber: parseIntoInt(page),
+      totalPage: totalCount
     }
   };
 }
@@ -85,6 +88,18 @@ export async function createNotifications(notArr) {
   return Promise.all(
     notArr.map(async not => {
       return createNotification(not);
+    })
+  );
+}
+
+export async function deleteNotification(id) {
+  return await notificationsRef.doc(id).delete();
+}
+
+export async function deleteNotifications(ids) {
+  return Promise.all(
+    ids.map(async id => {
+      return deleteNotification(id);
     })
   );
 }
