@@ -1,14 +1,12 @@
-import {getSetting} from '@functions/repositories/settingsRepository';
+import {getSettingByShopDomain} from '@functions/repositories/settingsRepository';
 import {getListNotificationsByShopDomain} from '@functions/repositories/notificationsRepository';
-import {getShopByShopifyDomain} from '@avada/shopify-auth';
 
 export async function get(ctx) {
   try {
     const {shopDomain} = ctx.query;
-    const shop = await getShopByShopifyDomain(shopDomain);
-    const shopId = shop.id;
+
     const [setting, notifications] = await Promise.all([
-      getSetting(shopId),
+      getSettingByShopDomain(shopDomain),
       getListNotificationsByShopDomain(shopDomain)
     ]);
 

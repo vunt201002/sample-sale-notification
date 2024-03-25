@@ -13,7 +13,7 @@ const NotificationPopup = ({
   hideTimeAgo = false
 }) => {
   return (
-    <div className={`Avava-SP__Wrapper fadeInUp animated ${position}`}>
+    <div className={`Avava-SP__Wrapper fadeInUp animated Avava-SP__Wrapper--${position}`}>
       <div className="Avava-SP__Inner">
         <div className="Avava-SP__Container">
           <a href="#" className={'Avava-SP__LinkWrapper'}>
@@ -35,7 +35,7 @@ const NotificationPopup = ({
                 purchased {productName}
               </div>
               <div className={'Avada-SP__Footer'}>
-                <span className={hideTimeAgo ? 'hide' : ''}>{relativeDate} </span>
+                <span className={hideTimeAgo ? 'Avada-SP__Footer--hide' : ''}>{relativeDate} </span>
                 <span className="uni-blue">
                   <i className="fa fa-check" aria-hidden="true" /> by Avada
                 </span>

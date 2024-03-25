@@ -5,33 +5,33 @@
   position: fixed;
 }
 
-.bottom-left {
+.Avava-SP__Wrapper--bottom-left {
   bottom: 15px;
   left: 15px;
 }
 
-.top-left {
+.Avava-SP__Wrapper--top-left {
   top: 15px;
   left: 15px;
 }
 
-.top-right {
+.Avava-SP__Wrapper--top-right {
   top: 15px;
   right: 15px;
 }
 
-.bottom-right {
+.Avava-SP__Wrapper--bottom-right {
   bottom: 15px;
   right: 15px;
 }
 
-.text-elipsis {
+.Avava-SP__Wrapper--text-elipsis {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.hide {
+.Avada-SP__Footer--hide {
   visibility: hidden;
 }
 

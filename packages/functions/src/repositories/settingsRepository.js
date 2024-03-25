@@ -20,6 +20,22 @@ export async function getSetting(shopId) {
   }))[0];
 }
 
+export async function getSettingByShopDomain(shopDomain) {
+  const snapshot = await settingsRef
+    .where('shopDomain', '==', shopDomain)
+    .limit(1)
+    .get();
+
+  if (snapshot.empty) {
+    return null;
+  }
+
+  return snapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+  }))[0];
+}
+
 export async function updateSetting(shopDomain, shopId, updateInfo) {
   const settingsDoc = await getSetting(shopId);
   delete updateInfo.id;
