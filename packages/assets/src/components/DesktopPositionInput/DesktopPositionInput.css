@@ -28,6 +28,11 @@
   bottom: 5px;
   left: 5px;
 }
+.Avada-DesktopPosition .Avada-DesktopPosition__Input--center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .Avada-DesktopPosition--selected, .Avada-MobilePosition--selected {
   border-color: #5c6ac4 !important;

@@ -7,9 +7,16 @@ import {getCurrentShop} from '@functions/helpers/auth';
 export async function getList(ctx) {
   try {
     const shopId = getCurrentShop(ctx);
-    const {limit, sort, page, ...searchKey} = ctx.query;
+    const {limit, sort, page, before, after, ...searchKey} = ctx.query;
 
-    const notificationsData = await getListNotifications(shopId, {limit, sort, searchKey, page});
+    const notificationsData = await getListNotifications(shopId, {
+      before,
+      after,
+      limit,
+      sort,
+      searchKey,
+      page
+    });
 
     return (ctx.body = {
       data: notificationsData.data,

@@ -13,7 +13,7 @@ const NotificationPopup = ({
   hideTimeAgo = false
 }) => {
   return (
-    <div className={`Avava-SP__Wrapper fadeInUp animated Avava-SP__Wrapper--${position}`}>
+    <div className={`Avava-SP__Wrapper fadeInUp animated Avava-SP__Wrapper--center`}>
       <div className="Avava-SP__Inner">
         <div className="Avava-SP__Container">
           <a href="#" className={'Avava-SP__LinkWrapper'}>

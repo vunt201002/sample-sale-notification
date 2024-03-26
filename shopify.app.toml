@@ -2,7 +2,7 @@
 
 name = "sample-sales-notifications"
 client_id = "f01701a99260beb98dc4f45e142bf205"
-application_url = "https://humor-mainstream-forgotten-studios.trycloudflare.com/auth/shopify"
+application_url = "https://daily-hairy-previews-horror.trycloudflare.com/auth/shopify"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ use_legacy_install_flow = true
 
 [auth]
 redirect_urls = [
-  "https://humor-mainstream-forgotten-studios.trycloudflare.com/auth/shopify/callback",
-  "https://humor-mainstream-forgotten-studios.trycloudflare.com/authSa/shopify/callback",
-  "https://humor-mainstream-forgotten-studios.trycloudflare.com/auth/shopify/embed/callback",
+  "https://daily-hairy-previews-horror.trycloudflare.com/auth/shopify/callback",
+  "https://daily-hairy-previews-horror.trycloudflare.com/authSa/shopify/callback",
+  "https://daily-hairy-previews-horror.trycloudflare.com/auth/shopify/embed/callback",
   "https://localhost:3000/auth/shopify/callback",
   "https://localhost:3000/authSa/shopify/callback",
   "https://localhost:3000/auth/shopify/embed/callback"

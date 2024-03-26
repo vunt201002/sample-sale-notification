@@ -26,7 +26,9 @@ export default function useFilter({searchWith = [], defaultQuery = '', onSearchC
       queryValue={queryValue}
       filters={filters}
       onQueryChange={value => onSearchChange(value)}
-      onQueryClear={() => onSearchChange('')}
+      onQueryClear={() => {
+        onSearchChange('');
+      }}
       onClearAll={() => setQueryValue('')}
     ></LegacyFilters>
   );

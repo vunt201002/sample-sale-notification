@@ -16,6 +16,7 @@ export default function Notifications() {
   const {
     data: notifications,
     loading,
+    setLoading,
     nextPage,
     prevPage,
     count,
@@ -39,34 +40,33 @@ export default function Notifications() {
       {
         page: pageInfo.pageNumber,
         sort: selected,
-        limit: 5
-        // ['productName']: queryValue
+        limit: 5,
+        ['productName']: queryValue
       },
       true
     );
   };
 
-  // const searchChange = async value => {
-  //   setQueryValue(value);
-  //
-  //   debounce(
-  //     await onQueriesChange(
-  //       {
-  //         page: 1,
-  //         ['productName']: value,
-  //         limit: 5,
-  //         sort: sortValue
-  //       },
-  //       true
-  //     ),
-  //     3000
-  //   );
-  // };
-  //
-  // const {filterControl, queryValue, setQueryValue} = useFilter({
-  //   defaultQuery: '',
-  //   onSearchChange: searchChange
-  // });
+  const searchChange = async value => {
+    setQueryValue(value);
+
+    setTimeout(async () => {
+      await onQueriesChange(
+        {
+          page: 1,
+          ['productName']: value,
+          limit: 5,
+          sort: sortValue
+        },
+        true
+      );
+    }, 3000);
+  };
+
+  const {filterControl, queryValue, setQueryValue} = useFilter({
+    defaultQuery: '',
+    onSearchChange: searchChange
+  });
 
   return (
     <div className="space-bottom">
@@ -75,7 +75,7 @@ export default function Notifications() {
           <Layout.Section>
             <Card>
               <ResourceList
-                // filterControl={filterControl}
+                filterControl={filterControl}
                 loading={loading}
                 resourceName={resourceName}
                 items={notifications || []}

@@ -23,7 +23,7 @@ const DesktopPositionInput = ({label, value, onChange, helpText, options = defau
             onClick={() => onChange(option.value)}
           >
             <div
-              className={`Avada-DesktopPosition__Input Avada-DesktopPosition__Input--${option.value}`}
+              className={`Avada-DesktopPosition__Input Avada-DesktopPosition__Input--center`}
             ></div>
           </div>
         ))}
